@@ -3,9 +3,9 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.glowa.maven.parent</groupId>
+    <groupId>com.glowa.maven.parent</groupId>
     <artifactId>global-pom</artifactId>
-    <version>1.0</version>
+    <version>0.1</version>
     <packaging>pom</packaging>
     <parent>
         <groupId>org.apache</groupId>
@@ -14,11 +14,11 @@
     </parent>
     <name>Global POM</name>
     <description>The main pom for all my maven artifacts.</description>
-    <url>http://dev.glowa-net.de/maven/</url>
+    <url>http://www.glowa-net.com</url>
     <inceptionYear>2020</inceptionYear>
     <organization>
         <name>oGlow</name>
-        <url>http://dev.glowa-net.de</url>
+        <url>http://www.glowa-net.com</url>
     </organization>
     <licenses>
         <license>
@@ -31,9 +31,9 @@
         <developer>
             <id>ollily</id>
             <name>Oliver Glowa</name>
-            <email>postmaster at glowa dot net</email>
+            <email>coding at glowa-net dot com</email>
             <organization>oGlow</organization>
-            <organizationUrl>http://dev.glowa-net.de</organizationUrl>
+            <organizationUrl>http://www.glowa-net.com</organizationUrl>
             <roles>
                 <role>Project Owner</role>
                 <role>Main Developer</role>
@@ -72,6 +72,49 @@
     </properties>
     <dependencyManagement>
         <dependencies>
+            <!-- Test Dependencies -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>java-hamcrest</artifactId>
+                <version>2.0.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest</artifactId>
+                <version>2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-core</artifactId>
+                <version>2.0.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
+                <artifactId>powermock-api-mockito2</artifactId>
+                <version>2.0.6</version>
+            </dependency>
+
+            <!-- Apache Dependencies -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.9</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -83,6 +126,7 @@
     </pluginRepositories>
     <build>
         <pluginManagement>
+            <!-- Maven Plugins -->
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
