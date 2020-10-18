@@ -5,17 +5,19 @@
 [![Latest Tag](https://img.shields.io/github/v/tag/ollily/global-pom?logo=github&style=plastic)](https://github.com/ollily/global-pom/tags)]
 
 
-[![Quality Gate](https://img.shields.io/sonar/quality_gate/ollily_global-pom?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&style=plastic)](https://sonarcloud.io/project/dashboard?id=ollily_global-pom)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ollily_global-pom&metric=alert_status)](https://sonarcloud.io/dashboard?id=ollily_global-pom)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/quality_gate?project=ollily_global-pom)](https://sonarcloud.io/dashboard?id=ollily_global-pom)
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=ollily_global-pom)
 
 
-[![Build Status](https://img.shields.io/jenkins/build?jobUrl=ollily%2Fglobal-pom&logo=jenkins&style=plastic)](https://ci.jenkins.io/job/ollily/global-pom/)
 [![Test Status](https://img.shields.io/sonar/test_success_density/ollily_global-pom?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&sonarVersion=4.2&style=plastic)](https://sonarcloud.io/project/dashboard?id=ollily_global-pom)
 [![Test Count](https://img.shields.io/sonar/tests/ollily_global-pom?compact_message&logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&style=plastic)](https://sonarcloud.io/project/dashboard?id=ollily_global-pom)
+
+
 [![Coverage Status](https://img.shields.io/sonar/coverage/ollily_global-pom?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&style=plastic)](https://sonarcloud.io/project/dashboard?id=ollily_global-pom)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ollily_global-pom&metric=coverage)](https://sonarcloud.io/dashboard?id=ollily_global-pom)
+
+
+[![Build Status](https://img.shields.io/jenkins/build?jobUrl=ollily%2Fglobal-pom&logo=jenkins&style=plastic)](https://ci.jenkins.io/job/ollily/global-pom/)
 
 
 Maven-POM for all projects. See [Homepage](https://github.com/The-oGlow/global-pom).
