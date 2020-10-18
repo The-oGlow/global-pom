@@ -1,342 +1,396 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.apache</groupId>
-		<artifactId>apache</artifactId>
-		<version>21</version>
-	</parent>
+  <parent>
+    <groupId>org.apache</groupId>
+    <artifactId>apache</artifactId>
+    <version>21</version>
+  </parent>
 
-	<groupId>com.glowa.maven.parent</groupId>
-	<artifactId>global-pom</artifactId>
-	<version>0.1.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+  <groupId>com.glowa.maven.parent</groupId>
+  <artifactId>global-pom</artifactId>
+  <version>0.1.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-	<name>Global POM</name>
-	<description>The main pom for all my maven artifacts.</description>
-	<url>http://www.glowa-net.com</url>
-	<inceptionYear>2020</inceptionYear>
+  <name>Global POM</name>
+  <description>The main pom for all my maven artifacts.</description>
+  <url>http://www.glowa-net.com</url>
+  <inceptionYear>2020</inceptionYear>
 
-	<organization>
-		<name>oGlow</name>
-		<url>http://www.glowa-net.com</url>
-	</organization>
+  <organization>
+    <name>oGlow</name>
+    <url>http://www.glowa-net.com</url>
+  </organization>
 
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
-	<developers>
-		<developer>
-			<id>ollily</id>
-			<name>Oliver Glowa</name>
-			<email>coding at glowa-net dot com</email>
-			<organization>oGlow</organization>
-			<organizationUrl>http://www.glowa-net.com</organizationUrl>
-			<roles>
-				<role>Project Owner</role>
-				<role>Main Developer</role>
-			</roles>
-			<timezone>Europe/Berlin</timezone>
-		</developer>
-	</developers>
+  <developers>
+    <developer>
+      <id>ollily</id>
+      <name>Oliver Glowa</name>
+      <email>coding at glowa-net dot com</email>
+      <organization>oGlow</organization>
+      <organizationUrl>http://www.glowa-net.com</organizationUrl>
+      <roles>
+        <role>Project Owner</role>
+        <role>Main Developer</role>
+      </roles>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+  </developers>
 
-	<scm>
-		<connection>scm:git:git://github.com/ollily/global-pom.git</connection>
-		<developerConnection>scm:git:git@github.com:ollily/global-pom.git</developerConnection>
-		<url>https://github.com/ollily/global-pom.git</url>
-		<tag>HEAD</tag>
-	</scm>
+  <scm>
+    <connection>scm:git:git://github.com/ollily/global-pom.git</connection>
+    <developerConnection>scm:git:git@github.com:ollily/global-pom.git</developerConnection>
+    <url>https://github.com/ollily/global-pom.git</url>
+    <tag>HEAD</tag>
+  </scm>
 
-	<issueManagement>
-		<system>GitHub Issues</system>
-		<url>https://github.com/ollily/global-pom/issues</url>
-	</issueManagement>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/ollily/global-pom/issues</url>
+  </issueManagement>
 
-	<ciManagement>
-		<!-- <system></system> <url></url> -->
-	</ciManagement>
+  <ciManagement>
+    <!-- <system></system> <url></url> -->
+  </ciManagement>
 
-	<distributionManagement>
-		<!-- <repository> </repository> <snapshotRepository> </snapshotRepository> -->
-	</distributionManagement>
+  <distributionManagement>
+    <!-- <repository> </repository> <snapshotRepository> </snapshotRepository> -->
+  </distributionManagement>
 
-	<properties>
-		<!-- Java Properties -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
-		<java.version>11</java.version>
+  <properties>
+    <!-- Java Properties -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <java.version>11</java.version>
 
-		<!-- 3rd Party Dependencies Versions -->
-		<ch.qos.logback.version>1.2.3</ch.qos.logback.version>
-		<junit.version>4.13</junit.version>
-		<log4j2.version>2.11.2</log4j2.version>
-		<org.apache.commons.lang3.version>3.9</org.apache.commons.lang3.version>
-		<org.apache.logging.log4j.version>2.2</org.apache.logging.log4j.version>
-		<org.hamcrest.version>2.2</org.hamcrest.version>
-		<org.hamcrest.java-hamcrest.version>2.0.0.0</org.hamcrest.java-hamcrest.version>
-		<org.mockito.version>3.1.0</org.mockito.version>
-		<org.powermock.version>2.0.4</org.powermock.version>
-		<org.powermock.mockito2.version>2.0.6</org.powermock.mockito2.version>
-		<org.slf4j.version>1.7.25</org.slf4j.version>
-		<org.springframework.version>5.1.14.RELEASE</org.springframework.version>
+    <!-- 3rd Party Dependencies Versions -->
+    <ch.qos.logback.version>1.2.3</ch.qos.logback.version>
+    <junit.version>4.13</junit.version>
+    <log4j2.version>2.11.2</log4j2.version>
+    <org.apache.commons.lang3.version>3.9</org.apache.commons.lang3.version>
+    <org.apache.logging.log4j.version>2.2</org.apache.logging.log4j.version>
+    <org.hamcrest.version>2.2</org.hamcrest.version>
+    <org.hamcrest.java-hamcrest.version>2.0.0.0</org.hamcrest.java-hamcrest.version>
+    <org.mockito.version>3.1.0</org.mockito.version>
+    <org.powermock.version>2.0.4</org.powermock.version>
+    <org.powermock.mockito2.version>2.0.6</org.powermock.mockito2.version>
+    <org.slf4j.version>1.7.25</org.slf4j.version>
+    <org.springframework.version>5.1.14.RELEASE</org.springframework.version>
 
-		<!-- Sonar Properties -->
-		<sonar.organization>ollily</sonar.organization>
-		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.projectKey>ollily_global-pom</sonar.projectKey>
-	</properties>
+    <!-- Sonar Properties -->
+    <sonar.organization>ollily</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <sonar.projectKey>ollily_global-pom</sonar.projectKey>
+  </properties>
 
-	<dependencyManagement>
-		<dependencies>
-			<!-- Test Dependencies -->
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>java-hamcrest</artifactId>
-				<version>${org.hamcrest.java-hamcrest.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest</artifactId>
-				<version>${org.hamcrest.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-core</artifactId>
-				<version>${org.hamcrest.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-core</artifactId>
-				<version>${org.mockito.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.powermock</groupId>
-				<artifactId>powermock-core</artifactId>
-				<version>${org.powermock.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.powermock</groupId>
-				<artifactId>powermock-api-mockito2</artifactId>
-				<version>${org.powermock.mockito2.version}</version>
-			</dependency>
+  <dependencyManagement>
+    <dependencies>
+      <!-- Test Dependencies -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>java-hamcrest</artifactId>
+        <version>${org.hamcrest.java-hamcrest.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest</artifactId>
+        <version>${org.hamcrest.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-core</artifactId>
+        <version>${org.hamcrest.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${org.mockito.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.powermock</groupId>
+        <artifactId>powermock-core</artifactId>
+        <version>${org.powermock.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.powermock</groupId>
+        <artifactId>powermock-api-mockito2</artifactId>
+        <version>${org.powermock.mockito2.version}</version>
+      </dependency>
 
-			<!-- Apache Logging -->
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-api</artifactId>
-				<version>${org.apache.logging.log4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>${org.apache.logging.log4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-core</artifactId>
-				<version>${org.apache.logging.log4j.version}</version>
-				<type>test-jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.logging.log4j</groupId>
-				<artifactId>log4j-slf4j-impl</artifactId>
-				<version>${org.apache.logging.log4j.version}</version>
-			</dependency>
+      <!-- Apache Logging -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>${org.apache.logging.log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${org.apache.logging.log4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${org.apache.logging.log4j.version}</version>
+        <type>test-jar</type>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${org.apache.logging.log4j.version}</version>
+      </dependency>
 
-			<!-- Logback Logging -->
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${ch.qos.logback.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-core</artifactId>
-				<version>${ch.qos.logback.version}</version>
-			</dependency>
+      <!-- Logback Logging -->
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${ch.qos.logback.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${ch.qos.logback.version}</version>
+      </dependency>
 
-			<!-- slf4j -->
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>slf4j-api</artifactId>
-				<version>${org.slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jcl-over-slf4j</artifactId>
-				<version>${org.slf4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.slf4j</groupId>
-				<artifactId>jul-to-slf4j</artifactId>
-				<version>${org.slf4j.version}</version>
-			</dependency>
+      <!-- slf4j -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${org.slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${org.slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jul-to-slf4j</artifactId>
+        <version>${org.slf4j.version}</version>
+      </dependency>
 
-			<!-- Apache Dependencies -->
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>${org.apache.commons.lang3.version}</version>
-			</dependency>
+      <!-- Apache Dependencies -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${org.apache.commons.lang3.version}</version>
+      </dependency>
 
-			<!-- Spring -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${org.springframework.version}</version>
-			</dependency>
+      <!-- Spring -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <version>${org.springframework.version}</version>
+      </dependency>
 
-		</dependencies>
+    </dependencies>
 
-	</dependencyManagement>
+  </dependencyManagement>
 
-	<dependencies>
-	</dependencies>
+  <dependencies>
+  </dependencies>
 
-	<repositories>
-	</repositories>
+  <repositories>
+  </repositories>
 
-	<build>
-		<pluginManagement>
-			<!-- Maven Plugins -->
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-antrun-plugin</artifactId>
-					<version>1.8</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>3.1.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.8.1</version>
-					<configuration>
-						<release>${java.version}</release>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>3.1.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>2.8.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>1.4.1</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>2.22.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-help-plugin</artifactId>
-					<version>3.2.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>2.5.2</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>3.2.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.2.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-remote-resources-plugin</artifactId>
-					<version>1.7.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>3.2.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.22.2</version>
-				</plugin>
+  <build>
+    <pluginManagement>
+      <!-- Maven Plugins -->
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-antrun-plugin</artifactId>
+          <version>1.8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <release>${java.version}</release>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>3.1.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+          <configuration>
+            <updateReleaseInfo>true</updateReleaseInfo>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>1.4.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.22.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-help-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.2.0</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.2.0</version>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.5.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-remote-resources-plugin</artifactId>
+          <version>1.7.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.2.0</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.2</version>
+        </plugin>
 
-				<!-- Eclipse M2e -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-remote-resources-plugin</artifactId>
-										<versionRange>[0.0.0,)</versionRange>
-										<goals>
-											<goal>process</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+        <!-- Eclipse M2e -->
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-remote-resources-plugin</artifactId>
+                    <versionRange>[0.0.0,)</versionRange>
+                    <goals>
+                      <goal>process</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore />
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
 
-		<plugins>
-		</plugins>
+    <plugins>
+    </plugins>
 
-	</build>
+  </build>
 
-	<profiles>
-		<profile>
-			<id>addMoreRepos</id>
-			<repositories>
-				<repository>
-					<id>JBoss</id>
-					<name>JBoss Repository</name>
-					<url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
-				</repository>
-				<repository>
-					<id>JBoss-Group</id>
-					<name>JBoss Public Group</name>
-					<url>https://repository.jboss.org/nexus/content/groups/public</url>
-				</repository>
-			</repositories>
-		</profile>
-	</profiles>
+  <profiles>
+    <profile>
+      <id>addMoreRepos</id>
+      <repositories>
+        <repository>
+          <id>JBoss</id>
+          <name>JBoss Repository</name>
+          <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+        </repository>
+        <repository>
+          <id>JBoss-Group</id>
+          <name>JBoss Public Group</name>
+          <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+      </repositories>
+    </profile>
+    <profile>
+      <id>artifact-release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
 </project>
