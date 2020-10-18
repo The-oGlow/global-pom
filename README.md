@@ -1,5 +1,5 @@
 # global-pom
-[![Latest Version](https://img.shields.io/github/v/release/ollily/global-pom?logo=github&style=plastic)](https://github.com/ollily/global-pom/releases)
+[![Latest Version](https://img.shields.io/github/v/release/ollily/global-pom?include_prereleases&logo=github&style=plastic)](https://github.com/ollily/global-pom/releases)
 [![Software License](https://img.shields.io/github/license/ollily/global-pom?style=plastic)](LICENSE.md)
 [![Maven](https://img.shields.io/maven-central/v/com.glowa.maven.parent/global-pom?logo=apache&style=plastic)](https://mvnrepository.com/artifact/com.glowa.maven.parent/global-pom)
 [![Latest Tag](https://img.shields.io/github/v/tag/ollily/global-pom?logo=github&style=plastic)](https://github.com/ollily/global-pom/tags)
