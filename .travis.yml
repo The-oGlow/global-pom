@@ -1,8 +1,6 @@
 #
 # Config
-os:
-   - linux
-   - windows
+os: linux
 sudo: false
 cache:
   directories:
@@ -16,7 +14,7 @@ jdk: openjdk11
 before_install:
 
 install:
-   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true
+#   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true
 
 before_script:
 
