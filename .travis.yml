@@ -1,0 +1,34 @@
+#
+# Config
+os:
+   - linux
+   - windows
+sudo: false
+cache:
+  directories:
+    - "$HOME/.m2"
+
+language: java
+jdk: openjdk11
+
+#
+# Steps
+before_install:
+
+install:
+   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true
+
+before_script:
+
+script:
+   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean verify
+
+after_script:
+#  - mvn -B jacoco:prepare-agent verify jacoco:report
+
+#
+# Finally
+
+after_success:
+
+after_failure:
