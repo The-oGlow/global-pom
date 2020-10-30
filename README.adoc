@@ -3,7 +3,7 @@
 :gh_user: ollily
 :gh_org: The-oGlow
 :gh_module: global-pom
-:gh_group: com.glowa.maven.parent
+:gh_group: com.glowanet.maven.parent
 
 // common settings
 :gh_id: {gh_user}/{gh_module}
@@ -40,7 +40,7 @@ To use, set in your `pom.xml`:
 ----
 ..
   <parent>
-    <groupId>com.glowa.maven.parent</groupId>
+    <groupId>com.glowanet.maven.parent</groupId>
     <artifactId>global-pom</artifactId>
     <version>0.1.1-SNAPSHOT</version>
   </parent>

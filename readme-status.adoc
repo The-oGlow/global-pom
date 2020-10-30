@@ -3,7 +3,7 @@
 :gh_user: ollily
 :gh_org: The-oGlow
 :gh_module: global-pom
-:gh_group: com.glowa.maven.parent
+:gh_group: com.glowanet.maven.parent
 
 // common settings
 :gh_id: {gh_user}/{gh_module}
