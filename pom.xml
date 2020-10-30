@@ -9,9 +9,9 @@
     <version>21</version>
   </parent>
 
-  <groupId>com.glowa.maven.parent</groupId>
+  <groupId>com.glowa-net.maven.parent</groupId>
   <artifactId>global-pom</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Global POM</name>
