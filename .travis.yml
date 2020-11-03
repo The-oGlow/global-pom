@@ -19,10 +19,10 @@ install:
 before_script:
 
 script:
-   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean verify
+  - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean verify
 
 after_script:
-#  - mvn -B jacoco:prepare-agent verify jacoco:report
+  - mvn -B -DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true -DSONAR_TOKEN=${SONAR_TOKEN_global-pom} org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #
 # Finally
