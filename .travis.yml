@@ -2,6 +2,8 @@
 # Config
 os: linux
 sudo: false
+env:
+
 cache:
   directories:
     - "$HOME/.m2"
