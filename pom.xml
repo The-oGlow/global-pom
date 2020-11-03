@@ -70,6 +70,7 @@
   <properties>
     <!-- Java Properties -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>11</java.version>
     <maven.compiler.release>${java.version}</maven.compiler.release>
     <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -334,6 +335,27 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <configuration>
+          <rules>
+            <requireMavenVersion>
+              <version>3.6.0</version>
+            </requireMavenVersion>
+            <requireJavaVersion>
+              <version>9</version>
+            </requireJavaVersion>
+            <requireSameVersions>
+              <plugins>
+                <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+              </plugins>
+            </requireSameVersions>
+          </rules>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
         <executions>
           <execution>
@@ -380,7 +402,7 @@
                 <pluginExecutionFilter>
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-remote-resources-plugin</artifactId>
-                  <versionRange>[0.0.0,)</versionRange>
+                  <versionRange>[1.0.0,)</versionRange>
                   <goals>
                     <goal>process</goal>
                   </goals>
