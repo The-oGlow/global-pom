@@ -3,7 +3,9 @@
 os: linux
 sudo: false
 env:
-  - SONAR_TOKEN=${travis2sonar}
+  global:
+    - CACHE_NAME=MAVEN_REPO
+    - SONAR_TOKEN=${travis2sonar}
 cache:
   directories:
     - "$HOME/.m2"
