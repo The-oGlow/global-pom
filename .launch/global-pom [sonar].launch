@@ -16,7 +16,7 @@
     <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="true"/>
     <stringAttribute key="bad_container_name" value=".launch\unit-pojotester"/>
     <mapAttribute key="org.eclipse.debug.core.environmentVariables">
-        <mapEntry key="SONAR_TOKEN" value="${SONAR_TOKEN_global-pom}"/>
+        <mapEntry key="SONAR_TOKEN" value="${travis2sonar}"/>
     </mapAttribute>
     <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
         <listEntry value="org.eclipse.debug.ui.launchGroup.run"/>

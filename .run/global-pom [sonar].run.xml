@@ -11,7 +11,7 @@
           <option name="jreName" value="#USE_PROJECT_JDK" />
           <option name="mavenProperties">
             <map>
-              <entry key="SONAR_TOKEN" value="${SONAR_TOKEN_global-pom}" />
+              <entry key="SONAR_TOKEN" value="${travis2sonar}" />
               <entry key="maven.test.failure.ignore" value="true" />
               <entry key="skipITs" value="false" />
             </map>
