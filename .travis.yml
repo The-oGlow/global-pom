@@ -11,12 +11,12 @@ jdk: openjdk11
 
 #
 # Steps
-before_install:
+before_install: skip
 
-install:
+install: skip
 #   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true
 
-before_script:
+before_script: skip
 
 script:
   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean verify
@@ -27,6 +27,6 @@ after_script:
 #
 # Finally
 
-after_success:
+after_success: skip
 
-after_failure:
+after_failure: skip
