@@ -9,9 +9,9 @@
     <version>21</version>
   </parent>
 
-  <groupId>com.glowanet.maven.parent</groupId>
+  <groupId>com.glowa-net.maven.parent</groupId>
   <artifactId>global-pom</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
+  <version>0.2.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Global POM</name>
@@ -50,7 +50,7 @@
   <scm>
     <connection>scm:git:git://github.com/ollily/global-pom.git</connection>
     <developerConnection>scm:git:git@github.com:ollily/global-pom.git</developerConnection>
-    <url>https://github.com/ollily/global-pom.git</url>
+    <url>https://github.com/ollily/global-pom</url>
     <tag>HEAD</tag>
   </scm>
 
