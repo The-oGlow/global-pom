@@ -21,7 +21,7 @@ install: skip
 before_script: skip
 
 script:
-  - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean verify
+  - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean install
 
 after_script:
   - mvn -B -DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
