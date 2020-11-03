@@ -22,7 +22,7 @@ script:
   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean verify
 
 after_script:
-  - mvn -B -DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true -DSONAR_TOKEN=${travis2sonar} org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+  - mvn -B -DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true -DSONAR_TOKEN="$travis2sonar" org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #
 # Finally
