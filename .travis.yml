@@ -21,15 +21,15 @@ jdk: openjdk11
 before_install: skip
 
 install:
-  - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true
+   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true install
 
 before_script: skip
 
 script:
   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean install
 
-after_script:
-  - mvn -B -DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+after_script: skip
+#  - mvn -B -DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #
 # Finally
