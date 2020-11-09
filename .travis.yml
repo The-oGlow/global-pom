@@ -21,7 +21,7 @@ jdk: openjdk11
 before_install: skip
 
 install:
-   - mvn -B -V dependency:resolve dependency:resolve-plugins 
+  - mvn -B -V dependency:resolve dependency:resolve-plugins 
 
 before_script: skip
 
