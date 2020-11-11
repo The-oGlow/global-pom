@@ -1,5 +1,6 @@
-image: maven:latest
-
+default:
+  image: maven:latest
+    
 stages:
   - validate
   - build
@@ -17,13 +18,18 @@ cache:
 
 validate:
   stage: validate
+  before_script:
+    - echo "user : ${USER}"
+    - echo "home : ${HOME}"
+    - echo "M2   : ${M2_HOME}"
+    - printenv
   script:
     - mvn $MAVEN_CLI_OPTS validate
 
 build:
   stage: build
   script:
-    - mvn $MAVEN_CLI_OPTS build
+    - mvn $MAVEN_CLI_OPTS verify
 
 install:
   stage: install
