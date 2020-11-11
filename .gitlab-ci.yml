@@ -1,0 +1,33 @@
+image: maven:latest
+
+stages:
+  - validate
+  - build
+  - install
+
+variables:
+  MAVEN_CLI_DEF: "-s .m2/settings.xml -B -X"
+  MAVEN_CLI_OPTS: "${MAVEN_CLI_DEF} -DskipTests -DskipITs"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+validate:
+  stage: validate
+  script:
+    - mvn $MAVEN_CLI_OPTS validate
+
+build:
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS build
+
+install:
+  stage: install
+  script:
+    - mvn $MAVEN_CLI_OPTS install
+  only:
+    - master
