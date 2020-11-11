@@ -6,13 +6,13 @@ stages:
   - install
 
 variables:
-  MAVEN_CLI_DEF: "-s ${HOME}/.m2/settings.xml -B -X"
-  MAVEN_CLI_OPTS: "${MAVEN_CLI_DEF} -DskipTests -DskipITs"
-  MAVEN_OPTS: "-Dmaven.repo.local=${HOME}/.m2/repository"
+#  MAVEN_SETTIGNS: "-s ${HOME}/.m2/settings.xml"
+  MAVEN_CLI_OPTS: "-B -X -DskipTests -DskipITs"
+#  MAVEN_OPTS: "-Dmaven.repo.local=${HOME}/.m2/repository"
 
 cache:
   paths:
-    - ${HOME}/.m2/repository/
+    - .m2/repository/
     - target/
 
 validate:
