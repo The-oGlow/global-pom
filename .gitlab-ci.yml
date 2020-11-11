@@ -19,9 +19,9 @@ cache:
 validate:
   stage: validate
   before_script:
-    - echo "user : ${USER}"
-    - echo "home : ${HOME}"
-    - echo "M2   : ${M2_HOME}"
+    - echo "user  ${USER}"
+    - echo "home  ${HOME}"
+    - echo "M2    ${M2_HOME}"
     - printenv
   script:
     - mvn $MAVEN_CLI_OPTS validate
