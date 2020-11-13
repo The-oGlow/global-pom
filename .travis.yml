@@ -3,15 +3,19 @@
 arch: amd64
 os: linux
 dist: xenial
-sudo: true
+sudo: false
 
 env:
   global:
-#    - CACHE_NAME=MAVEN_REPO
     - SONAR_TOKEN=${travis2sonar}
+    - DL_DIR=${HOME}/temp
+    - GLOBAL_POM_V=0.2.1
+    - GLOBAL_POM_DIR=${DL_DIR}/global-pom/${GLOBAL_POM_V}
+    - GLOBAL_POM_FILE=${GLOBAL_POM_DIR}/pom.xml
+    - GLOBAL_POM_INSTALL="-DgroupId=com.glowa-net.maven.parent -DartifactId=global-pom -Dversion=${GLOBAL_POM_V} -Dpackaging=pom"
 cache:
   directories:
-    - $HOME/.m2
+    - ${HOME}/.m2
 
 language: java
 jdk: openjdk11
@@ -20,16 +24,19 @@ jdk: openjdk11
 # Steps
 before_install: skip
 
-install:
-   - mvn -B -V dependency:resolve dependency:resolve-plugins 
 
+
+install:
+
+  - mvn -B -V dependency:resolve dependency:resolve-plugins
+  
 before_script: skip
 
 script:
   - mvn -B -V -DskipTests=true -DskipITs=true -Dmaven.javadoc.skip=true clean install
 
 after_script: skip
-#  - mvn -B -DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+  - mvn -B -DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
 
 #
 # Finally
