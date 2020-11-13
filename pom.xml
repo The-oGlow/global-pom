@@ -47,15 +47,15 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/ollily/global-pom.git</connection>
-    <developerConnection>scm:git:git@github.com:ollily/global-pom.git</developerConnection>
-    <url>https://github.com/ollily/global-pom</url>
+    <connection>scm:git:git://gitlab.com/ollily/global-pom.git</connection>
+    <developerConnection>scm:git:git@gitlab.com:ollily/global-pom.git</developerConnection>
+    <url>https://gitlab.com/ollily/global-pom</url>
     <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/ollily/global-pom/issues</url>
+    <system>GitLab Issues</system>
+    <url>https://gitlab.com/ollily/global-pom/-/issues</url>
   </issueManagement>
 
   <ciManagement>
