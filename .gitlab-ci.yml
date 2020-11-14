@@ -22,7 +22,7 @@ cache:
 build:
   before_script:
     - *show_env
-    - mkdir-p ${REPO_DIR}
+    - mkdir -p ${REPO_DIR}
     - *show_repo
   script:
     - mvn ${MAVEN_CLI_OPTS} validate
