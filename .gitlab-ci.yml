@@ -11,10 +11,15 @@ cache:
   key: mvncache
   paths:
     - ${REPO_DIR}
+  when: always
 
 .show_env: &show_env
   - echo "home  ${HOME}"
+  - echo "pwd ${PWD}"
   - printenv | sort
+
+.show_cache: &show_cache
+  - ls -laR /home/gitlab-runner/cache/ollily/
 
 .show_repo: &show_repo
   - ls -la ${REPO_DIR}
@@ -25,9 +30,12 @@ build:
     - *show_env
     - mkdir -p ${REPO_DIR}
     - *show_repo
+    - *show_cache
   script:
     - mvn ${MAVEN_CLI_OPTS} validate
-    - echo mvn ${MAVEN_CLI_OPTS} verify
-    - echo mvn ${MAVEN_CLI_OPTS} install
+    - mvn ${MAVEN_CLI_OPTS} verify
+    - mvn ${MAVEN_CLI_OPTS} install
   after_script:
     - *show_repo
+    - *show_cache
+    
