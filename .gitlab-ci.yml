@@ -2,16 +2,15 @@ default:
   image: maven:3-openjdk-11
     
 variables:
-  zREPO_DIR: "/${CI_BUILDS_DIR}/${CI_PROJECT_NAMESPACE}/repo"
-  REPO_DIR: "/builds/ollily/global-pom/.repo"
-  TEST_OPTS: "-B -X -fae -Dmaven.repo.local=${REPO_DIR} -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true"
-  MAVEN_CLI_OPTS: "-B -X -fn -Dmaven.repo.local=${REPO_DIR} -DskipTests -DskipITs"
+  REPO_DIR: "/${CI_PROJECT_DIR}/.repo"
+  MVN_TEST_OPTS: "-B -X -fae -Dmaven.repo.local=${REPO_DIR} -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true"
+  MVN_CLI_OPTS: "-B -X -fn -Dmaven.repo.local=${REPO_DIR} -DskipTests -DskipITs"
 
 cache:
-  key: mvncache
+  key: ${CI_PROJECT_PATH_SLUG}
+  when: always
   paths:
     - ${REPO_DIR}
-  when: always
 
 .show_env: &show_env
   - echo "home  ${HOME}"
@@ -20,21 +19,23 @@ cache:
 
 .show_cache: &show_cache
   - ls -laR /home
+  - find /var -type d -print
+  - ls /etc
+  - cat /etc/passwd
 
 .show_repo: &show_repo
   - ls -la ${REPO_DIR}
   - du --max-depth=1 -h ${REPO_DIR}
 
 build:
+  stage: build
   before_script:
     - *show_env
     - mkdir -p ${REPO_DIR}
     - *show_repo
   script:
-    - mvn ${MAVEN_CLI_OPTS} validate
-    - mvn ${MAVEN_CLI_OPTS} verify
-    - mvn ${MAVEN_CLI_OPTS} install
+    - mvn ${MVN_TEST_OPTS} verify
+    - mvn ${MVN_CLI_OPTS} install
   after_script:
     - *show_repo
     - *show_cache
-    
