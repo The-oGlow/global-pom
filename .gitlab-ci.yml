@@ -34,8 +34,6 @@ cache:
 
 build_jar:
   stage: build
-  tags:
-    - docker
   before_script:
     - *show_env
     - echo "creating $REPO_DIR"
@@ -44,12 +42,8 @@ build_jar:
   script:
     - mvn $MVN_TEST_OPTS verify
     - *show_build
-
-install_jar:
-  stage: .post
-  tags:
-    - docker
-  include: '.gitlab-install.yml'
-  after_script:
     - *show_repo
+
+include: 
+  - local: '/.gitlab-install.yml'
      
