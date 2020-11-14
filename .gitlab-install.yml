@@ -1,4 +1,5 @@
-.insta: &insta
+install_jar:
+  stage: .post
   variables:
     GLOBAL_POM_V: 0.2.1
     GLOBAL_POM_URL: https://gitlab.com/ollily/global-pom.git

@@ -32,10 +32,6 @@ cache:
   - echo "show_repo"
   - du --max-depth=2 -h $REPO_DIR
 
-include: 
-  - local: '/.gitlab-install.yml'
-
-
 build_jar:
   stage: build
   before_script:
@@ -48,8 +44,5 @@ build_jar:
     - *show_build
     - *show_repo
 
-install_jar:
-  <<: *insta
-  script:
-    - echo "install"
-     
+include: 
+  - local: '/.gitlab-install.yml'
