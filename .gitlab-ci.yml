@@ -44,6 +44,7 @@ build_jar:
     - *show_build
     - *show_repo
 
-include: 
-  - local: '/.gitlab-install.yml'
+install_jar:
+  include: 
+    - local: '/.gitlab-install.yml'
      

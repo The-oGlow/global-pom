@@ -7,6 +7,6 @@
   before_script:
     - mkdir -p -v $GLOBAL_POM_DIR
     - git clone -v -b $GLOBAL_POM_V $GLOBAL_POM_URL $GLOBAL_POM_DIR
-  after_script:
+  script:
     - mvn $MVN_CLI_OPTS install:install-file -f $GLOBAL_POM_DIR -Dfile=$GLOBAL_POM_DIR $GLOBAL_POM_INSTALL
   
