@@ -1,6 +1,14 @@
 default:
   image: maven:3-openjdk-11
-    
+
+stages:
+  - .pre
+  - build
+  - test
+  - analyze
+  - install
+  - .post
+      
 variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
   MVN_TEST_OPTS: -B -fae -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
@@ -14,11 +22,6 @@ cache:
 
 .show_env: &show_env
   - echo "show_env"
-  - echo "home  $HOME"
-  - echo "pwd $PWD"
-  - echo "#$REPO_DIR#"
-  - echo "#$MVN_TEST_OPTS#"
-  - echo "#$MVN_CLI_OPTS#"
   - printenv | sort
 
 .show_build: &show_build
@@ -27,11 +30,9 @@ cache:
 
 .show_repo: &show_repo
   - echo "show_repo"
-  - ls -la $REPO_DIR
-  - du --max-depth=1 -h $REPO_DIR
-  - find /usr -type d -print
+  - du --max-depth=2 -h $REPO_DIR
 
-build:
+build_jar:
   stage: build
   tags:
     - docker
@@ -42,7 +43,13 @@ build:
     - *show_repo
   script:
     - mvn $MVN_TEST_OPTS verify
-    - mvn $MVN_CLI_OPTS install
+    - *show_build
+
+install_jar:
+  stage: .post
+  tags:
+    - docker
+  include: '.gitlab-install.yml'
   after_script:
     - *show_repo
-    - *show_build
+     
