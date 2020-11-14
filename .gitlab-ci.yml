@@ -47,4 +47,6 @@ build_jar:
 install_jar:
   include: 
     - local: '/.gitlab-install.yml'
+  script:
+    - echo "install"
      
