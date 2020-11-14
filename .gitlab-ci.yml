@@ -2,8 +2,9 @@ default:
   image: maven:3-openjdk-11
     
 variables:
-  REPO_DIR: "/${CI_BUILDS_DIR}/${CI_PROJECT_NAMESPACE}/repo"
-  TEST_OPTS: "-B -X -fae -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true"
+  zREPO_DIR: "/${CI_BUILDS_DIR}/${CI_PROJECT_NAMESPACE}/repo"
+  REPO_DIR: "/builds/ollily/global-pom/.repo"
+  TEST_OPTS: "-B -X -fae -Dmaven.repo.local=${REPO_DIR} -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true"
   MAVEN_CLI_OPTS: "-B -X -fn -Dmaven.repo.local=${REPO_DIR} -DskipTests -DskipITs"
 
 cache:
