@@ -2,7 +2,7 @@ default:
   image: maven:3-openjdk-11
     
 variables:
-  REPO_DIR: "${CI_BUILDS_DIR}/${CI_PROJECT_NAMESPACE}/repo"
+  REPO_DIR: "/${CI_BUILDS_DIR}/${CI_PROJECT_NAMESPACE}/repo"
   TEST_OPTS: "-B -X -fae -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true"
   MAVEN_CLI_OPTS: "-B -X -fn -Dmaven.repo.local=${REPO_DIR} -DskipTests -DskipITs"
 
@@ -22,9 +22,11 @@ cache:
 build:
   before_script:
     - *show_env
+    - mkdir-p ${REPO_DIR}
+    - *show_repo
   script:
     - mvn ${MAVEN_CLI_OPTS} validate
-    - mvn ${MAVEN_CLI_OPTS} verify
-    - mvn ${MAVEN_CLI_OPTS} install
+    - echo mvn ${MAVEN_CLI_OPTS} verify
+    - echo mvn ${MAVEN_CLI_OPTS} install
   after_script:
     - *show_repo
