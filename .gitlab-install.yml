@@ -1,5 +1,4 @@
 install_jar:
-  stage: .post
   variables:
     GLOBAL_POM_V: 0.2.1
     GLOBAL_POM_URL: https://gitlab.com/ollily/global-pom.git
@@ -10,5 +9,5 @@ install_jar:
     - mkdir -p -v $GLOBAL_POM_DIR
     - git clone -v -b $GLOBAL_POM_V $GLOBAL_POM_URL $GLOBAL_POM_DIR
   script:
-    - mvn $MVN_CLI_OPTS install:install-file -f $GLOBAL_POM_DIR -Dfile=$GLOBAL_POM_DIR $GLOBAL_POM_INSTALL
+    - mvn $MVN_CLI_OPTS install:install-file -f $GLOBAL_POM_DIR -Dfile=$GLOBAL_POM_FILE $GLOBAL_POM_INSTALL
   

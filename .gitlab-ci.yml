@@ -2,12 +2,10 @@ default:
   image: maven:3-openjdk-11
 
 stages:
-  - .pre
   - build
   - test
   - analyze
   - install
-  - .post
       
 variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
