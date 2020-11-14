@@ -3,8 +3,8 @@ default:
     
 variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
-  MVN_TEST_OPTS: -B -X -fae -Dmaven.repo.local=$REPO_DIR -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
-  MVN_CLI_OPTS: -B -X -fn -Dmaven.repo.local=$REPO_DIR -DskipTests -DskipITs
+  MVN_TEST_OPTS: -B -X -fae -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
+  MVN_CLI_OPTS: -B -X -fn -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
 
 cache:
   key: $CI_PROJECT_PATH_SLUG
@@ -16,6 +16,7 @@ cache:
   - echo "show_env"
   - echo "home  $HOME"
   - echo "pwd $PWD"
+  - echo "#$REPO_DIR#"
   - echo "#$MVN_TEST_OPTS#"
   - echo "#$MVN_CLI_OPTS#"
   - printenv | sort
