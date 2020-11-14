@@ -3,8 +3,8 @@ default:
     
 variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
-  MVN_TEST_OPTS: -B -X -fae -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
-  MVN_CLI_OPTS: -B -X -fn -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
+  MVN_TEST_OPTS: -B -fae -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
+  MVN_CLI_OPTS: -B -fn -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
 
 cache:
   key: $CI_PROJECT_PATH_SLUG
@@ -29,9 +29,12 @@ cache:
   - echo "show_repo"
   - ls -la $REPO_DIR
   - du --max-depth=1 -h $REPO_DIR
+  - find /usr -type d -print
 
 build:
   stage: build
+  tags:
+    - docker
   before_script:
     - *show_env
     - echo "creating $REPO_DIR"
