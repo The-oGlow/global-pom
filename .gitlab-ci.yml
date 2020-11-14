@@ -13,14 +13,19 @@ cache:
     - $REPO_DIR
 
 .show_env: &show_env
+  - echo "show_env"
   - echo "home  $HOME"
   - echo "pwd $PWD"
+  - echo "#$MVN_TEST_OPTS#"
+  - echo "#$MVN_CLI_OPTS#"
   - printenv | sort
 
-.show_cache: &show_cache
+.show_build: &show_build
+  - echo "show_build"
   - find $CI_BUILDS_DIR -type d -print
 
 .show_repo: &show_repo
+  - echo "show_repo"
   - ls -la $REPO_DIR
   - du --max-depth=1 -h $REPO_DIR
 
@@ -36,4 +41,4 @@ build:
     - mvn $MVN_CLI_OPTS install
   after_script:
     - *show_repo
-    - *show_cache
+    - *show_build
