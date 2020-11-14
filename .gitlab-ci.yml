@@ -19,7 +19,7 @@ cache:
   - printenv | sort
 
 .show_cache: &show_cache
-  - ls -laR /home/gitlab-runner/cache/ollily/
+  - ls -laR /home
 
 .show_repo: &show_repo
   - ls -la ${REPO_DIR}
@@ -30,7 +30,6 @@ build:
     - *show_env
     - mkdir -p ${REPO_DIR}
     - *show_repo
-    - *show_cache
   script:
     - mvn ${MAVEN_CLI_OPTS} validate
     - mvn ${MAVEN_CLI_OPTS} verify
