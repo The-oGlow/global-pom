@@ -34,7 +34,7 @@ cache:
 
 .install_j: &install_j
 include: 
-    - local: '/.gitlab-install.yml'
+  - local: '/.gitlab-install.yml'
 
 
 build_jar:
