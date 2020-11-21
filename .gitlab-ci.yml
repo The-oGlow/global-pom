@@ -28,7 +28,7 @@ cache:
 
 .show_repo: &show_repo
   - echo "show_repo"
-  - du --max-depth=2 -h $REPO_DIR
+  - du --max-depth=1 -h $REPO_DIR
 
 build_jar:
   stage: build
