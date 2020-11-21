@@ -60,7 +60,8 @@
     </issueManagement>
 
     <ciManagement>
-        <!-- <system></system> <url></url> -->
+        <system>gitlab</system>
+        <url>https://gitlab.com/ollily/global-pom/-/pipelines</url>
     </ciManagement>
 
     <distributionManagement>
@@ -522,6 +523,9 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
+                        <configuration>
+                            <updateReleaseInfo>true</updateReleaseInfo>
+                        </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
