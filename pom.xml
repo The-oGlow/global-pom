@@ -478,7 +478,26 @@
                 </repository>
             </repositories>
         </profile>
-
+        <profile>
+            <id>show-env</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-help-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>show-env</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>system</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>only-eclipse</id>
             <activation>

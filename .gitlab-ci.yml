@@ -2,21 +2,24 @@ default:
   image: maven:3-openjdk-11
 
 stages:
+  - .pre
   - build
   - test
   - analyze
-  - install
-      
+  - deploy
+  - .post
+
 variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
-  MVN_TEST_OPTS: -B -fae -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
-  MVN_CLI_OPTS: -B -fn -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
+  MVN_TEST_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
+  MVN_CLI_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
 
 cache:
   key: $CI_PROJECT_PATH_SLUG
   when: always
   paths:
     - $REPO_DIR
+    - target
 
 .show_env: &show_env
   - echo "show_env"
@@ -30,17 +33,17 @@ cache:
   - echo "show_repo"
   - du --max-depth=1 -h $REPO_DIR
 
-build_jar:
-  stage: build
+build:
+  stage: deploy
+  tags:
+    - docker
   before_script:
     - *show_env
     - echo "creating $REPO_DIR"
     - mkdir -p $REPO_DIR
-    - *show_repo
   script:
     - mvn $MVN_TEST_OPTS verify
-    - *show_build
-    - *show_repo
-
-include: 
-  - local: '/.gitlab-install.yml'
+    - mvn $MVN_CLI_OPTS deploy
+  after_script:
+  #- *show_repo
+  #- *show_build
