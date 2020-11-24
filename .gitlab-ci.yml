@@ -33,6 +33,12 @@ cache:
   - echo "show_repo"
   - du --max-depth=1 -h $REPO_DIR
 
+.prep_sec: &prep_sec
+  - ls $HOME
+  - mkdir -p $HOME/.m2
+  - cp .m2/settings-security.xml $HOME/.m2
+  - ls $HOME
+  -
 build:
   stage: deploy
   tags:
@@ -41,6 +47,7 @@ build:
     - *show_env
     - echo "creating $REPO_DIR"
     - mkdir -p $REPO_DIR
+    - *prep_sec
   script:
     - mvn $MVN_TEST_OPTS verify
     - mvn $MVN_CLI_OPTS deploy
