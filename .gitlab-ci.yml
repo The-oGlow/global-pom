@@ -42,6 +42,7 @@ cache:
   - mkdir -p $MVN_USR_HOME
   - cp .m2/settings-security.xml $MVN_USR_HOME
   - ls $MVN_USR_HOME
+  - cat $MVN_USR_HOME/settings-docker.xml
 
 build:
   stage: deploy
