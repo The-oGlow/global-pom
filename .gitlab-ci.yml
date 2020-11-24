@@ -13,7 +13,7 @@ variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
   MVN_USR_HOME: /root/.m2
   MVN_TEST_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
-  MVN_CLI_OPTS: -X -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
+  MVN_CLI_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
 
 cache:
   key: $CI_PROJECT_PATH_SLUG
@@ -41,8 +41,6 @@ cache:
 .prep_sec: &prep_sec
   - mkdir -p $MVN_USR_HOME
   - cp .m2/settings-security.xml $MVN_USR_HOME
-  - ls $MVN_USR_HOME
-  - cat $MVN_USR_HOME/settings-docker.xml
 
 build:
   stage: deploy
