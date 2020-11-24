@@ -11,7 +11,7 @@ stages:
 
 variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
-  MVN_USR_HOME: $HOME/.m2
+  MVN_USR_HOME: /root/.m2
   MVN_TEST_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
   MVN_CLI_OPTS: -X -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
 
@@ -39,7 +39,6 @@ cache:
   - mkdir -p $REPO_DIR
 
 .prep_sec: &prep_sec
-  - ls $MVN_USR_HOME
   - mkdir -p $MVN_USR_HOME
   - cp .m2/settings-security.xml $MVN_USR_HOME
   - ls $MVN_USR_HOME
