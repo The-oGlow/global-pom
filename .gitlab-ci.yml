@@ -11,6 +11,7 @@ stages:
 
 variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
+  MVN_USR_HOME: $HOME/.m2
   MVN_TEST_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
   MVN_CLI_OPTS: -X -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
 
@@ -33,20 +34,23 @@ cache:
   - echo "show_repo"
   - du --max-depth=1 -h $REPO_DIR
 
+.prep_repo: &prep_repo
+  - echo "creating $REPO_DIR"
+  - mkdir -p $REPO_DIR
+
 .prep_sec: &prep_sec
-  - ls $HOME
-  - mkdir -p $HOME/.m2
-  - cp .m2/settings-security.xml $HOME/.m2
-  - ls $HOME
-  -
+  - ls $MVN_USR_HOME
+  - mkdir -p $MVN_USR_HOME
+  - cp .m2/settings-security.xml $MVN_USR_HOME
+  - ls $MVN_USR_HOME
+
 build:
   stage: deploy
   tags:
     - docker
   before_script:
     - *show_env
-    - echo "creating $REPO_DIR"
-    - mkdir -p $REPO_DIR
+    - *prep_repo
     - *prep_sec
   script:
     - mvn $MVN_TEST_OPTS verify
