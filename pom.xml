@@ -144,6 +144,11 @@
             </dependency>
             <dependency>
                 <groupId>org.powermock</groupId>
+                <artifactId>powermock-module-junit4</artifactId>
+                <version>${org.powermock.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.powermock</groupId>
                 <artifactId>powermock-api-mockito2</artifactId>
                 <version>${org.powermock.mockito2.version}</version>
             </dependency>
@@ -499,43 +504,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>only-eclipse</id>
-            <activation>
-                <property>
-                    <name>m2e.version</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- Eclipse M2e -->
-                        <groupId>org.eclipse.m2e</groupId>
-                        <artifactId>lifecycle-mapping</artifactId>
-                        <version>1.0.0</version>
-                        <configuration>
-                            <lifecycleMappingMetadata>
-                                <pluginExecutions>
-                                    <pluginExecution>
-                                        <pluginExecutionFilter>
-                                            <groupId>org.apache.maven.plugins</groupId>
-                                            <artifactId>maven-remote-resources-plugin</artifactId>
-                                            <versionRange>[1.0.0,)</versionRange>
-                                            <goals>
-                                                <goal>process</goal>
-                                            </goals>
-                                        </pluginExecutionFilter>
-                                        <action>
-                                            <ignore/>
-                                        </action>
-                                    </pluginExecution>
-                                </pluginExecutions>
-                            </lifecycleMappingMetadata>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
