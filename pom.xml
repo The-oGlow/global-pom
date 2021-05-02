@@ -65,6 +65,15 @@
     </ciManagement>
 
     <distributionManagement>
+        <repository>
+            <id>gitlab-maven</id>
+            <url>${env.CI_SERVER_URL}/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
+        </repository>
+        <snapshotRepository>
+            <id>gitlab-maven</id>
+            <url>${env.CI_SERVER_URL}/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
+        </snapshotRepository>
+        <!--
         <downloadUrl>https://coding.jfrog.io/artifactory/groups</downloadUrl>
         <repository>
             <id>coding.deploy</id>
@@ -78,6 +87,7 @@
             <url>https://coding.jfrog.io/artifactory/snapshots</url>
             <uniqueVersion>true</uniqueVersion>
         </snapshotRepository>
+        -->
     </distributionManagement>
 
     <properties>
@@ -226,38 +236,50 @@
 
     <repositories>
         <repository>
-            <id>coding.read</id>
-            <name>CoDinG jFrog Group</name>
-            <url>https://coding.jfrog.io/artifactory/groups</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>interval:30</updatePolicy>
-                <checksumPolicy>ignore</checksumPolicy>
-            </snapshots>
+            <id>gitlab-maven</id>
+            <url>${env.CI_SERVER_URL}/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
         </repository>
+        <!--
+                <repository>
+                    <id>coding.read</id>
+                    <name>CoDinG jFrog Group</name>
+                    <url>https://coding.jfrog.io/artifactory/groups</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:30</updatePolicy>
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </snapshots>
+                </repository>
+        -->
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>coding.read</id>
-            <name>CoDinG jFrog Group</name>
-            <url>https://coding.jfrog.io/artifactory/groups</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
+            <id>gitlab-maven</id>
+            <url>${env.CI_SERVER_URL}/api/v4/projects/${env.CI_PROJECT_ID}/packages/maven</url>
         </pluginRepository>
+        <!--
+                <pluginRepository>
+                    <id>coding.read</id>
+                    <name>CoDinG jFrog Group</name>
+                    <url>https://coding.jfrog.io/artifactory/groups</url>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>fail</checksumPolicy>
+                    </snapshots>
+                </pluginRepository>
+        -->
     </pluginRepositories>
 
     <build>
