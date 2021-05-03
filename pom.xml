@@ -65,14 +65,15 @@
     </ciManagement>
 
     <distributionManagement>
+        <downloadUrl>https://gitlab.com/api/v4/groups/${project.env.CI_GROUP_ID}/packages/maven</downloadUrl>
         <repository>
             <id>coding.deploy</id>
-            <url>${project.env.CI_SERVER_URL}/api/v4/projects/${project.env.CI_REPO_ID}/packages/maven</url>
+            <url>https://gitlab.com/api/v4/projects/${project.env.CI_REPO_ID}/packages/maven</url>
             <uniqueVersion>false</uniqueVersion>
         </repository>
         <snapshotRepository>
             <id>coding.deploy</id>
-            <url>${project.env.CI_SERVER_URL}/api/v4/projects/${project.env.CI_REPO_ID}/packages/maven</url>
+            <url>https://gitlab.com/api/v4/projects/${project.env.CI_REPO_ID}/packages/maven</url>
             <uniqueVersion>true</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
@@ -81,7 +82,7 @@
         <!-- Gitlab Properties -->
         <project.env.CI_SERVER_URL>https://gitlab.com</project.env.CI_SERVER_URL>
         <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
-        <project.env.CI_REPO_ID>22292701</project.env.CI_REPO_ID>
+        <project.env.CI_REPO_ID>26363808</project.env.CI_REPO_ID>
         <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
 
         <!-- Java Properties -->
@@ -231,7 +232,7 @@
         <repository>
             <id>coding.read</id>
             <name>CoDinG Group</name>
-            <url>${project.env.CI_SERVER_URL}/api/v4/projects/${project.env.CI_REPO_ID}/packages/maven</url>
+            <url>https://gitlab.com/api/v4/groups/${project.env.CI_GROUP_ID}/packages/maven</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
@@ -249,7 +250,7 @@
         <pluginRepository>
             <id>coding.read</id>
             <name>CoDinG Group</name>
-            <url>${project.env.CI_SERVER_URL}/api/v4/projects/${project.env.CI_REPO_ID}/packages/maven</url>
+            <url>https://gitlab.com/api/v4/groups/${project.env.CI_GROUP_ID}/packages/maven</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
