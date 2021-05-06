@@ -7,6 +7,7 @@
         <groupId>org.apache</groupId>
         <artifactId>apache</artifactId>
         <version>21</version>
+        <relativePath/>
     </parent>
 
     <groupId>com.glowa-net.maven.parent</groupId>
@@ -80,7 +81,6 @@
 
     <properties>
         <!-- Gitlab Properties -->
-        <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
         <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
 
         <!-- Java Properties -->
