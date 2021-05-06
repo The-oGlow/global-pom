@@ -13,7 +13,7 @@ variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
   MVN_USR_HOME: /root/.m2
   MVN_TEST_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
-  MVN_CLI_OPTS: -B -fae -s ci_settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
+  MVN_CLI_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
 
 cache:
   key: $CI_PROJECT_PATH_SLUG
@@ -40,7 +40,7 @@ cache:
 
 .prep_sec: &prep_sec
   - mkdir -p $MVN_USR_HOME
-  #- cp .m2/settings-security.xml $MVN_USR_HOME
+  - cp .m2/settings.xml $MVN_USR_HOME
 
 build:
   stage: deploy
@@ -49,16 +49,9 @@ build:
   before_script:
     - *show_env
     - *prep_repo
-  #- *prep_sec
   script:
-    #- mvn $MVN_TEST_OPTS verify
+    - mvn $MVN_TEST_OPTS verify
     - mvn $MVN_CLI_OPTS deploy
   after_script:
   #- *show_repo
   #- *show_build
-
-deploy:
-  script:
-    - 'mvn deploy -s ci_settings.xml'
-  only:
-    - master
