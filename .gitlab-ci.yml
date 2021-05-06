@@ -28,7 +28,7 @@ cache:
 
 .show_build: &show_build
   - echo "show_build"
-  - find $CI_BUILDS_DIR -type d -printverify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+  - find $CI_BUILDS_DIR -type d -print
 
 .show_repo: &show_repo
   - echo "show_repo"
