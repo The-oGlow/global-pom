@@ -97,6 +97,7 @@
         <log4j2.version>2.11.2</log4j2.version>
         <org.apache.commons.lang3.version>3.9</org.apache.commons.lang3.version>
         <org.apache.logging.log4j.version>2.2</org.apache.logging.log4j.version>
+        <org.easymock.version>4.3</org.easymock.version>
         <org.hamcrest.version>2.2</org.hamcrest.version>
         <org.hamcrest.java-hamcrest.version>2.0.0.0</org.hamcrest.java-hamcrest.version>
         <org.mockito.version>3.1.0</org.mockito.version>
@@ -153,6 +154,13 @@
                 <groupId>org.powermock</groupId>
                 <artifactId>powermock-api-mockito2</artifactId>
                 <version>${org.powermock.mockito2.version}</version>
+            </dependency>
+
+            <!-- Easy Mock -->
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${org.easymock.version}</version>
             </dependency>
 
             <!-- Apache Logging -->
