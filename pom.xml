@@ -106,10 +106,39 @@
         <org.slf4j.version>1.7.25</org.slf4j.version>
         <org.springframework.version>5.1.14.RELEASE</org.springframework.version>
 
+        <!-- Jacoco Properties -->
+        <jacoco.destFolder>${project.build.directory}/jacoco</jacoco.destFolder>
+        <!-- -->
+        <jacoco.reportFile>${jacoco.destFolder}/jacoco-ut.exec</jacoco.reportFile>
+        <jacoco.itReportFile>${jacoco.destFolder}/jacoco-it.exec</jacoco.itReportFile>
+        <jacoco.commonReportFile>${jacoco.destFolder}/jacoco.common</jacoco.commonReportFile>
+        <!-- -->
+        <jacoco.reportTitle>Unit-Test Coverage-Report for ${project.name}</jacoco.reportTitle>
+        <jacoco.itReportTitle>Integration-Test Coverage-Report for ${project.name}</jacoco.itReportTitle>
+        <jacoco.commonReportTitle>Coverage for ${project.name}</jacoco.commonReportTitle>
+        <!-- -->
+        <jacoco.reportOutputFolder>${jacoco.destFolder}/ut</jacoco.reportOutputFolder>
+        <jacoco.itReportOutputFolder>${jacoco.destFolder}/it</jacoco.itReportOutputFolder>
+
         <!-- Sonar Properties -->
         <sonar.organization>ollily</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.projectKey>ollily_global-pom</sonar.projectKey>
+        <!-- -->
+        <sonar.scm.provider>git</sonar.scm.provider>
+        <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
+        <sonar.log.level>INFO</sonar.log.level>
+        <sonar.verbose>false</sonar.verbose>
+        <sonar.sources>src/main,pom.xml,*.adoc,README.*</sonar.sources>
+        <sonar.tests>src/test</sonar.tests>
+        <!-- -->
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ${jacoco.reportOutputFolder}/jacoco.xml,${jacoco.itReportOutputFolder}/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
+        <!--
+        <sonar.jacoco.reportPath>${jacoco.reportFile}</sonar.jacoco.reportPath>
+        <sonar.jacoco.itReportPath>${jacoco.itReportFile}</sonar.jacoco.itReportPath>
+        -->
     </properties>
 
     <dependencyManagement>
@@ -337,12 +366,19 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.3.1</version>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                        <failOnWarnings>false</failOnWarnings>
+                        <additionalOptions>-Xdoclint:none</additionalOptions>
+                    </configuration>
                     <executions>
                         <execution>
                             <id>attach-javadocs</id>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>jar</goal>
+                                <goal>test-jar</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -364,6 +400,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.7.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>3.2.0</version>
                 </plugin>
@@ -377,7 +418,7 @@
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.6</version>
+                    <version>0.8.7</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -418,6 +459,9 @@
                                 <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
                             </plugins>
                         </requireSameVersions>
+                        <requireEnvironmentVariable>
+                            <variableName>JAVA_HOME</variableName>
+                        </requireEnvironmentVariable>
                     </rules>
                 </configuration>
             </plugin>
@@ -468,29 +512,85 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <destFile>${jacoco.reportFile}</destFile>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>default-prepare-agent-integration</id>
                         <goals>
                             <goal>prepare-agent-integration</goal>
                         </goals>
+                        <configuration>
+                            <destFile>${jacoco.itReportFile}</destFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-merge</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                        <configuration>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${jacoco.destFolder}</directory>
+                                    <includes>
+                                        <include>*.exec</include>
+                                    </includes>
+                                </fileSet>
+                            </fileSets>
+                            <destFile>${jacoco.commonReportFile}</destFile>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>default-report</id>
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <dataFile>${jacoco.reportFile}</dataFile>
+                            <title>${jacoco.reportTitle}</title>
+                            <outputDirectory>${jacoco.reportOutputFolder}</outputDirectory>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>default-report-integration</id>
                         <goals>
                             <goal>report-integration</goal>
                         </goals>
+                        <configuration>
+                            <dataFile>${jacoco.itReportFile}</dataFile>
+                            <title>${jacoco.itReportTitle}</title>
+                            <outputDirectory>${jacoco.itReportOutputFolder}</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>default-report</id>
+                        <inherited>true</inherited>
+                        <configuration>
+                            <dataFile>${jacoco.commonReportFile}</dataFile>
+                            <title>${jacoco.commonReportTitle}</title>
+                        </configuration>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <profiles>
         <profile>
@@ -551,6 +651,41 @@
             </build>
         </profile>
         <profile>
+            <id>build-javadoc</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <id>html</id>
+                                <reports>
+                                    <report>javadoc</report>
+                                    <report>aggregate</report>
+                                </reports>
+                            </reportSet>
+                            <reportSet>
+                                <id>test-html</id>
+                                <reports>
+                                    <report>test-javadoc</report>
+                                    <report>test-aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+        <profile>
             <id>build-testjar</id>
             <build>
                 <plugins>
@@ -604,10 +739,10 @@
                         <executions>
                             <execution>
                                 <id>first</id>
+                                <phase>process-sources</phase>
                                 <goals>
                                     <goal>update-file-header</goal>
                                 </goals>
-                                <phase>process-sources</phase>
                             </execution>
                         </executions>
                     </plugin>

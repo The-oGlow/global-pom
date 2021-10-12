@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="mvn [install]" type="MavenRunConfiguration" factoryName="Maven" folderName="global-pom">
+    <configuration default="false" name="mvn [install]" type="MavenRunConfiguration" factoryName="Maven" folderName="global-pom"
+                   activateToolWindowBeforeRun="false">
         <MavenSettings>
             <option name="myGeneralSettings"/>
             <option name="myRunnerSettings">
