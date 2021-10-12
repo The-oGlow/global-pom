@@ -135,10 +135,6 @@
         <sonar.coverage.jacoco.xmlReportPaths>
             ${jacoco.reportOutputFolder}/jacoco.xml,${jacoco.itReportOutputFolder}/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
-        <!--
-        <sonar.jacoco.reportPath>${jacoco.reportFile}</sonar.jacoco.reportPath>
-        <sonar.jacoco.itReportPath>${jacoco.itReportFile}</sonar.jacoco.itReportPath>
-        -->
     </properties>
 
     <dependencyManagement>
