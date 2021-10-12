@@ -129,7 +129,7 @@
         <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
         <sonar.log.level>INFO</sonar.log.level>
         <sonar.verbose>false</sonar.verbose>
-        <sonar.sources>src/main,pom.xml,*.adoc,README.*</sonar.sources>
+        <sonar.sources>src/main,pom.xml</sonar.sources>
         <sonar.tests>src/test</sonar.tests>
         <!-- -->
         <sonar.coverage.jacoco.xmlReportPaths>
