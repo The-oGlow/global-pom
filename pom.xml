@@ -257,6 +257,7 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- No dependency is allowed to defined here! -->
     </dependencies>
 
     <repositories>
@@ -343,6 +344,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>2.22.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>3.0.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -680,6 +686,69 @@
                     </plugin>
                 </plugins>
             </reporting>
+        </profile>
+        <profile>
+            <id>build-signature</id>
+            <properties>
+                <!-- GPG Properties -->
+                <sign.exec>${env.SIGN_EXEC}</sign.exec>
+                <sign.homedir>${env.SIGN_HOMEDIR}</sign.homedir>
+                <sign.defaultKeyring>false</sign.defaultKeyring>
+                <sign.publicKeyring>${env.SIGN_PUBRING}</sign.publicKeyring>
+                <sign.secretKeyring>${env.SIGN_SECRING}</sign.secretKeyring>
+                <sign.keyname>${env.SIGN_KEYNAME}</sign.keyname>
+                <sign.passphrase>${env.SIGN_PASSPHRASE}</sign.passphrase>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifact-exist</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <failFast>true</failFast>
+                                    <rules>
+                                        <requireFilesExist>
+                                            <files>
+                                                <file>${sign.exec}</file>
+                                                <file>${sign.homedir}</file>
+                                                <file>${sign.homedir}/${sign.publicKeyring}</file>
+                                            </files>
+                                        </requireFilesExist>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <configuration>
+                            <executable>${sign.exec}</executable>
+                            <homedir>${sign.homedir}</homedir>
+                            <defaultKeyring>${sign.defaultKeyring}</defaultKeyring>
+                            <publicKeyring>${sign.publicKeyring}</publicKeyring>
+                            <keyname>${sign.keyname}</keyname>
+                            <passphrase>${sign.passphrase}</passphrase>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>build-testjar</id>
