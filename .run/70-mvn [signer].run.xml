@@ -1,12 +1,16 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="85-mvn [deploy]" type="MavenRunConfiguration" factoryName="Maven" folderName="global-pom">
+    <configuration default="false" name="70-mvn [signer]" type="MavenRunConfiguration" factoryName="Maven">
         <MavenSettings>
             <option name="myGeneralSettings"/>
             <option name="myRunnerSettings">
                 <MavenRunnerSettings>
                     <option name="delegateBuildToMaven" value="false"/>
                     <option name="environmentProperties">
-                        <map/>
+                        <map>
+                            <entry key="SIGN_ALIAS" value="$IJ_SIGN_ALIAS$"/>
+                            <entry key="SIGN_KEYSTORE" value="c:\data\zzz_config\coding\sign-jks\sign-coding.jks"/>
+                            <entry key="SIGN_STOREPASS" value="$IJ_SIGN_STOREPASS$"/>
+                        </map>
                     </option>
                     <option name="jreName" value="#USE_PROJECT_JDK"/>
                     <option name="mavenProperties">
@@ -17,12 +21,12 @@
                             <entry key="sign.passphrase" value="${IJ_SIGN_PASSPHRASE}"/>
                             <entry key="sign.publicKeyring" value="${IJ_SIGN_PUBRING}"/>
                             <entry key="sign.secretKeyring" value="${IJ_SIGN_SECRING}"/>
-                            <entry key="skipITs" value="true"/>
+                            <entry key="skipITs" value="false"/>
                         </map>
                     </option>
                     <option name="passParentEnv" value="true"/>
                     <option name="runMavenInBackground" value="true"/>
-                    <option name="skipTests" value="true"/>
+                    <option name="skipTests" value="false"/>
                     <option name="vmOptions" value=""/>
                 </MavenRunnerSettings>
             </option>
@@ -33,14 +37,14 @@
                     </option>
                     <option name="goals">
                         <list>
-                            <option value="deploy"/>
+                            <option value="clean"/>
+                            <option value="verify"/>
                         </list>
                     </option>
                     <option name="pomFileName"/>
                     <option name="profilesMap">
                         <map>
-                            <entry key="artifact-release" value="true"/>
-                            <entry key="build-$IJ_SIGN_ALIAS$" value="true"/>
+                            <entry key="build-signer" value="true"/>
                         </map>
                     </option>
                     <option name="resolveToWorkspace" value="true"/>
