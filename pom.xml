@@ -414,6 +414,11 @@
                 <!-- 3rd Party Plugins -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
@@ -481,6 +486,12 @@
                         <id>default-integration-test</id>
                         <goals>
                             <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>10-default-verify</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
                             <goal>verify</goal>
                         </goals>
                     </execution>
@@ -511,6 +522,26 @@
             </plugin>
 
             <!-- 3rd Party Plugins -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>regex-property</goal>
+                        </goals>
+                        <configuration>
+                            <name>clean.cleaned</name>
+                            <value>true</value>
+                            <regex>false</regex>
+                            <replacement>false</replacement>
+                            <failIfNoMatch>false</failIfNoMatch>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -769,6 +800,10 @@
                                 <configuration>
                                     <failFast>true</failFast>
                                     <rules>
+                                        <requireProperty>
+                                            <property>clean.cleaned</property>
+                                            <message>Add life-cycle 'clean' to perfom signing!</message>
+                                        </requireProperty>
                                         <requireFilesExist>
                                             <message>This files must exists:
                                                 sign.keystore : ${sign.keystore}
@@ -804,23 +839,23 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>10-generate-jar-sign</id>
-                                <phase>package</phase>
+                                <id>80-generate-jar-sign</id>
+                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
                                 <configuration>
-                                    <verbose>true</verbose>
+                                    <verbose>false</verbose>
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>20-validate-jar-sign</id>
-                                <phase>package</phase>
+                                <id>85-validate-jar-sign</id>
+                                <phase>verify</phase>
                                 <goals>
                                     <goal>verify</goal>
                                 </goals>
                                 <configuration>
-                                    <verbose>true</verbose>
+                                    <verbose>false</verbose>
                                 </configuration>
                             </execution>
                         </executions>
@@ -856,6 +891,10 @@
                                 <configuration>
                                     <failFast>true</failFast>
                                     <rules>
+                                        <requireProperty>
+                                            <property>clean.cleaned</property>
+                                            <message>Add life-cycle 'clean' to perfom signing!</message>
+                                        </requireProperty>
                                         <requireFilesExist>
                                             <files>
                                                 <file>${sign.exec}</file>
@@ -898,7 +937,7 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>10-generate-asc-signature</id>
+                                <id>90-generate-asc-signature</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
@@ -1023,7 +1062,7 @@
                                 </goals>
                             </execution>
                             <execution>
-                                <id>90-verify-artifacts</id>
+                                <id>95-verify-artifacts</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>check</goal>
