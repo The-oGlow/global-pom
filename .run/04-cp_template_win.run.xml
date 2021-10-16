@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="04-cp_template_win" type="BatchConfigurationType" factoryName="Batch" folderName="global-pom">
+        <module name="global-pom"/>
+        <option name="INTERPRETER_OPTIONS" value=""/>
+        <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$"/>
+        <option name="PARENT_ENVS" value="true"/>
+        <option name="SCRIPT_NAME" value="cmd /c"/>
+        <option name="PARAMETERS"
+                value="&quot;if not exist &quot;%USERPROFILE%\.dev-env.bat&quot; (copy &quot;.\.mvn\.dev-env.tpl.bat&quot; &quot;%USERPROFILE%\.dev-env.bat&quot;)&quot;"/>
+        <method v="2"/>
+    </configuration>
+</component>
