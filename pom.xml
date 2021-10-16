@@ -262,6 +262,11 @@
 
     <repositories>
         <repository>
+            <id>coding.central</id>
+            <name>Central is the 1st in row.</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
             <id>coding.read</id>
             <name>CoDinG Group</name>
             <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
@@ -408,6 +413,11 @@
 
                 <!-- 3rd Party Plugins -->
                 <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+                <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.7</version>
@@ -416,6 +426,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
                     <version>2.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.simplify4u.plugins</groupId>
+                    <artifactId>pgpverify-maven-plugin</artifactId>
+                    <version>1.14.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -481,25 +496,6 @@
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <failOnError>false</failOnError>
-                    <failOnWarnings>false</failOnWarnings>
-                    <additionalOptions>-Xdoclint:none</additionalOptions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar</goal>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -585,6 +581,26 @@
     <reporting>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>default-javadoc</id>
+                        <reports>
+                            <report>javadoc-no-fork</report>
+                            <report>aggregate-no-fork</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>default-test-javadoc</id>
+                        <reports>
+                            <report>test-javadoc-no-fork</report>
+                            <report>test-aggregate-no-fork</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <reportSets>
@@ -605,6 +621,64 @@
     </reporting>
 
     <profiles>
+        <!-- -->
+        <profile>
+            <id>active-on-windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <script.to.execute>/C "if exist "%USERPROFILE%\.dev-env.bat" ("%USERPROFILE%\.dev-env.bat")"</script.to.execute>
+                <script.executor>cmd.exe</script.executor>
+            </properties>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>active-on-unix</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <script.to.execute>-c "test -f ~/.dev-env.sh &amp;&amp; ~/.dev-env.sh"</script.to.execute>
+                <script.executor>sh</script.executor>
+            </properties>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>activate-dev-settings</id>
+            <activation>
+                <property>
+                    <name>!unsetDefaultProfile</name>
+                </property>
+            </activation>
+            <build>
+                <defaultGoal>exec:exec</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <configuration>
+                            <executable>${script.executor}</executable>
+                            <commandlineArgs>${script.to.execute}</commandlineArgs>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>00-init-dev-settings</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- -->
         <profile>
             <id>addMoreRepos</id>
             <repositories>
@@ -620,26 +694,7 @@
                 </repository>
             </repositories>
         </profile>
-        <profile>
-            <id>show-env</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-help-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>show-env</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>system</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+        <!-- -->
         <profile>
             <id>artifact-release</id>
             <build>
@@ -651,17 +706,10 @@
                             <updateReleaseInfo>true</updateReleaseInfo>
                         </configuration>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
+        <!-- -->
         <profile>
             <id>build-javadoc</id>
             <build>
@@ -669,34 +717,36 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <failOnWarnings>false</failOnWarnings>
+                            <additionalOptions>-Xdoclint:none</additionalOptions>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                    <goal>test-jar</goal>
+                                </goals>
+                            </execution>
+                            <!--
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>aggregate</goal>
+                                    <goal>test-aggregate-jar</goal>
+                                </goals>
+                            </execution>
+                            -->
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
-            <reporting>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <reportSets>
-                            <reportSet>
-                                <id>html</id>
-                                <reports>
-                                    <report>javadoc</report>
-                                    <report>aggregate</report>
-                                </reports>
-                            </reportSet>
-                            <reportSet>
-                                <id>test-html</id>
-                                <reports>
-                                    <report>test-javadoc</report>
-                                    <report>test-aggregate</report>
-                                </reports>
-                            </reportSet>
-                        </reportSets>
-                    </plugin>
-                </plugins>
-            </reporting>
         </profile>
+        <!-- -->
         <profile>
             <id>build-signer</id>
             <properties>
@@ -711,8 +761,8 @@
                         <artifactId>maven-enforcer-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>sign-keystore-exist</id>
-                                <phase>verify</phase>
+                                <id>09-generate-jar-sign-prepare</id>
+                                <phase>generate-sources</phase>
                                 <goals>
                                     <goal>enforce</goal>
                                 </goals>
@@ -720,10 +770,25 @@
                                     <failFast>true</failFast>
                                     <rules>
                                         <requireFilesExist>
+                                            <message>This files must exists:
+                                                sign.keystore : ${sign.keystore}
+                                            </message>
                                             <files>
                                                 <file>${sign.keystore}</file>
                                             </files>
                                         </requireFilesExist>
+                                        <requireProperty>
+                                            <property>sign.storepass</property>
+                                            <message>This variables must be set:
+                                                sign.storepass : ${sign.storepass}
+                                            </message>
+                                        </requireProperty>
+                                        <requireProperty>
+                                            <property>sign.alias</property>
+                                            <message>This variables must be set:
+                                                sign.alias : ${sign.alias}
+                                            </message>
+                                        </requireProperty>
                                     </rules>
                                 </configuration>
                             </execution>
@@ -739,22 +804,31 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>sign</id>
+                                <id>10-generate-jar-sign</id>
+                                <phase>package</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <verbose>true</verbose>
+                                </configuration>
                             </execution>
                             <execution>
-                                <id>verify</id>
+                                <id>20-validate-jar-sign</id>
+                                <phase>package</phase>
                                 <goals>
                                     <goal>verify</goal>
                                 </goals>
+                                <configuration>
+                                    <verbose>true</verbose>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
+        <!-- -->
         <profile>
             <id>build-signature</id>
             <properties>
@@ -774,8 +848,8 @@
                         <artifactId>maven-enforcer-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>sign-artifact-exist</id>
-                                <phase>verify</phase>
+                                <id>09-generate-asc-signature-prepare</id>
+                                <phase>generate-sources</phase>
                                 <goals>
                                     <goal>enforce</goal>
                                 </goals>
@@ -788,7 +862,24 @@
                                                 <file>${sign.homedir}</file>
                                                 <file>${sign.homedir}/${sign.publicKeyring}</file>
                                             </files>
+                                            <message>This files must exists:
+                                                sign.exec : ${sign.exec}
+                                                sign.homedir : ${sign.homedir}
+                                                sign.publicKeyring : ${sign.publicKeyring}
+                                            </message>
                                         </requireFilesExist>
+                                        <requireProperty>
+                                            <property>sign.keyname</property>
+                                            <message>This variables must be set:
+                                                sign.keyname : ${sign.keyname}
+                                            </message>
+                                        </requireProperty>
+                                        <requireProperty>
+                                            <property>sign.passphrase</property>
+                                            <message>This variables must be set:
+                                                sign.passphrase : ${sign.passphrase}
+                                            </message>
+                                        </requireProperty>
                                     </rules>
                                 </configuration>
                             </execution>
@@ -807,7 +898,7 @@
                         </configuration>
                         <executions>
                             <execution>
-                                <id>sign-artifacts</id>
+                                <id>10-generate-asc-signature</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
@@ -818,6 +909,7 @@
                 </plugins>
             </build>
         </profile>
+        <!-- -->
         <profile>
             <id>build-testjar</id>
             <build>
@@ -849,6 +941,7 @@
                 </plugins>
             </build>
         </profile>
+        <!-- -->
         <profile>
             <id>license-header</id>
             <build>
@@ -875,6 +968,65 @@
                                 <phase>process-sources</phase>
                                 <goals>
                                     <goal>update-file-header</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>show-env</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-help-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>show-env</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>system</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- -->
+        <profile>
+            <id>verify-signature</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.simplify4u.plugins</groupId>
+                        <artifactId>pgpverify-maven-plugin</artifactId>
+                        <configuration>
+                            <failWeakSignature>false</failWeakSignature>
+                            <verifyPlugins>true</verifyPlugins>
+                            <verifyAtypical>true</verifyAtypical>
+                            <verifyPluginDependencies>true</verifyPluginDependencies>
+                            <verifyPomFiles>true</verifyPomFiles>
+                            <verifyProvidedDependencies>false</verifyProvidedDependencies>
+                            <verifyReactorDependencies>true</verifyReactorDependencies>
+                            <verifySnapshots>false</verifySnapshots>
+                            <verifySystemDependencies>true</verifySystemDependencies>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-cli</id>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>90-verify-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
                                 </goals>
                             </execution>
                         </executions>
