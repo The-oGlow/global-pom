@@ -14,7 +14,6 @@ variables:
   MVN_USR_HOME: /root/.m2
   MVN_TEST_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -P!build-signature -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
   MVN_CLI_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -P!build-signature -DskipTests -DskipITs
-  FIND_OPTS: -type d ! -regex ".+\.repo.*" -regex ".+\.git.*" -print
 
 cache:
   key: $CI_PROJECT_PATH_SLUG
@@ -28,7 +27,7 @@ cache:
 
 .show_build: &show_build
   - echo "show_build"
-  - find $CI_BUILDS_DIR $FIND_OPTS
+  - find $CI_BUILDS_DIR -type d ! -regex ".+\.repo.*" -regex ".+\.git.*" -print
 
 .show_repo: &show_repo
   - echo "show_repo"
