@@ -686,11 +686,6 @@
         <!-- -->
         <profile>
             <id>activate-dev-settings</id>
-            <activation>
-                <property>
-                    <name>!unsetDefaultProfile</name>
-                </property>
-            </activation>
             <build>
                 <defaultGoal>exec:exec</defaultGoal>
                 <plugins>
