@@ -14,10 +14,10 @@ variables:
   MVN_USR_HOME: /root/.m2
   MVN_TEST_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
   MVN_CLI_OPTS: -B -fae -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo -DskipTests -DskipITs
+  FIND_OPTS: -type d ! -regex ".+\.repo.*" -regex ".+\.git.*" -print
 
 cache:
   key: $CI_PROJECT_PATH_SLUG
-  when: always
   paths:
     - $REPO_DIR
     - target
@@ -28,7 +28,7 @@ cache:
 
 .show_build: &show_build
   - echo "show_build"
-  - find $CI_BUILDS_DIR -type d -print
+  - find $CI_BUILDS_DIR $FIND_OPTS
 
 .show_repo: &show_repo
   - echo "show_repo"
@@ -53,5 +53,4 @@ build:
     - mvn $MVN_TEST_OPTS verify
     - mvn $MVN_CLI_OPTS deploy
   after_script:
-    - *show_repo
     - *show_build
