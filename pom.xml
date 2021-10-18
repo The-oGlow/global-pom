@@ -679,8 +679,8 @@
                 </os>
             </activation>
             <properties>
-                <script.to.execute>-c "test -f ~/.dev-env.sh &amp;&amp; ~/.dev-env.sh"</script.to.execute>
-                <script.executor>sh</script.executor>
+                <script.to.execute>-c "test -f ${HOME}/.dev-env.sh &amp;&amp; ${HOME}/.dev-env.sh"</script.to.execute>
+                <script.executor>/bin/sh</script.executor>
             </properties>
         </profile>
         <!-- -->
