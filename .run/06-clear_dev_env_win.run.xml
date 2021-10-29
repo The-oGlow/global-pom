@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="06-clear_dev_env_win" type="BatchConfigurationType" factoryName="Batch" folderName="global-pom">
+    <configuration default="false" name="06-clear_dev_env_win" type="BatchConfigurationType" factoryName="Batch" folderName="global-pom-prepare-win">
         <module name="global-pom"/>
         <option name="INTERPRETER_OPTIONS" value=""/>
         <option name="WORKING_DIRECTORY" value=""/>

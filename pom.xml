@@ -12,11 +12,11 @@
 
     <groupId>com.glowa-net.maven.parent</groupId>
     <artifactId>global-pom</artifactId>
-    <version>0.2.3-SNAPSHOT</version>
+    <version>2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Global POM</name>
-    <description>The main pom for all my maven artifacts.</description>
+    <description>The base pom 4 everything. Use the child-pom's as parent 4 ur artifact.</description>
     <url>http://www.glowa-net.com</url>
     <inceptionYear>2020</inceptionYear>
 
@@ -49,34 +49,42 @@
     </developers>
 
     <scm>
+        <!-- scm-connections are defined as constant -->
         <connection>scm:git:git://gitlab.com/ollily/global-pom.git</connection>
         <developerConnection>scm:git:git@gitlab.com:ollily/global-pom.git</developerConnection>
-        <url>https://gitlab.com/ollily/global-pom</url>
+        <url>https://gitlab.com/ollily/${project.artifactId}</url>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
-        <system>GitLab Issues</system>
-        <url>https://gitlab.com/ollily/global-pom/-/issues</url>
+        <system>GitLab Issues 4 ${project.name}</system>
+        <url>https://gitlab.com/ollily/${project.artifactId}/-/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>gitlab</system>
-        <url>https://gitlab.com/ollily/global-pom/-/pipelines</url>
+        <url>https://gitlab.com/ollily/${project.artifactId}/-/pipelines</url>
     </ciManagement>
 
     <distributionManagement>
         <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
         <repository>
             <id>coding.deploy</id>
+            <name>Coding Release Repository</name>
             <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
             <uniqueVersion>false</uniqueVersion>
         </repository>
         <snapshotRepository>
             <id>coding.deploy</id>
+            <name>Coding Snapshot Repository</name>
             <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
             <uniqueVersion>true</uniqueVersion>
         </snapshotRepository>
+        <site>
+            <id>coding.site</id>
+            <name>Coding Site</name>
+            <url>scm:git:git://gitlab.com/ollily/${project.artifactId}</url>
+        </site>
     </distributionManagement>
 
     <properties>
@@ -91,12 +99,16 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
+        <!-- Maven Plugin Versions -->
+        <org.apache.maven.fluido.skin.version>1.9</org.apache.maven.fluido.skin.version>
+
         <!-- 3rd Party Dependencies Versions -->
         <ch.qos.logback.version>1.2.3</ch.qos.logback.version>
         <junit.version>4.13</junit.version>
         <log4j2.version>2.11.2</log4j2.version>
         <org.apache.commons.lang3.version>3.9</org.apache.commons.lang3.version>
         <org.apache.logging.log4j.version>2.2</org.apache.logging.log4j.version>
+        <org.asciidoctor.asciidoctor.version>2.2.1</org.asciidoctor.asciidoctor.version>
         <org.easymock.version>4.3</org.easymock.version>
         <org.hamcrest.version>2.2</org.hamcrest.version>
         <org.hamcrest.java-hamcrest.version>2.0.0.0</org.hamcrest.java-hamcrest.version>
@@ -105,6 +117,12 @@
         <org.powermock.mockito2.version>2.0.6</org.powermock.mockito2.version>
         <org.slf4j.version>1.7.25</org.slf4j.version>
         <org.springframework.version>5.1.14.RELEASE</org.springframework.version>
+
+        <!-- Plugin Properties -->
+        <site.image.folder>images</site.image.folder>
+        <site.image.logo.folder>${site.image.folder}/logos</site.image.logo.folder>
+        <site.organization.logo.filename>logo-${project.organization.name}.jpg</site.organization.logo.filename>
+        <site.project.logo.filename>logo-module.jpg</site.project.logo.filename>
 
         <!-- Jacoco Properties -->
         <jacoco.destFolder>${project.build.directory}/jacoco</jacoco.destFolder>
@@ -123,7 +141,7 @@
         <!-- Sonar Properties -->
         <sonar.organization>ollily</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.projectKey>ollily_global-pom</sonar.projectKey>
+        <sonar.projectKey>ollily_${project.artifactId}</sonar.projectKey>
         <!-- -->
         <sonar.scm.provider>git</sonar.scm.provider>
         <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
@@ -253,11 +271,12 @@
                 <artifactId>spring-test</artifactId>
                 <version>${org.springframework.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
-        <!-- No dependency is allowed to defined here! -->
+        <!-- Dependencies must not be defined here! -->
     </dependencies>
 
     <repositories>
@@ -299,6 +318,16 @@
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>coding.central</id>
+            <name>Central is the 1st in row.</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+        </pluginRepository>
         <pluginRepository>
             <id>coding.read</id>
             <name>CoDinG Group</name>
@@ -356,6 +385,11 @@
                     <version>2.22.2</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.skins</groupId>
+                    <artifactId>maven-fluido-skin</artifactId>
+                    <version>${org.apache.maven.fluido.skin.version}</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>3.0.1</version>
@@ -387,6 +421,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.1.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
                 </plugin>
@@ -403,7 +442,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.7.1</version>
+                    <version>3.9.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -417,6 +456,12 @@
                 </plugin>
 
                 <!-- 3rd Party Plugins -->
+                <!-- Other Dependencies -->
+                <plugin>
+                    <groupId>org.asciidoctor</groupId>
+                    <artifactId>asciidoctor-maven-plugin</artifactId>
+                    <version>${org.asciidoctor.asciidoctor.version}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
@@ -442,6 +487,11 @@
                     <artifactId>pgpverify-maven-plugin</artifactId>
                     <version>1.14.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.doxia</groupId>
+                    <artifactId>doxia-sitetools</artifactId>
+                    <version>1.10</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -449,8 +499,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -525,8 +573,32 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <generateSitemap>true</generateSitemap>
+                    <locales>en,de</locales>
+                    <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <version>${org.asciidoctor.asciidoctor.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
             <!-- 3rd Party Plugins -->
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <configuration>
+                    <attributes>
+                        <showtitle/>
+                    </attributes>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -543,6 +615,33 @@
                             <regex>false</regex>
                             <replacement>false</replacement>
                             <failIfNoMatch>false</failIfNoMatch>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-snapshot</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>regex-properties</goal>
+                        </goals>
+                        <configuration>
+                            <regexPropertySettings>
+                                <regexPropertySetting>
+                                    <name>release.isrelease</name>
+                                    <value>${project.version} true false</value>
+                                    <regex>(?!.*SNAPSHOT).*(true).*|.*(false).*</regex>
+                                    <replacement>$1$2</replacement>
+                                    <failIfNoMatch>false</failIfNoMatch>
+                                    <toLowerCase>true</toLowerCase>
+                                </regexPropertySetting>
+                                <regexPropertySetting>
+                                    <name>release.issnapshot</name>
+                                    <value>${project.version} true false</value>
+                                    <regex>(?=.*SNAPSHOT).*(true).*|.*(false).*</regex>
+                                    <replacement>$1$2</replacement>
+                                    <failIfNoMatch>false</failIfNoMatch>
+                                    <toLowerCase>true</toLowerCase>
+                                </regexPropertySetting>
+                            </regexPropertySettings>
                         </configuration>
                     </execution>
                 </executions>
@@ -637,6 +736,26 @@
                 </reportSets>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependencies</report>
+                            <report>dependency-info</report>
+                            <report>dependency-management</report>
+                            <report>distribution-management</report>
+                            <report>index</report>
+                            <report>issue-management</report>
+                            <report>licenses</report>
+                            <report>modules</report>
+                            <report>summary</report>
+                            <report>team</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <reportSets>
@@ -666,7 +785,7 @@
                 </os>
             </activation>
             <properties>
-                <script.to.execute>/C "if exist "%USERPROFILE%\.dev-env.bat" ("%USERPROFILE%\.dev-env.bat")"</script.to.execute>
+                <script.to.execute>/C "if exist "${user.home}\.dev-env.bat" ("${user.home}\.dev-env.bat")"</script.to.execute>
                 <script.executor>cmd.exe</script.executor>
             </properties>
         </profile>
@@ -679,7 +798,7 @@
                 </os>
             </activation>
             <properties>
-                <script.to.execute>-c "test -f ${HOME}/.dev-env.sh &amp;&amp; ${HOME}/.dev-env.sh"</script.to.execute>
+                <script.to.execute>-c "test -f "${user.home}/.dev-env.sh" &amp;&amp; "${user.home}/.dev-env.sh""</script.to.execute>
                 <script.executor>/bin/sh</script.executor>
             </properties>
         </profile>
@@ -711,22 +830,6 @@
         </profile>
         <!-- -->
         <profile>
-            <id>addMoreRepos</id>
-            <repositories>
-                <repository>
-                    <id>JBoss</id>
-                    <name>JBoss Repository</name>
-                    <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
-                </repository>
-                <repository>
-                    <id>JBoss-Group</id>
-                    <name>JBoss Public Group</name>
-                    <url>https://repository.jboss.org/nexus/content/groups/public</url>
-                </repository>
-            </repositories>
-        </profile>
-        <!-- -->
-        <profile>
             <id>artifact-release</id>
             <build>
                 <plugins>
@@ -742,138 +845,20 @@
         </profile>
         <!-- -->
         <profile>
-            <id>build-javadoc</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                            <failOnWarnings>false</failOnWarnings>
-                            <additionalOptions>-Xdoclint:none</additionalOptions>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                    <goal>test-jar</goal>
-                                </goals>
-                            </execution>
-                            <!--
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>aggregate</goal>
-                                    <goal>test-aggregate-jar</goal>
-                                </goals>
-                            </execution>
-                            -->
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- -->
-        <profile>
-            <id>build-signer</id>
-            <properties>
-                <sign.keystore>${env.SIGN_KEYSTORE}</sign.keystore>
-                <sign.storepass>${env.SIGN_STOREPASS}</sign.storepass>
-                <sign.alias>${env.SIGN_ALIAS}</sign.alias>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>09-generate-jar-sign-prepare</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                                <configuration>
-                                    <failFast>true</failFast>
-                                    <rules>
-                                        <requireProperty>
-                                            <property>clean.cleaned</property>
-                                            <message>Add life-cycle 'clean' to perfom signing!</message>
-                                        </requireProperty>
-                                        <requireFilesExist>
-                                            <message>This files must exists:
-                                                sign.keystore : ${sign.keystore}
-                                            </message>
-                                            <files>
-                                                <file>${sign.keystore}</file>
-                                            </files>
-                                        </requireFilesExist>
-                                        <requireProperty>
-                                            <property>sign.storepass</property>
-                                            <message>This variables must be set:
-                                                sign.storepass : ${sign.storepass}
-                                            </message>
-                                        </requireProperty>
-                                        <requireProperty>
-                                            <property>sign.alias</property>
-                                            <message>This variables must be set:
-                                                sign.alias : ${sign.alias}
-                                            </message>
-                                        </requireProperty>
-                                    </rules>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jarsigner-plugin</artifactId>
-                        <configuration>
-                            <keystore>${sign.keystore}</keystore>
-                            <storepass>${sign.storepass}</storepass>
-                            <alias>${sign.alias}</alias>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>80-generate-jar-sign</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <configuration>
-                                    <verbose>false</verbose>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>85-validate-jar-sign</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <verbose>false</verbose>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- -->
-        <profile>
             <id>build-signature</id>
             <properties>
                 <!-- GPG Properties -->
+                <!--suppress UnresolvedMavenProperty -->
                 <sign.exec>${env.SIGN_EXEC}</sign.exec>
+                <!--suppress UnresolvedMavenProperty -->
                 <sign.homedir>${env.SIGN_HOMEDIR}</sign.homedir>
-                <sign.defaultKeyring>false</sign.defaultKeyring>
+                <!--suppress UnresolvedMavenProperty -->
                 <sign.publicKeyring>${env.SIGN_PUBRING}</sign.publicKeyring>
+                <!--suppress UnresolvedMavenProperty -->
                 <sign.secretKeyring>${env.SIGN_SECRING}</sign.secretKeyring>
+                <!--suppress UnresolvedMavenProperty -->
                 <sign.keyname>${env.SIGN_KEYNAME}</sign.keyname>
+                <!--suppress UnresolvedMavenProperty -->
                 <sign.passphrase>${env.SIGN_PASSPHRASE}</sign.passphrase>
             </properties>
             <build>
@@ -901,7 +886,7 @@
                                                 <file>${sign.homedir}</file>
                                                 <file>${sign.homedir}/${sign.publicKeyring}</file>
                                             </files>
-                                            <message>This files must exists:
+                                            <message>This file must exist:
                                                 sign.exec : ${sign.exec}
                                                 sign.homedir : ${sign.homedir}
                                                 sign.publicKeyring : ${sign.publicKeyring}
@@ -909,13 +894,13 @@
                                         </requireFilesExist>
                                         <requireProperty>
                                             <property>sign.keyname</property>
-                                            <message>This variables must be set:
+                                            <message>This variable must be set:
                                                 sign.keyname : ${sign.keyname}
                                             </message>
                                         </requireProperty>
                                         <requireProperty>
                                             <property>sign.passphrase</property>
-                                            <message>This variables must be set:
+                                            <message>This variable must be set:
                                                 sign.passphrase : ${sign.passphrase}
                                             </message>
                                         </requireProperty>
@@ -930,7 +915,7 @@
                         <configuration>
                             <executable>${sign.exec}</executable>
                             <homedir>${sign.homedir}</homedir>
-                            <defaultKeyring>${sign.defaultKeyring}</defaultKeyring>
+                            <defaultKeyring>false</defaultKeyring>
                             <publicKeyring>${sign.publicKeyring}</publicKeyring>
                             <keyname>${sign.keyname}</keyname>
                             <passphrase>${sign.passphrase}</passphrase>
@@ -941,93 +926,6 @@
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- -->
-        <profile>
-            <id>build-testjar</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>test-jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>test-jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- -->
-        <profile>
-            <id>license-header</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>license-maven-plugin</artifactId>
-                        <configuration>
-                            <licenseName>apache_v2</licenseName>
-                            <roots>
-                                <root>src/main/java</root>
-                                <root>src/test/java</root>
-                            </roots>
-                            <includes>
-                                <include>**/*.java</include>
-                            </includes>
-                            <canUpdateCopyright>true</canUpdateCopyright>
-                            <canUpdateLicense>true</canUpdateLicense>
-                            <canUpdateDescription>true</canUpdateDescription>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>first</id>
-                                <phase>process-sources</phase>
-                                <goals>
-                                    <goal>update-file-header</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- -->
-        <profile>
-            <id>show-env</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-help-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>show-env</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>system</goal>
                                 </goals>
                             </execution>
                         </executions>
