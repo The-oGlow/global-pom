@@ -48,6 +48,8 @@
         </developer>
     </developers>
 
+    <mailingLists/>
+
     <scm>
         <!-- scm-connections are defined as constant -->
         <connection>scm:git:git://gitlab.com/ollily/global-pom.git</connection>

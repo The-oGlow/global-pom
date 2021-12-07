@@ -1,0 +1,18 @@
+= Introduction
+:title:XXXX
+:site_resource: ../resources
+include::{site_resource}/proj-common.adoc[opts=optional]
+
+Lorem ipsum, etc.
+
+== History
+
+.History
+[cols="^1,>2",%autowidth.stretch,grid=rows,frame=none,stripes=even]
+|===
+|Version |Release Date
+
+|1 |never
+|2 |2021-11-dd
+|===
+

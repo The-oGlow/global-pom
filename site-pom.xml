@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.glowa-net.maven.parent</groupId>
+        <artifactId>global-pom</artifactId>
+        <version>2-SNAPSHOT</version>
+        <relativePath>./pom.xml</relativePath>
+    </parent>
+
+    <artifactId>global-pom.</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Global POM</name>
+
+    <properties>
+        <maven.test.skip>true</maven.test.skip>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <siteDirectory>${basedir}/src/site-docs</siteDirectory>
+                    <outputDirectory>${project.build.directory}/site-docs</outputDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

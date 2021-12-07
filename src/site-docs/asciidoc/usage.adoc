@@ -1,10 +1,12 @@
-= Introduction
-:title:XXXX
+= Usage
+:showtitle: ''
 :site_resource: ../resources
 include::{site_resource}/proj-common.adoc[opts=optional]
 
-Lorem ipsum, etc.
+== Header 1
 
-== Further Information
+=== Header 1.1
 
-Lorem ipsum, etc.
+== Header 2
+
+=== Header 2.1
