@@ -6,7 +6,7 @@
         <option name="PARENT_ENVS" value="true"/>
         <option name="SCRIPT_NAME" value="cmd /c"/>
         <option name="PARAMETERS"
-                value="&quot;if not exist &quot;%USERPROFILE%\.dev-env.bat&quot; (copy &quot;.\.mvn\.dev-env.tpl.bat&quot; &quot;%USERPROFILE%\.dev-env.bat&quot;)&quot;"/>
+                value="&quot;if not exist &quot;%USERPROFILE%\.sign-env.bat&quot; (copy &quot;.\.mvn\.sign-env.tpl.bat&quot; &quot;%USERPROFILE%\.sign-env.bat&quot;)&quot;"/>
         <method v="2"/>
     </configuration>
 </component>

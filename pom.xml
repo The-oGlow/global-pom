@@ -787,7 +787,7 @@
                 </os>
             </activation>
             <properties>
-                <script.to.execute>/C "if exist "${user.home}\.dev-env.bat" ("${user.home}\.dev-env.bat")"</script.to.execute>
+                <script.to.execute>/C "if exist "${user.home}\.sign-env.bat" ("${user.home}\.sign-env.bat")"</script.to.execute>
                 <script.executor>cmd.exe</script.executor>
             </properties>
         </profile>
@@ -800,30 +800,30 @@
                 </os>
             </activation>
             <properties>
-                <script.to.execute>-c "test -f "${user.home}/.dev-env.sh" &amp;&amp; "${user.home}/.dev-env.sh""</script.to.execute>
+                <script.to.execute>-c "test -f "${user.home}/.sign-env.sh" &amp;&amp; "${user.home}/.sign-env.sh""</script.to.execute>
                 <script.executor>/bin/sh</script.executor>
             </properties>
         </profile>
         <!-- -->
         <profile>
-            <id>activate-dev-settings</id>
+            <id>activate-sign-settings</id>
             <build>
                 <defaultGoal>exec:exec</defaultGoal>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <configuration>
-                            <executable>${script.executor}</executable>
-                            <commandlineArgs>${script.to.execute}</commandlineArgs>
-                        </configuration>
                         <executions>
                             <execution>
-                                <id>00-init-dev-settings</id>
+                                <id>00-init-sign-settings</id>
                                 <phase>validate</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                                <configuration>
+                                    <executable>${script.executor}</executable>
+                                    <commandlineArgs>${script.to.execute}</commandlineArgs>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

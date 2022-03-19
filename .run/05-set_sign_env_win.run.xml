@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="06-clear_dev_env_win" type="BatchConfigurationType" factoryName="Batch" folderName="global-pom-prepare-win">
+    <configuration default="false" name="05-set_sign_env_win" type="BatchConfigurationType" factoryName="Batch" folderName="global-pom-prepare-win">
         <module name="global-pom"/>
         <option name="INTERPRETER_OPTIONS" value=""/>
         <option name="WORKING_DIRECTORY" value=""/>
         <option name="PARENT_ENVS" value="true"/>
-        <option name="SCRIPT_NAME" value="%USERPROFILE%/.dev-env.bat"/>
-        <option name="PARAMETERS" value="-c"/>
+        <option name="SCRIPT_NAME" value="%USERPROFILE%/.sign-env.bat"/>
+        <option name="PARAMETERS" value=""/>
         <method v="2"/>
     </configuration>
 </component>

@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="06-clear_dev_env_unix" type="ShConfigurationType" folderName="global-pom-prepare-unix">
-        <option name="SCRIPT_TEXT" value="sh -c &quot;${HOME}/.dev-env.sh -c&quot;"/>
+    <configuration default="false" name="06-clear_sign_env_unix" type="ShConfigurationType" folderName="global-pom-prepare-unix">
+        <option name="SCRIPT_TEXT" value="sh -c &quot;${HOME}/.sign-env.sh -c&quot;"/>
         <option name="INDEPENDENT_SCRIPT_PATH" value="true"/>
-        <option name="SCRIPT_PATH" value="${HOME}/.dev-env.sh"/>
+        <option name="SCRIPT_PATH" value="${HOME}/.sign-env.sh"/>
         <option name="SCRIPT_OPTIONS" value=""/>
         <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="false"/>
         <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$"/>
