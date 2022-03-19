@@ -12,7 +12,7 @@
 
     <groupId>com.glowa-net.maven.parent</groupId>
     <artifactId>global-pom</artifactId>
-    <version>2</version>
+    <version>3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Global POM</name>
