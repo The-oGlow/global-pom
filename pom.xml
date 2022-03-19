@@ -294,7 +294,7 @@
         </repository>
         <repository>
             <id>coding.read</id>
-            <name>CoDinG Group</name>
+            <name>CoDinG</name>
             <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
             <releases>
                 <enabled>true</enabled>
@@ -303,12 +303,12 @@
             </releases>
             <snapshots>
                 <enabled>true</enabled>
-                <updatePolicy>interval:30</updatePolicy>
                 <checksumPolicy>ignore</checksumPolicy>
             </snapshots>
         </repository>
         <repository>
             <id>apache.snapshots</id>
+            <name>Apache Schnappi</name>
             <url>https://repository.apache.org/snapshots</url>
             <releases>
                 <enabled>false</enabled>
