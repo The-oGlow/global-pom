@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.apache</groupId>
-        <artifactId>apache</artifactId>
-        <version>21</version>
-        <relativePath/>
-    </parent>
-
+    <!--
+        <parent>
+            <groupId>org.apache</groupId>
+            <artifactId>apache</artifactId>
+            <version>21</version>
+            <relativePath/>
+        </parent>
+    -->
     <groupId>com.glowa-net.maven.parent</groupId>
     <artifactId>global-pom</artifactId>
     <version>2</version>
@@ -67,28 +67,28 @@
         <system>gitlab</system>
         <url>https://gitlab.com/ollily/${project.artifactId}/-/pipelines</url>
     </ciManagement>
-
-    <distributionManagement>
-        <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
-        <repository>
-            <id>coding.deploy</id>
-            <name>Coding Release Repository</name>
-            <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <id>coding.deploy-ss</id>
-            <name>Awsome Snapshots</name>
-            <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-        <site>
-            <id>coding.site</id>
-            <name>Coding Site</name>
-            <url>scm:git:git://gitlab.com/ollily/${project.artifactId}</url>
-        </site>
-    </distributionManagement>
-
+    <!--
+        <distributionManagement>
+            <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
+            <repository>
+                <id>coding.deploy</id>
+                <name>Central Awesome Index</name>
+                <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
+                <uniqueVersion>true</uniqueVersion>
+            </repository>
+            <snapshotRepository>
+                <id>coding.deploy-ss</id>
+                <name>Awsome Snapshots</name>
+                <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
+                <uniqueVersion>false</uniqueVersion>
+            </snapshotRepository>
+            <site>
+                <id>coding.site</id>
+                <name>Coding Site</name>
+                <url>scm:git:git://gitlab.com/ollily/${project.artifactId}</url>
+            </site>
+        </distributionManagement>
+    -->
     <properties>
         <!-- Gitlab Properties -->
         <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
