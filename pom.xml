@@ -67,28 +67,28 @@
         <system>gitlab</system>
         <url>https://gitlab.com/ollily/${project.artifactId}/-/pipelines</url>
     </ciManagement>
-    <!--
-        <distributionManagement>
-            <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
-            <repository>
-                <id>coding.deploy</id>
-                <name>Central Awesome Index</name>
-                <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
-                <uniqueVersion>true</uniqueVersion>
-            </repository>
-            <snapshotRepository>
-                <id>coding.deploy-ss</id>
-                <name>Awsome Snapshots</name>
-                <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
-                <uniqueVersion>false</uniqueVersion>
-            </snapshotRepository>
-            <site>
-                <id>coding.site</id>
-                <name>Coding Site</name>
-                <url>scm:git:git://gitlab.com/ollily/${project.artifactId}</url>
-            </site>
-        </distributionManagement>
-    -->
+
+    <distributionManagement>
+        <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
+        <snapshotRepository>
+            <id>coding.deploy-ss</id>
+            <name>Awsome Snapshots</name>
+            <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+        <repository>
+            <id>coding.deploy</id>
+            <name>Central Awesome Index</name>
+            <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
+            <uniqueVersion>true</uniqueVersion>
+        </repository>
+        <site>
+            <id>coding.site</id>
+            <name>Coding Site</name>
+            <url>scm:git:git://gitlab.com/ollily/${project.artifactId}</url>
+        </site>
+    </distributionManagement>
+
     <properties>
         <!-- Gitlab Properties -->
         <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
@@ -332,7 +332,7 @@
         </pluginRepository>
         <pluginRepository>
             <id>coding.read</id>
-            <name>CoDinG Group</name>
+            <name>CoDinG</name>
             <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
             <releases>
                 <enabled>true</enabled>
