@@ -15,6 +15,7 @@
     <version>3-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <!-- Section Common -->
     <name>Global POM</name>
     <description>The base pom 4 everything. Use the child-pom's as parent 4 ur artifact.</description>
     <url>http://www.glowa-net.com</url>
@@ -89,6 +90,7 @@
         </site>
     </distributionManagement>
 
+    <!-- Section Properties -->
     <properties>
         <!-- Gitlab Properties -->
         <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
@@ -157,6 +159,7 @@
         </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
+    <!-- Section Dependencies -->
     <dependencyManagement>
         <dependencies>
             <!-- Test Dependencies -->
@@ -281,11 +284,17 @@
         <!-- Dependencies must not be defined here! -->
     </dependencies>
 
+    <!-- Section Repositories -->
     <repositories>
         <repository>
             <id>coding.central</id>
             <name>Central is the 1st in row.</name>
             <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
@@ -294,28 +303,18 @@
         </repository>
         <repository>
             <id>coding.read</id>
-            <name>CoDinG</name>
+            <name>Central Awsome Index</name>
             <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
                 <checksumPolicy>warn</checksumPolicy>
             </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <checksumPolicy>ignore</checksumPolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>apache.snapshots</id>
-            <name>Apache Schnappi</name>
-            <url>https://repository.apache.org/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
     </repositories>
 
@@ -324,6 +323,11 @@
             <id>coding.central</id>
             <name>Central is the 1st in row.</name>
             <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
@@ -332,21 +336,22 @@
         </pluginRepository>
         <pluginRepository>
             <id>coding.read</id>
-            <name>CoDinG</name>
+            <name>Central Awsome Index</name>
             <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </snapshots>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
                 <checksumPolicy>fail</checksumPolicy>
             </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>fail</checksumPolicy>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
+    <!-- Section Build -->
     <build>
         <pluginManagement>
             <!-- Maven Plugins -->
@@ -488,6 +493,11 @@
                     <groupId>org.simplify4u.plugins</groupId>
                     <artifactId>pgpverify-maven-plugin</artifactId>
                     <version>1.14.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>net.nicoulaj.maven.plugins</groupId>
+                    <artifactId>checksum-maven-plugin</artifactId>
+                    <version>1.10</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.doxia</groupId>
@@ -715,6 +725,7 @@
         </plugins>
     </build>
 
+    <!-- Section Reporting -->
     <reporting>
         <plugins>
             <plugin>
@@ -777,60 +788,49 @@
         </plugins>
     </reporting>
 
+    <!-- Section Profiles -->
     <profiles>
-        <!-- -->
+        <!--
+            Description     :   Add some additional repositories for artifact lookups
+         -->
         <profile>
-            <id>active-on-windows</id>
-            <activation>
-                <os>
-                    <family>windows</family>
-                </os>
-            </activation>
-            <properties>
-                <script.to.execute>/C "if exist "${user.home}\.sign-env.bat" ("${user.home}\.sign-env.bat")"</script.to.execute>
-                <script.executor>cmd.exe</script.executor>
-            </properties>
+            <id>more-repos</id>
+            <repositories>
+                <repository>
+                    <id>zzzz-jboss-group</id>
+                    <name>JBoss Central Mirror</name>
+                    <url>https://repository.jboss.org/nexus/content/groups/public</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </repository>
+                <repository>
+                    <id>zzzz-jboss</id>
+                    <name>JBoss Repository</name>
+                    <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </repository>
+            </repositories>
         </profile>
-        <!-- -->
-        <profile>
-            <id>active-on-unix</id>
-            <activation>
-                <os>
-                    <family>unix</family>
-                </os>
-            </activation>
-            <properties>
-                <script.to.execute>-c "test -f "${user.home}/.sign-env.sh" &amp;&amp; "${user.home}/.sign-env.sh""</script.to.execute>
-                <script.executor>/bin/sh</script.executor>
-            </properties>
-        </profile>
-        <!-- -->
-        <profile>
-            <id>activate-sign-settings</id>
-            <build>
-                <defaultGoal>exec:exec</defaultGoal>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>00-init-sign-settings</id>
-                                <phase>validate</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>${script.executor}</executable>
-                                    <commandlineArgs>${script.to.execute}</commandlineArgs>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- -->
+        <!--
+            Description     :   Will run when deploying artifact
+        -->
         <profile>
             <id>artifact-release</id>
             <build>
@@ -845,9 +845,70 @@
                 </plugins>
             </build>
         </profile>
-        <!-- -->
+        <!--
+            Description     :   Generate checksum & report for the artifact & dependencies
+            See             :   https://checksum-maven-plugin.nicoulaj.net/
+            Syntax          :   mvn -Pgenerate-checksum [-DskipTests -DskipITs] clean [verify|install|deploy]
+            Example         :   mvn -Pgenerate-checksum -DskipTests -DskipITs clean install
+         -->
         <profile>
-            <id>build-signature</id>
+            <id>generate-checksum</id>
+            <properties>
+                <checksum.summary-folder>checksum</checksum.summary-folder>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.nicoulaj.maven.plugins</groupId>
+                        <artifactId>checksum-maven-plugin</artifactId>
+                        <configuration>
+                            <algorithms>
+                                <algorithm>MD5</algorithm>
+                                <algorithm>SHA-1</algorithm>
+                                <algorithm>SHA-512</algorithm>
+                            </algorithms>
+                            <transitive>false</transitive>
+                            <failIfNoFiles>false</failIfNoFiles>
+                            <individualFilesOutputDirectory>checksum</individualFilesOutputDirectory>
+                            <appendFilename>true</appendFilename>
+                            <attachChecksums>true</attachChecksums>
+                            <individualFiles>true</individualFiles>
+                            <csvSummary>true</csvSummary>
+                            <xmlSummary>true</xmlSummary>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-cli</id>
+                                <goals>
+                                    <goal>artifacts</goal>
+                                    <goal>dependencies</goal>
+                                    <goal>files</goal>
+                                </goals>
+                                <configuration>
+                                    <fileSets>
+                                        <fileSet>
+                                            <directory>${project.build.directory}</directory>
+                                            <includes>
+                                                <include>${project.artifactId}-${project.version}-source-release.zip</include>
+                                                <include>${project.artifactId}-${project.version}-source-release.tar*</include>
+                                            </includes>
+                                        </fileSet>
+                                    </fileSets>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!--
+            Description     :   Generate a gpg-signature for the artifact
+            See             :   https://maven.apache.org/plugins/maven-gpg-plugin/
+            Syntax          :   mvn -Pgenerate-signature,artifact-release [-DskipTests -DskipITs] clean [verify|install|deploy]
+            Example         :   mvn -Pgenerate-signature,artifact-release -DskipTests -DskipITs clean install
+         -->
+        <profile>
+            <id>generate-signature</id>
             <properties>
                 <!-- GPG Properties -->
                 <!--suppress UnresolvedMavenProperty -->
@@ -880,7 +941,7 @@
                                     <rules>
                                         <requireProperty>
                                             <property>clean.cleaned</property>
-                                            <message>Add life-cycle 'clean' to perfom signing!</message>
+                                            <message>You must add life-cycle 'clean' when signing an artifact!</message>
                                         </requireProperty>
                                         <requireFilesExist>
                                             <files>
@@ -921,6 +982,9 @@
                             <publicKeyring>${sign.publicKeyring}</publicKeyring>
                             <keyname>${sign.keyname}</keyname>
                             <passphrase>${sign.passphrase}</passphrase>
+                            <gpgArguments>
+                                <arg>--digest-algo=SHA512</arg>
+                            </gpgArguments>
                         </configuration>
                         <executions>
                             <execution>
@@ -935,7 +999,37 @@
                 </plugins>
             </build>
         </profile>
-        <!-- -->
+        <!--
+            Description     :   List all environment variables
+            Syntax          :   mvn -Pshow-env validate
+         -->
+        <profile>
+            <id>show-env</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-help-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>show-env</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>system</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!--
+            Description     :   Checks the correctness of the gpg-signature of an artifact
+            See             :   https://www.simplify4u.org/pgpverify-maven-plugin/
+            Syntax 1        :   mvn -Pverify-signature validate
+            Syntax 2        :   mvn -Pverify-signature pgpverify:show -Dartifact=[g:a:v]
+            Example 2       :   mvn -Pverify-signature pgpverify:show -Dartifact=org.apache.commons:commons-lang3:3.9
+         -->
         <profile>
             <id>verify-signature</id>
             <build>

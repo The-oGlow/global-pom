@@ -6,7 +6,7 @@ if "%~1x" EQU "x" goto set_env
 :clear_env
 REM CLEAR SETTINGS
 REM =================
-REM build-signature
+REM generate-signature
 set SIGN_EXEC=
 set SIGN_HOMEDIR=
 set SIGN_PUBRING=
@@ -25,7 +25,7 @@ goto end_file
 :set_env
 REM SET SETTINGS
 REM =================
-REM build-signature
+REM generate-signature
 set SIGN_EXEC=%ProgramFiles(x86)%\GnuPG\bin\gpg.exe
 set SIGN_HOMEDIR=%USERPROFILE%\coding\sign
 set SIGN_PUBRING=signkeyring.gpg

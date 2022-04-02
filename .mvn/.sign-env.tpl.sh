@@ -4,7 +4,7 @@ echo unix-settings...
 # CLEAR SETTINGS
 # =================
 clear_env() {
-    # build-signature
+    # generate-signature
     SIGN_EXEC=
     SIGN_HOMEDIR=
     SIGN_PUBRING=
@@ -23,7 +23,7 @@ clear_env() {
 # SET SETTINGS
 # =================
 set_env() {
-    # build-signature
+    # generate-signature
     SIGN_EXEC=/bin/gpg
     SIGN_HOMEDIR=~/coding/sign
     SIGN_PUBRING=signkeyring.gpg
