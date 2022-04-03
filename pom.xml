@@ -497,7 +497,7 @@
                 <plugin>
                     <groupId>net.nicoulaj.maven.plugins</groupId>
                     <artifactId>checksum-maven-plugin</artifactId>
-                    <version>1.10</version>
+                    <version>1.11</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.doxia</groupId>
@@ -941,7 +941,10 @@
                                     <rules>
                                         <requireProperty>
                                             <property>clean.cleaned</property>
-                                            <message>You must add life-cycle 'clean' when signing an artifact!</message>
+                                            <message>You must add life-cycle 'clean' when signing an artifact!
+
+                                                See the 'README.adoc' in 'global-pom' for configuration.
+                                            </message>
                                         </requireProperty>
                                         <requireFilesExist>
                                             <files>
@@ -953,18 +956,24 @@
                                                 sign.exec : ${sign.exec}
                                                 sign.homedir : ${sign.homedir}
                                                 sign.publicKeyring : ${sign.publicKeyring}
+
+                                                See the 'README.adoc' in 'global-pom' for configuration.
                                             </message>
                                         </requireFilesExist>
                                         <requireProperty>
                                             <property>sign.keyname</property>
                                             <message>This variable must be set:
                                                 sign.keyname : ${sign.keyname}
+
+                                                See the 'README.adoc' in 'global-pom' for configuration.
                                             </message>
                                         </requireProperty>
                                         <requireProperty>
                                             <property>sign.passphrase</property>
                                             <message>This variable must be set:
                                                 sign.passphrase : ${sign.passphrase}
+
+                                                See the 'README.adoc' in 'global-pom' for configuration.
                                             </message>
                                         </requireProperty>
                                     </rules>
