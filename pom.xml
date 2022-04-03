@@ -848,8 +848,9 @@
         <!--
             Description     :   Generate checksum & report for the artifact & dependencies
             See             :   https://checksum-maven-plugin.nicoulaj.net/
-            Syntax          :   mvn -Pgenerate-checksum [-DskipTests -DskipITs] clean [verify|install|deploy]
-            Example         :   mvn -Pgenerate-checksum -DskipTests -DskipITs clean install
+            Syntax 1        :   mvn -Pgenerate-checksum clean [verify|install]
+            Syntax 2        :   mvn -Pgenerate-checksum,artifact-release clean deploy
+            Example 1       :   mvn -Pgenerate-checksum -DskipTests -DskipITs clean install
          -->
         <profile>
             <id>generate-checksum</id>
@@ -904,11 +905,12 @@
         <!--
             Description     :   Generate a gpg-signature for the artifact
             See             :   https://maven.apache.org/plugins/maven-gpg-plugin/
-            Syntax          :   mvn -Pgenerate-signature,artifact-release [-DskipTests -DskipITs] clean [verify|install|deploy]
-            Example         :   mvn -Pgenerate-signature,artifact-release -DskipTests -DskipITs clean install
+            Syntax 1        :   mvn -Pgenerate-gpgkey clean [verify|install]
+            Syntax 2        :   mvn -Pgenerate-gpgkey,artifact-release clean deploy
+            Example 1       :   mvn -Pgenerate-gpgkey -DskipTests -DskipITs clean install
          -->
         <profile>
-            <id>generate-signature</id>
+            <id>generate-gpgkey</id>
             <properties>
                 <!-- GPG Properties -->
                 <!--suppress UnresolvedMavenProperty -->

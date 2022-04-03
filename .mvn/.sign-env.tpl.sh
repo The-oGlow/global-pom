@@ -4,7 +4,7 @@ echo unix-settings...
 # CLEAR SETTINGS
 # =================
 clear_env() {
-    # generate-signature
+    # generate-gpgkey
     SIGN_EXEC=
     SIGN_HOMEDIR=
     SIGN_PUBRING=
@@ -12,7 +12,7 @@ clear_env() {
     SIGN_KEYNAME=
     SIGN_PASSPHRASE=
 
-    # build-signer
+    # sign-jar
     SIGN_KEYSTORE=
     SIGN_ALIAS=
     SIGN_STOREPASS=
@@ -23,7 +23,7 @@ clear_env() {
 # SET SETTINGS
 # =================
 set_env() {
-    # generate-signature
+    # generate-gpgkey
     SIGN_EXEC=/bin/gpg
     SIGN_HOMEDIR=~/coding/sign
     SIGN_PUBRING=signkeyring.gpg
@@ -31,7 +31,7 @@ set_env() {
     SIGN_KEYNAME=ph_keynamme
     SIGN_PASSPHRASE=ph_passphrase
 
-    # build-signer
+    # sign-jar
     SIGN_KEYSTORE=~/coding/sign-coding.jks
     SIGN_ALIAS=signature
     SIGN_STOREPASS=ph_storepass

@@ -1,0 +1,53 @@
+== Generate Public Key
+
+=== Pre-Requirements
+
+* Relates to profile `generate-gpgkey`
+* Install IntelliJ IDEA (Community Editions works)
+* Other IDE's may work, but you'll have no predefined run configurations
+* On Windows
+** install plugin https://plugins.jetbrains.com/plugin/265-batch-scripts-support[Batch Scripts Support]
+** Call the run configuration `global-pom-prepare-win\04-cp_template_win`
+** Now you have the empty template `%USERPROFILE%\.sign-env.bat`
+** Complete the missing entries in this file
+** Sign artifacts by calling `global-pom-shell\81-mvn [signed-install]`
+* On Linux/Unix
+** bundled plugin 'Shell Script' is needed
+** Call the run configuration `global-pom-prepare-unix\04-cp_template_unix`
+** Now you have the empty template `${HOME}\.sign-env.sh`
+** Complete the missing entries in this file
+** Sign artifacts by calling `global-pom-shell\82-mvn [signed-install]`
+
+=== Usage
+
+.Create Public Key
+[source,shell script]
+----
+mvn -Pgenerate-gpgkey clean verify
+----
+
+.Create Public Key & Deploy an artifact
+[source,shell script]
+----
+mvn -Pgenerate-gpgkey,artifact-release clean deploy
+----
+
+== Verification
+
+=== Pre-Requirements
+
+* no further requirements
+
+=== Usage
+
+.Verfiy the project
+[source,shell script]
+----
+mvn -Pverify-signature validate
+----
+
+.Verfiy an artifact
+[source,shell script]
+----
+mvn -Pverify-signature pgpverify:show -Dartifact=org.apache.commons:commons-lang3:3.9
+----
