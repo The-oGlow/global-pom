@@ -6,19 +6,21 @@
     <parent>
         <groupId>com.glowa-net.maven.parent</groupId>
         <artifactId>global-pom</artifactId>
-        <version>2-SNAPSHOT</version>
+        <version>3-SNAPSHOT</version>
         <relativePath>./pom.xml</relativePath>
     </parent>
 
     <artifactId>global-pom.</artifactId>
     <packaging>pom</packaging>
 
-    <name>Global POM</name>
+    <name>Global POM.Site</name>
 
+    <!-- Section Properties -->
     <properties>
         <maven.test.skip>true</maven.test.skip>
     </properties>
 
+    <!-- Section Build -->
     <build>
         <plugins>
             <plugin>

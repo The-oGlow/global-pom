@@ -49,51 +49,72 @@
         </developer>
     </developers>
 
-    <mailingLists/>
+    <mailingLists>
+        <mailingList>
+            <name>No Mailinglist</name>
+        </mailingList>
+    </mailingLists>
 
     <scm>
         <!-- scm-connections are defined as constant -->
-        <connection>scm:git:git://gitlab.com/ollily/global-pom.git</connection>
-        <developerConnection>scm:git:git@gitlab.com:ollily/global-pom.git</developerConnection>
-        <url>https://gitlab.com/ollily/${project.artifactId}</url>
+        <connection>scm:git:https://gitlab.com/the-oglow/global-pom.git</connection>
+        <developerConnection>scm:git:https://gitlab.com/the-oglow/global-pom.git</developerConnection>
+        <url>${project.env.CI_PROJECT_URL}</url>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitLab Issues 4 ${project.name}</system>
-        <url>https://gitlab.com/ollily/${project.artifactId}/-/issues</url>
+        <url>${project.env.CI_PROJECT_URL}/-/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>gitlab</system>
-        <url>https://gitlab.com/ollily/${project.artifactId}/-/pipelines</url>
+        <url>${project.env.CI_PROJECT_URL}/-/pipelines</url>
     </ciManagement>
 
     <distributionManagement>
         <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
         <snapshotRepository>
             <id>coding.deploy-ss</id>
-            <name>Awsome Snapshots</name>
+            <name>ASS-Awesome Snap Shots</name>
             <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
             <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
         <repository>
             <id>coding.deploy</id>
-            <name>Central Awesome Index</name>
+            <name>CAI-Central Awesome Index</name>
             <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
             <uniqueVersion>true</uniqueVersion>
         </repository>
+        <!--
         <site>
             <id>coding.site</id>
             <name>Coding Site</name>
-            <url>scm:git:git://gitlab.com/ollily/${project.artifactId}</url>
+            <url>scm:git:${project.env.CI_PROJECT_URL}</url>
+        </site>
+        -->
+        <site>
+            <id>coding-glowa.site</id>
+            <name>Coding Glowa Site</name>
+            <url>scp://ssh.strato.de/glowa-net_com/coding/maven/apidoc</url>
         </site>
     </distributionManagement>
 
     <!-- Section Properties -->
     <properties>
         <!-- Gitlab Properties -->
+        <vcs.env.BASE_URL>https://gitlab.com</vcs.env.BASE_URL>
+        <repo.env.REPO_FINAL_ID>30704991</repo.env.REPO_FINAL_ID>
+        <repo.env.REPO_SNAP_ID>26363808</repo.env.REPO_SNAP_ID>
+
         <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
+        <project.env.CI_PROJECT_NAME>${project.artifactId}</project.env.CI_PROJECT_NAME>
+        <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
+        <project.env.CI_GROUP_NAME>the-oglow</project.env.CI_GROUP_NAME>
+        <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}</project.env.CI_IDENTIFIER>
+        <project.env.CI_GROUP_URL>${vcs.env.BASE_URL}/${project.env.CI_GROUP_NAME}</project.env.CI_GROUP_URL>
+        <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}</project.env.CI_PROJECT_URL>
 
         <!-- Java Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -303,7 +324,7 @@
         </repository>
         <repository>
             <id>coding.read</id>
-            <name>Central Awsome Index</name>
+            <name>CASSI-Central Awesome Snap Shot Index</name>
             <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
             <snapshots>
                 <enabled>true</enabled>
@@ -336,7 +357,7 @@
         </pluginRepository>
         <pluginRepository>
             <id>coding.read</id>
-            <name>Central Awsome Index</name>
+            <name>CASSI-Central Awesome Snap Shot Index</name>
             <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
             <snapshots>
                 <enabled>true</enabled>
@@ -592,6 +613,7 @@
                     <generateSitemap>true</generateSitemap>
                     <locales>en,de</locales>
                     <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                    <pomPackagingOnly>false</pomPackagingOnly>
                 </configuration>
                 <dependencies>
                     <dependency>
