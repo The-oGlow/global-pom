@@ -144,6 +144,7 @@
         <org.apache.commons.commons-rng.version>1.4</org.apache.commons.commons-rng.version>
         <org.apache.commons.commons-text.version>1.9</org.apache.commons.commons-text.version>
         <org.apache.logging.log4j.version>2.17.2</org.apache.logging.log4j.version>
+        <org.assertj.version>3.22.0</org.assertj.version>
         <org.easymock.version>4.3</org.easymock.version>
         <org.junit4.version>4.13.2</org.junit4.version>
         <org.junit5.version>5.8.2</org.junit5.version>
@@ -223,6 +224,11 @@
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-core</artifactId>
                 <version>${org.hamcrest.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${org.assertj.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
