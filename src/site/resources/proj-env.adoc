@@ -19,3 +19,7 @@
 :proj_module: global-pom
 :proj_version: [latest version]
 :proj_description: The base pom 4 everything. Use the child-pom's as parent 4 ur artifact.
+:proj_id_codacy: d060c6af9dfa4f3bacd287dcae2e0336
+:proj_id_coverity: -1
+:proj_id_openssf: -1
+
