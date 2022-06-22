@@ -185,7 +185,7 @@
         <!-- Sonar Properties -->
         <sonar.organization>${project.env.CI_GROUP_NAME}</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.projectKey>${sonar.organization}:${project.artifactId}</sonar.projectKey>
+        <sonar.projectKey>${sonar.organization}_${project.artifactId}</sonar.projectKey>
         <sonar.projectName>${project.artifactId}</sonar.projectName>
         <!-- -->
         <sonar.scm.provider>git</sonar.scm.provider>
