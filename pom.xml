@@ -105,13 +105,18 @@
     <properties>
         <!-- Gitlab Properties -->
         <vcs.env.BASE_URL>https://gitlab.com</vcs.env.BASE_URL>
+        <!-- Gitlab project for release repository -->
         <repo.env.REPO_FINAL_ID>30704991</repo.env.REPO_FINAL_ID>
+        <!-- Gitlab project for snapshot repository -->
         <repo.env.REPO_SNAP_ID>26363808</repo.env.REPO_SNAP_ID>
 
+        <!-- This gitlab repository -->
         <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
         <project.env.CI_PROJECT_NAME>${project.artifactId}</project.env.CI_PROJECT_NAME>
+        <!-- The organization of this gitlab repository -->
         <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
         <project.env.CI_GROUP_NAME>the-oglow</project.env.CI_GROUP_NAME>
+
         <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}</project.env.CI_IDENTIFIER>
         <project.env.CI_GROUP_URL>${vcs.env.BASE_URL}/${project.env.CI_GROUP_NAME}</project.env.CI_GROUP_URL>
         <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}</project.env.CI_PROJECT_URL>
@@ -178,15 +183,16 @@
         <jacoco.itReportOutputFolder>${jacoco.destFolder}/it</jacoco.itReportOutputFolder>
 
         <!-- Sonar Properties -->
-        <sonar.organization>ollily</sonar.organization>
+        <sonar.organization>${project.env.CI_GROUP_NAME}</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.projectKey>ollily_${project.artifactId}</sonar.projectKey>
+        <sonar.projectKey>${sonar.organization}:${project.artifactId}</sonar.projectKey>
+        <sonar.projectName>${project.artifactId}</sonar.projectName>
         <!-- -->
         <sonar.scm.provider>git</sonar.scm.provider>
         <sonar.sourceEncoding>${project.build.sourceEncoding}</sonar.sourceEncoding>
         <sonar.log.level>INFO</sonar.log.level>
         <sonar.verbose>false</sonar.verbose>
-        <sonar.sources>src/main,pom.xml</sonar.sources>
+        <sonar.sources>pom.xml,src/main,src/site</sonar.sources>
         <sonar.tests>src/test</sonar.tests>
         <!-- -->
         <sonar.coverage.jacoco.xmlReportPaths>
