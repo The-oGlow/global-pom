@@ -16,11 +16,12 @@ stages:
 variables:
   REPO_DIR: $CI_PROJECT_DIR/.repo
   MVN_USR_HOME: /root/.m2
+  MVN_TEST_OPTS: -DskipTests=false -DskipITs=false
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
   MVN_REPO_OPTS: -B -s $CI_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.repo
-  MVN_OPTS_TEST: -fae -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
-  MVN_OPTS_CLI: -fae -DskipTests -DskipITs
-  MVN_OPTS_SONAR: -DskipTests=false -DskipITs=false -Dsonar.qualitygate.wait=true -Dsonar.login=$SONAR_TOKEN_GITLAB
+  MVN_OPTS_BUILD: -fae -Dmaven.test.failure.ignore=true
+  MVN_OPTS_CLI: -fae
+  MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=$SONAR_TOKEN_GITLAB
   SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
   SONAR_TOKEN: "$SONAR_TOKEN_GITLAB"
   SONAR_HOST_URL: "$SONAR_HOST_GITLAB"
@@ -82,7 +83,7 @@ code_quality_html:
 sonarcloud:
   stage: analyze
   script:
-    - mvn $MVN_REPO_OPTS $MVN_SIGN_OPTS $MVN_OPTS_SONAR sonar:sonar
+    - mvn $MVN_REPO_OPTS $MVN_SIGN_OPTS $MVN_TEST_OPTS $MVN_OPTS_SONAR sonar:sonar
   allow_failure: true
   rules:
     - if: $SONAR_DISABLED
@@ -99,7 +100,6 @@ build:
     - *show_env
     - *prep_repo
   script:
-    - mvn $MVN_REPO_OPTS $MVN_SIGN_OPTS $MVN_OPTS_TEST clean verify
-    - mvn $MVN_REPO_OPTS $MVN_SIGN_OPTS $MVN_OPTS_CLI deploy
+    - mvn $MVN_REPO_OPTS $MVN_SIGN_OPTS $MVN_TEST_OPTS $MVN_OPTS_BUILD clean deploy
   after_script:
     - *show_build
