@@ -130,7 +130,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
         <!-- Maven Plugin Versions -->
-        <org.apache.maven.skins--maven.fluido.skin.version>1.9</org.apache.maven.skins--maven.fluido.skin.version>
+        <org.apache.maven.skins--maven.fluido.skin.version>1.11</org.apache.maven.skins--maven.fluido.skin.version>
         <org.asciidoctor--asciidoctor-maven-plugin.version>2.2.1</org.asciidoctor--asciidoctor-maven-plugin.version>
 
         <!-- 3rd Party Dependencies Versions -->
