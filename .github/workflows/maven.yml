@@ -71,7 +71,7 @@ jobs:
           find "${{ env.GZITHUB_PROJECT_DIR }}" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
 
       - name: prepare upload jar
-        if: ${{ env.ARTIFACT_TYPE }} != 'pom' }}
+        if: ${{ env.ARTIFACT_TYPE != 'pom' }}
         env:
           PU_JAR: ${{ env.GZITHUB_TARGET_DIR }}/*.jar
         run: |
@@ -80,7 +80,7 @@ jobs:
           test -f "${{ env.PU_JAR }}" && cp -v "${{ env.PU_JAR }}" "${{ env.GZITHUB_UPLOAD_DIR }}"
 
       - name: prepare upload pom
-        if: ${{ env.ARTIFACT_TYPE }} == 'pom' }}
+        if: ${{ env.ARTIFACT_TYPE == 'pom' }}
         env:
           PU_POM: ${{ env.GZITHUB_PROJECT_DIR }}/pom.xml
         run: |
