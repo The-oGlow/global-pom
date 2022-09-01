@@ -11,21 +11,22 @@ on:
 
 env:
   # Github Configuration
-  GITHUB_REPO_NAME: ${{ github.event.repository.name }}
-  GITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
+  GZITHUB_REPO_NAME: ${{ github.event.repository.name }}
+  GZITHUB_TARGET_DIR: $GITHUB_WORKSPACE/target
+  GZITHUB_UPLOAD_DIR: $GITHUB_WORKSPACE/staging
   # Maven Paths
-  REPO_DIR: ${{ github.workspace }}/.repo
+  REPO_DIR: $GITHUB_WORKSPACE/.repo
   MVN_USR_HOME: /root/.m2
   # Maven Goal Configuration
   MVN_TEST_OPTS_N: -DskipTests=true -DskipITs=true
   MVN_TEST_OPTS_Y: -DskipTests=false -DskipITs=false
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
-  MVN_REPO_OPTS: -B -s ${{ github.workspace }}/.m2/settings.xml -Dmaven.repo.local=${{ github.workspace }}/.repo
+  MVN_REPO_OPTS: -B -s $GITHUB_WORKSPACE/.m2/settings.xml -Dmaven.repo.local=$GITHUB_WORKSPACE/.repo
   MVN_OPTS_BUILD: -fae -Dmaven.test.failure.ignore=true
   MVN_OPTS_CLI: -fae
   MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   # Sonarcloud Settings
-  SONAR_USER_HOME: "${{ github.workspace }}/.sonar"
+  SONAR_USER_HOME: "$GITHUB_WORKSPACE/.sonar"
   SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
   SONAR_HOST_URL: ""
   GIT_DEPTH: "0"
@@ -42,6 +43,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name: show env
+        run: |
+          echo "**** show_env ****"
+          printenv | sort
+
       - name: setup JDK
         uses: actions/setup-java@v3
         with:
@@ -53,25 +59,20 @@ jobs:
       - name: maven build
         run: mvn ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_N} ${MVN_OPTS_BUILD} clean verify
 
-      - name: show env
-        run: |
-          echo "**** show_env ****"
-          printenv | sort
-
       - name: show build
         run: |
           echo "**** show_build ****"
-          find "${{ github.workspace }}" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
+          find "$GITHUB_WORKSPACE" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
 
       - name: prepare upload
         run: |
-          mkdir "$GITHUB_UPLOAD_DIR" 
-          test -d "target" && cp "target/*.jar" "$GITHUB_UPLOAD_DIR"
-          test -f "pom.xml" && cp "pom.xml" "$GITHUB_UPLOAD_DIR"
+          mkdir "$GZITHUB_UPLOAD_DIR" 
+          test -f "$GZITHUB_TARGET_DIR/*.jar" && cp "$GZITHUB_TARGET_DIR/*.jar" "$GZITHUB_UPLOAD_DIR"
+          test -f "$GITHUB_WORKSPACE/pom.xml" && cp "$GITHUB_WORKSPACE/pom.xml" "$GZITHUB_UPLOAD_DIR"
 
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: "$GITHUB_REPO_NAME"
-          path: "$GITHUB_UPLOAD_DIR"
+          name: "$GZITHUB_REPO_NAME"
+          path: "$GZITHUB_UPLOAD_DIR"
           if-no-files-found: warn
