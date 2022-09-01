@@ -5,11 +5,15 @@ on:
     branches:
       - master
       - develop
+      - $GITHUB_REF_NAME
   pull_request:
     branches:
       - master
 
 env:
+  # Project Configuration
+  ARTIFACT_TYPE: pom
+  #
   # Github Configuration
   GZITHUB_REPO_NAME: ${{ github.event.repository.name }}
   GZITHUB_PROJECT_DIR: ${{ github.workspace }}
@@ -44,6 +48,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
+      - name: set current timestamp
+        run: echo "NOW::$(date +'+%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
       - name: show env
         run: |
           echo "**** show_env ****"
@@ -58,27 +65,39 @@ jobs:
           cache: maven
 
       - name: maven build
-        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} $MVN_OPTS_BUILD clean verify
+        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_OPTS_BUILD }} clean install
 
       - name: show build
         run: |
           echo "**** show_build ****"
           find "${{ env.GZITHUB_PROJECT_DIR }}" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
 
-      - name: prepare upload
+      - name: prepare upload jar
+        if: ${{ env.ARTIFACT_TYPE }} != 'pom' }}
         env:
           PU_JAR: ${{ env.GZITHUB_TARGET_DIR }}/*.jar
+        run: |
+          mkdir "${{ env.GZITHUB_UPLOAD_DIR }}"
+          ls -la "${{ env.GZITHUB_TARGET_DIR }}"
+          test -f "${{ env.PU_JAR }}" && cp -v "${{ env.PU_JAR }}" "${{ env.GZITHUB_UPLOAD_DIR }}"
+
+      - name: prepare upload pom
+        if: ${{ env.ARTIFACT_TYPE }} == 'pom' }}
+        env:
           PU_POM: ${{ env.GZITHUB_PROJECT_DIR }}/pom.xml
         run: |
           mkdir "${{ env.GZITHUB_UPLOAD_DIR }}"
           ls -la "${{ env.GZITHUB_PROJECT_DIR }}"
-          ls -la "${{ env.GZITHUB_TARGET_DIR }}"
-          test -f "${{ env.PU_JAR }}" && cp -v "${{ env.PU_JAR }}" "${{ env.GZITHUB_UPLOAD_DIR }}"
           test -f "${{ env.PU_POM }}" && cp -v "${{ env.PU_POM }}" "${{ env.GZITHUB_UPLOAD_DIR }}"
 
       - name: upload artifact
         uses: actions/upload-artifact@v3
+        env:
+          UA_NAME: ${{ env.GZITHUB_REPO_NAME }}_${{ env.NOW }}
         with:
-          name: ${{ env.GZITHUB_REPO_NAME }}
+          name: ${{ env.UA_NAME }}
           path: ${{ env.GZITHUB_UPLOAD_DIR }}
           if-no-files-found: warn
+
+      - name: maven deploy
+        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_OPTS_BUILD }} deploy
