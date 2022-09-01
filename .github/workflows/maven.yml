@@ -2,13 +2,20 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [$default-branch]
+    branches:
+      - master
+      - develop
   pull_request:
-    branches: [$default-branch]
+    branches:
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        version: [11]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: checkout
@@ -16,10 +23,11 @@ jobs:
       - name: setup JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '${{ matrix.version }}'
           distribution: 'adopt'
           architecture: x64
           cache: maven
+
       - name: build
         run: mvn -B clean verify -f pom.xml
       - name: prepare upload
