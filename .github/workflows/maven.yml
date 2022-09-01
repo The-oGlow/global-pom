@@ -42,6 +42,10 @@ jobs:
         version: [11]
     runs-on: ${{ matrix.os }}
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -98,4 +102,6 @@ jobs:
           if-no-files-found: warn
 
       - name: maven deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_OPTS_BUILD }} deploy
