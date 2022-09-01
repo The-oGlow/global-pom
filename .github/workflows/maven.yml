@@ -66,10 +66,15 @@ jobs:
           find "$GZITHUB_PROJECT_DIR" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
 
       - name: prepare upload
+        env:
+          PU_JAR: $GZITHUB_TARGET_DIR/*.jar
+          PU_POM: GZITHUB_PROJECT_DIR/pom.xml
         run: |
-          mkdir "$GZITHUB_UPLOAD_DIR" 
-          test -f "$GZITHUB_TARGET_DIR/*.jar" && cp "$GZITHUB_TARGET_DIR/*.jar" "$GZITHUB_UPLOAD_DIR"
-          test -f "$GZITHUB_PROJECT_DIR/pom.xml" && cp "$GZITHUB_PROJECT_DIR/pom.xml" "$GZITHUB_UPLOAD_DIR"
+          mkdir "$GZITHUB_UPLOAD_DIR"
+          ls -la "$PU_JAR"
+          ls -la "$PU_POM"
+          test -f "$PU_JAR" && cp -v "$PU_JAR" "$GZITHUB_UPLOAD_DIR"
+          test -f "$PU_POM" && cp -v "$PU_POM" "$GZITHUB_UPLOAD_DIR"
 
       - name: upload artifact
         uses: actions/upload-artifact@v3
