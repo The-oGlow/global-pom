@@ -51,8 +51,10 @@ jobs:
       - name: maven build
         run: mvn -B -U -f pom.xml clean verify
       - name: prepare upload
-        run: mkdir staging &&  cp target/*.jar staging
-      #          cp pom.xml staging
+        run: |
+          mkdir staging 
+          test -d target && cp target/*.jar staging
+          test -f pom.xml && cp pom.xml staging
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
