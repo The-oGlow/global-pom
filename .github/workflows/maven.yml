@@ -71,8 +71,8 @@ jobs:
           PU_POM: ${{ env.GZITHUB_PROJECT_DIR }}/pom.xml
         run: |
           mkdir "${{ env.GZITHUB_UPLOAD_DIR }}"
-          ls -la "${{ env.PU_JAR }}"
-          ls -la "${{ env.PU_POM }}"
+          ls -la "${{ env.GZITHUB_PROJECT_DIR }}"
+          ls -la "${{ env.GZITHUB_TARGET_DIR }}"
           test -f "${{ env.PU_JAR }}" && cp -v "${{ env.PU_JAR }}" "${{ env.GZITHUB_UPLOAD_DIR }}"
           test -f "${{ env.PU_POM }}" && cp -v "${{ env.PU_POM }}" "${{ env.GZITHUB_UPLOAD_DIR }}"
 
