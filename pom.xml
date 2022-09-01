@@ -17,7 +17,7 @@
 
     <!-- Section Common -->
     <name>Global POM</name>
-    <description>The base pom 4 everything. Use the child-pom's as parent 4 ur artifact.</description>
+    <description>The base pom 4 everything. Use the child-pom's as parent 4 ur artifacts.</description>
     <url>http://www.glowa-net.com</url>
     <inceptionYear>2020</inceptionYear>
 
