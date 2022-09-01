@@ -1,4 +1,4 @@
-name: Java CI with Maven
+name: maven-build
 
 on:
   push:
@@ -8,6 +8,27 @@ on:
   pull_request:
     branches:
       - master
+
+env:
+  # Maven Paths
+  REPO_DIR: $GITHUB_WORKSPACE/.repo
+  MVN_USR_HOME: /root/.m2
+  # Maven Goal Configuration
+  MVN_TEST_OPTS_N: -DskipTests=true -DskipITs=true
+  MVN_TEST_OPTS_Y: -DskipTests=false -DskipITs=false
+  MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
+  MVN_REPO_OPTS: -B -s $GITHUB_WORKSPACE/.m2/settings.xml -Dmaven.repo.local=$GITHUB_WORKSPACE/.repo
+  MVN_OPTS_BUILD: -fae -Dmaven.test.failure.ignore=true
+  MVN_OPTS_CLI: -fae
+  MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=$SONAR_TOKEN_GITLAB
+  # Sonarcloud Settings
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+  SONAR_TOKEN: "$SONAR_TOKEN_GITLAB"
+  SONAR_HOST_URL: "$SONAR_HOST_GITLAB"
+  GIT_DEPTH: "0"
+  # Gitlab Code Analysis, comment out to activate
+  CODE_QUALITY_DISABLED: "true"
+  SAST_DISABLED: "true"
 
 jobs:
   build:
@@ -27,9 +48,8 @@ jobs:
           distribution: 'adopt'
           architecture: x64
           cache: maven
-
-      - name: build
-        run: mvn -B clean verify -f pom.xml
+      - name: maven build
+        run: mvn -B -U -f pom.xml clean verify
       - name: prepare upload
         run: |
           mkdir staging 
