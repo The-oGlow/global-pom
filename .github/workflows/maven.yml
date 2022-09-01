@@ -12,20 +12,20 @@ on:
 env:
   # Github Configuration
   GITHUB_REPO_NAME: ${{ github.event.repository.name }}
-  GITHUB_UPLOAD_DIR: $GITHUB_WORKSPACE/staging
+  GITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
   # Maven Paths
-  REPO_DIR: $GITHUB_WORKSPACE/.repo
+  REPO_DIR: ${{ github.workspace }}/.repo
   MVN_USR_HOME: /root/.m2
   # Maven Goal Configuration
   MVN_TEST_OPTS_N: -DskipTests=true -DskipITs=true
   MVN_TEST_OPTS_Y: -DskipTests=false -DskipITs=false
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
-  MVN_REPO_OPTS: -B -s $GITHUB_WORKSPACE/.m2/settings.xml -Dmaven.repo.local=$GITHUB_WORKSPACE/.repo
+  MVN_REPO_OPTS: -B -s ${{ github.workspace }}/.m2/settings.xml -Dmaven.repo.local=${{ github.workspace }}/.repo
   MVN_OPTS_BUILD: -fae -Dmaven.test.failure.ignore=true
   MVN_OPTS_CLI: -fae
   MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   # Sonarcloud Settings
-  SONAR_USER_HOME: "$GITHUB_WORKSPACE/.sonar"
+  SONAR_USER_HOME: "${{ github.workspace }}/.sonar"
   SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
   SONAR_HOST_URL: ""
   GIT_DEPTH: "0"
@@ -61,7 +61,7 @@ jobs:
       - name: show build
         run: |
           echo "**** show_build ****"
-          find "$GITHUB_WORKSPACE" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
+          find "${{ github.workspace }}" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
 
       - name: prepare upload
         run: |
