@@ -10,25 +10,25 @@ on:
       - master
 
 env:
+  # Github Configuration
+  GITHUB_REPO_NAME: ${{ github.event.repository.name }}
+  GITHUB_UPLOAD_DIR: ${GITHUB_WORKSPACE}/staging
   # Maven Paths
-  REPO_DIR: $GITHUB_WORKSPACE/.repo
+  REPO_DIR: ${GITHUB_WORKSPACE}/.repo
   MVN_USR_HOME: /root/.m2
   # Maven Goal Configuration
   MVN_TEST_OPTS_N: -DskipTests=true -DskipITs=true
   MVN_TEST_OPTS_Y: -DskipTests=false -DskipITs=false
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
-  MVN_REPO_OPTS: -B -s $GITHUB_WORKSPACE/.m2/settings.xml -Dmaven.repo.local=$GITHUB_WORKSPACE/.repo
+  MVN_REPO_OPTS: -B -s ${GITHUB_WORKSPACE}/.m2/settings.xml -Dmaven.repo.local=${GITHUB_WORKSPACE}/.repo
   MVN_OPTS_BUILD: -fae -Dmaven.test.failure.ignore=true
   MVN_OPTS_CLI: -fae
-  MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=$SONAR_TOKEN_GITLAB
+  MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   # Sonarcloud Settings
-  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
-  SONAR_TOKEN: "$SONAR_TOKEN_GITLAB"
-  SONAR_HOST_URL: "$SONAR_HOST_GITLAB"
+  SONAR_USER_HOME: "${GITHUB_WORKSPACE}/.sonar"
+  SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
+  SONAR_HOST_URL: ""
   GIT_DEPTH: "0"
-  # Gitlab Code Analysis, comment out to activate
-  CODE_QUALITY_DISABLED: "true"
-  SAST_DISABLED: "true"
 
 jobs:
   build:
@@ -41,6 +41,7 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
+
       - name: setup JDK
         uses: actions/setup-java@v3
         with:
@@ -48,15 +49,29 @@ jobs:
           distribution: 'adopt'
           architecture: x64
           cache: maven
+
       - name: maven build
-        run: mvn -B -U -f pom.xml clean verify
+        run: ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_N} ${MVN_OPTS_BUILD} clean verify
+
+      - name: show env
+        run: |
+          echo "**** show_env ****"
+          printenv | sort
+
+      - name: show build
+        run: |
+          echo "**** show_build ****"
+          find "${GITHUB_WORKSPACE}" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
+
       - name: prepare upload
         run: |
-          mkdir staging 
-          test -d target && cp target/*.jar staging
-          test -f pom.xml && cp pom.xml staging
+          mkdir "${GITHUB_UPLOAD_DIR}" 
+          test -d "target" && cp "target/*.jar" "${GITHUB_UPLOAD_DIR}"
+          test -f "pom.xml" && cp "pom.xml" "${GITHUB_UPLOAD_DIR}"
+
       - name: upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Package
-          path: staging
+          name: ""${GITHUB_REPO_NAME}"
+          path: "${GITHUB_UPLOAD_DIR}"
+          if-no-files-found: warn
