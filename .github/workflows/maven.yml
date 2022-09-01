@@ -2,10 +2,8 @@ name: maven-build
 
 on:
   push:
-    branches:
+    branches-ignore:
       - master
-      - develop
-      - $GITHUB_REF_NAME
   pull_request:
     branches:
       - master
