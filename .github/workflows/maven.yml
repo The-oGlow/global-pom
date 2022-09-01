@@ -13,8 +13,8 @@ env:
   # Github Configuration
   GZITHUB_REPO_NAME: ${{ github.event.repository.name }}
   GZITHUB_PROJECT_DIR: ${{ github.workspace }}
-  GZITHUB_TARGET_DIR: $GZITHUB_PROJECT_DIR/target
-  GZITHUB_UPLOAD_DIR: $GZITHUB_PROJECT_DIR/staging
+  GZITHUB_TARGET_DIR: ${{ github.workspace }}/target
+  GZITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
   # Maven Paths
   REPO_DIR: $GZITHUB_PROJECT_DIR/.repo
   MVN_USR_HOME: /root/.m2
@@ -22,14 +22,14 @@ env:
   MVN_TEST_OPTS_N: -DskipTests=true -DskipITs=true
   MVN_TEST_OPTS_Y: -DskipTests=false -DskipITs=false
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
-  MVN_REPO_OPTS: -B -s $GZITHUB_PROJECT_DIR/.m2/settings.xml -Dmaven.repo.local=$GZITHUB_PROJECT_DIR/.repo
+  MVN_REPO_OPTS: -B -s "$GZITHUB_PROJECT_DIR/.m2/settings.xml" -Dmaven.repo.local="$GZITHUB_PROJECT_DIR/.repo"
   MVN_OPTS_BUILD: -fae -Dmaven.test.failure.ignore=true
   MVN_OPTS_CLI: -fae
   MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   # Sonarcloud Settings
-  SONAR_USER_HOME: "$GZITHUB_PROJECT_DIR/.sonar"
+  SONAR_USER_HOME: "${{ github.workspace }}/.sonar"
   SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
-  SONAR_HOST_URL: ""
+  SONAR_HOST_URL: "https://sonarcloud.io"
   GIT_DEPTH: "0"
 
 jobs:
