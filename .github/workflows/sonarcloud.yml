@@ -8,13 +8,19 @@ on:
     paths-ignore:
       - '.github/**'
       - '.run/**'
-  workflow_dispatch:
-    branches:
-      - master
-      - develop
   pull_request:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      branches:
+        description: 'which branch'
+        required: true
+        default: 'master'
+        type: choice
+        options:
+          - master
+          - develop
 
 env:
   # Github Configuration
