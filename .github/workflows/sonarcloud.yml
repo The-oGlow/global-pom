@@ -8,6 +8,10 @@ on:
     paths-ignore:
       - '.github/**'
       - '.run/**'
+  workflow_dispatch:
+    branches:
+      - master
+      - develop
   pull_request:
     branches:
       - master
