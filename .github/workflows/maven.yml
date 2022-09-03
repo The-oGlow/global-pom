@@ -5,6 +5,9 @@ on:
     branches:
       - master
       - develop
+    paths-ignore:
+      - '.github/**'
+      - '.run/**'
   pull_request:
     branches:
       - master
@@ -28,9 +31,7 @@ env:
   MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   # Sonarcloud Settings
   SONAR_USER_HOME: "${{ github.workspace }}/.sonar"
-  SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
   SONAR_HOST_URL: "https://sonarcloud.io"
-  GIT_DEPTH: "0"
 
 jobs:
   build:
@@ -38,6 +39,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         version: [11]
+        distribution: [adopt]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -53,9 +55,9 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '${{ matrix.version }}'
-          distribution: 'adopt'
+          distribution: '${{ matrix.distribution }}'
           architecture: x64
-          cache: maven
+          cache: 'maven'
 
       - name: maven build
         run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} $MVN_OPTS_BUILD clean verify
