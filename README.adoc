@@ -106,7 +106,9 @@ To use, set in your `pom.xml`:
 &lt;/parent&gt;
 ----
 
-include::readme-project.adoc[opts=optional]
+== Instructions
+
+The detailed instructions for this artifact are found link:readme-project.adoc[here].
 
 == Project Status
 
@@ -130,7 +132,7 @@ image:{cmmn_badge_gitlab_status_url}/{proj_vcsid}?branch={brnch_2}&label={brnch_
 
 === Test Information
 
-*_No tests in this project!_*
+NOTE: *_No tests in this project!_*
 
 ////
 {cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_badge_sonar_url}/test_success_density/{proj_sonarid}?{cmmn_sonar_ref}{cmmn_img_style}[title="Test Status"]]
