@@ -9,7 +9,7 @@
 :proj_author_url: {proj_vcs_url}/{proj_user}[{proj_author}]
 
 // organization
-:org_user: the-oglow
+:org_user: The-oGlow
 :org_author: The oGlow
 :org_team_user: oteam
 :org_team: The oTeam
@@ -20,13 +20,13 @@
 :org_team_url: {org_vcs_url}/orgs/{org_user}/teams/{org_team_user}[{org_team}]
 
 // module data
-:proj_gitgroup: the-oglow
+:proj_gitgroup: {org_user}
 :proj_group: com.glowa-net.maven.parent
 :proj_module: global-pom
 :proj_version: [latest version]
 :proj_description: The base pom 4 everything. Use the child-pom's as parent 4 ur artifact.
 :proj_year: 2020
-:proj_id_codacy: d060c6af9dfa4f3bacd287dcae2e0336
+:proj_id_codacy: 3e1bab69659049b6bd5efba68e7d6a0d
 :proj_id_coverity: -1
 :proj_id_openssf: -1
 
@@ -35,7 +35,8 @@
 :cmmn_img_gitlab_style: &logo=github{cmmn_img_style}
 :cmmn_badge_url: https://img.shields.io/badge
 :cmmn_badge_github_url: https://img.shields.io/github
-:cmmn_badge_codacy_url: https://img.shields.io/codacy/grade
+:cmmn_badge_codacy_grade_url: https://img.shields.io/codacy/grade
+:cmmn_badge_codacy_cov_url: https://img.shields.io/codacy/coverage
 :cmmn_badge_coverity_url: https://img.shields.io/coverity/scan
 :cmmn_badge_openssf_url: https://bestpractices.coreinfrastructure.org/projects
 :cmmn_badge_maven_url: https://img.shields.io/maven-central
@@ -58,7 +59,7 @@
 :cmmn_maven_url: https://mvnrepository.com/artifact
 :cmmn_backlink: link:README.adoc[image:{cmmn_badge_url}/%3C%3D%3D%20GO-Back-lightgrey[title="go 2 previous page"]]
 :cmmn_pipelink: -/pipelines?ref=
-:cmmn_workflowLink: actions/workflows/
+:cmmn_workflowLink: actions/workflows
 
 // project settings (generated)
 :proj_vcsid: {proj_gitgroup}/{proj_module}
@@ -118,7 +119,7 @@ link:{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_sonar_badge_url}/sonarc
 
 {cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_sonar_api_url}/project_badges/quality_gate?project={proj_sonarid}[title="Quality Gate"]]
 //link:{cmmn_coverity_dash_url}/{proj_module}[image:{cmmn_badge_coverity_url}/{proj_id_coverity}?{cmmn_coverity_ref}{cmmn_img_style}[title="Coverity Scan Status"]]
-link:{cmmn_codacy_dash_gh_url}/{proj_vcsid}[image:{cmmn_badge_codacy_url}/{proj_id_codacy}?{cmmn_codacy_ref}{cmmn_img_style}[title="Codacy Scan Status"]]
+link:{cmmn_codacy_dash_gh_url}/{proj_vcsid}[image:{cmmn_badge_codacy_grade_url}/{proj_id_codacy}?{cmmn_codacy_ref}{cmmn_img_style}[title="Codacy Scan Status"]]
 //link:{cmmn_badge_openssf_url}/{proj_id_openssf}[image:{cmmn_openssf_dash_url}/{proj_id_openssf}/badge[title="CII Best Practices"]]
 
 === Build Information
@@ -135,12 +136,13 @@ image:{cmmn_badge_gitlab_status_url}/{proj_vcsid}?branch={brnch_2}&label={brnch_
 NOTE: *_No tests in this project!_*
 
 ////
-{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_badge_sonar_url}/test_success_density/{proj_sonarid}?{cmmn_sonar_ref}{cmmn_img_style}[title="Test Status"]]
-{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_badge_sonar_url}/tests/{proj_sonarid}?{cmmn_sonar_ref}{cmmn_img_style}[title="Test Count"]]
-{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_badge_sonar_url}/coverage/{proj_sonarid}?{cmmn_sonar_ref}{cmmn_img_style}[title="Coverage by Gitlab"]]
-{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_sonar_api_url}/project_badges/measure?project={proj_sonarid}&metric=coverage[title="Coverage by Sonarqube"]]
-{cmmn_coveralls_dash_gh_url}/{proj_vcsid}?branch={brnch_1}[image:{cmmn_badge_coveralls_url}/{proj_vcsid}/badge.svg?branch={brnch_1}[title="{brnch_1} Coveralls Status"]]
-{cmmn_coveralls_dash_gh_url}/{proj_vcsid}?branch={brnch_2}[image:{cmmn_badge_coveralls_url}/{proj_vcsid}/badge.svg?branch={brnch_2}[title="{brnch_2} Coveralls Status"]]
+link:{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_badge_sonar_url}/test_success_density/{proj_sonarid}?{cmmn_sonar_ref}{cmmn_img_style}[title="Test Status"]]
+link:{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_badge_sonar_url}/tests/{proj_sonarid}?{cmmn_sonar_ref}{cmmn_img_style}[title="Test Count"]]
+link:{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_badge_sonar_url}/coverage/{proj_sonarid}?{cmmn_sonar_ref}{cmmn_img_style}[title="Coverage by Gitlab"]]
+link:{cmmn_sonar_dash_url}?id={proj_sonarid}[image:{cmmn_sonar_api_url}/project_badges/measure?project={proj_sonarid}&metric=coverage[title="Coverage by Sonarqube"]]
+link:{cmmn_coveralls_dash_gh_url}/{proj_vcsid}?branch={brnch_1}[image:{cmmn_badge_coveralls_url}/{proj_vcsid}/badge.svg?branch={brnch_1}[title="{brnch_1} Coveralls Status"]]
+link:{cmmn_coveralls_dash_gh_url}/{proj_vcsid}?branch={brnch_2}[image:{cmmn_badge_coveralls_url}/{proj_vcsid}/badge.svg?branch={brnch_2}[title="{brnch_2} Coveralls Status"]]
+link:{cmmn_codacy_dash_gh_url}/{proj_vcsid}[image:{cmmn_badge_codacy_cov_url}/{proj_id_codacy}?{cmmn_codacy_ref}{cmmn_img_style}[title="Codacy Coverage"]]
 ////
 
 == Author
