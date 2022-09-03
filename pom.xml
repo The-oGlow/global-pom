@@ -18,12 +18,12 @@
     <!-- Section Common -->
     <name>Global POM</name>
     <description>The base pom 4 everything. Use the child-pom's as parent 4 ur artifacts.</description>
-    <url>http://www.glowa-net.com</url>
+    <url>http://coding.glowa-net.com</url>
     <inceptionYear>2020</inceptionYear>
 
     <organization>
         <name>oGlow</name>
-        <url>http://www.glowa-net.com</url>
+        <url>http://coding.glowa-net.com</url>
     </organization>
 
     <licenses>
@@ -39,8 +39,8 @@
             <id>ollily</id>
             <name>Oliver Glowa</name>
             <email>coding at glowa-net dot com</email>
-            <organization>oGlow</organization>
-            <organizationUrl>http://www.glowa-net.com</organizationUrl>
+            <organization>The oGlow</organization>
+            <organizationUrl>http://coding.glowa-net.com</organizationUrl>
             <roles>
                 <role>Project Owner</role>
                 <role>Main Developer</role>
