@@ -18,6 +18,7 @@ on:
     paths-ignore:
       - '.github/**'
       - '.run/**'
+      - '.m2/**'
   pull_request:
     branches:
       - master
