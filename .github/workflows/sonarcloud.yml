@@ -68,7 +68,7 @@ jobs:
           java-version: '${{ matrix.version }}'
           distribution: '${{ matrix.distribution }}'
           architecture: x64
-          = cache: 'maven'
+          # cache: 'maven'
           
       - name: cache SonarCloud packages
         uses: actions/cache@v1
