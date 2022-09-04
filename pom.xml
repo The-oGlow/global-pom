@@ -99,6 +99,7 @@
             <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
             <uniqueVersion>true</uniqueVersion>
         </repository>
+
         <!--
                 <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
                 <snapshotRepository>
@@ -114,6 +115,7 @@
                     <uniqueVersion>true</uniqueVersion>
                 </repository>
         -->
+
         <site>
             <id>coding-glowa.site</id>
             <name>Coding Glowa Site</name>
@@ -509,11 +511,13 @@
                 <enabled>false</enabled>
                 <checksumPolicy>warn</checksumPolicy>
             </snapshots>
+
         </pluginRepository>
         <pluginRepository>
             <id>coding.github</id>
             <name>CAI-Central Awesome Index</name>
             <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
+
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
