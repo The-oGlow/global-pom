@@ -68,8 +68,22 @@ jobs:
           java-version: '${{ matrix.version }}'
           distribution: '${{ matrix.distribution }}'
           architecture: x64
-          cache: 'maven'
+          = cache: 'maven'
+          
+      - name: cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ matrix.os }}-sonar
+          restore-keys: ${{ matrix.os }}-sonar 
 
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ matrix.os }}-m2
+          
       - name: sonarcloud scan
         run: mvn $MVN_REPO_OPTS $MVN_SIGN_OPTS $MVN_TEST_OPTS_N $MVN_OPTS_SONAR verify sonar:sonar
         env:
