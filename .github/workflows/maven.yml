@@ -1,7 +1,16 @@
-
 name: maven-build
 
 on:
+  workflow_dispatch:
+    inputs:
+      branches:
+        description: 'which branch'
+        required: true
+        default: 'master'
+        type: choice
+        options:
+          - master
+          - develop
   push:
     branches:
       - master
@@ -9,10 +18,6 @@ on:
     paths-ignore:
       - '.github/**'
       - '.run/**'
-  workflow_dispatch:
-    branches:
-      - master
-      - develop
   pull_request:
     branches:
       - master
@@ -35,7 +40,6 @@ env:
   MVN_OPTS_CLI: -fae
   MVN_OPTS_SONAR: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   # Sonarcloud Settings
-  SONAR_USER_HOME: "${{ github.workspace }}/.sonar"
   SONAR_HOST_URL: "https://sonarcloud.io"
 
 jobs:
@@ -62,7 +66,14 @@ jobs:
           java-version: '${{ matrix.version }}'
           distribution: '${{ matrix.distribution }}'
           architecture: x64
-          cache: 'maven'
+          #cache: 'maven'
+
+      - name: cache maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ matrix.os }}-m2
 
       - name: maven build
         run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} $MVN_OPTS_BUILD clean verify
