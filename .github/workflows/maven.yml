@@ -76,7 +76,7 @@ jobs:
           restore-keys: ${{ matrix.os }}-m2
 
       - name: maven build
-        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} $MVN_OPTS_BUILD clean verify
+        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} $MVN_OPTS_BUILD clean install
 
       - name: show build
         run: |
@@ -100,3 +100,7 @@ jobs:
           name: ${{ env.GZITHUB_REPO_NAME }}
           path: ${{ env.GZITHUB_UPLOAD_DIR }}
           if-no-files-found: warn
+
+      - name: deploy artifact
+        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} $MVN_OPTS_BUILD deploy
+
