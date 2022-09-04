@@ -17,13 +17,13 @@
 
     <!-- Section Common -->
     <name>Global POM</name>
-    <description>The base pom 4 everything. Use the child-pom's as parent 4 ur artifact.</description>
-    <url>http://www.glowa-net.com</url>
+    <description>The base pom 4 everything. Use the child-pom's as parent 4 ur artifacts.</description>
+    <url>http://coding.glowa-net.com</url>
     <inceptionYear>2020</inceptionYear>
 
     <organization>
         <name>oGlow</name>
-        <url>http://www.glowa-net.com</url>
+        <url>http://coding.glowa-net.com</url>
     </organization>
 
     <licenses>
@@ -39,8 +39,8 @@
             <id>ollily</id>
             <name>Oliver Glowa</name>
             <email>coding at glowa-net dot com</email>
-            <organization>oGlow</organization>
-            <organizationUrl>http://www.glowa-net.com</organizationUrl>
+            <organization>The oGlow</organization>
+            <organizationUrl>http://coding.glowa-net.com</organizationUrl>
             <roles>
                 <role>Project Owner</role>
                 <role>Main Developer</role>
@@ -57,36 +57,65 @@
 
     <scm>
         <!-- scm-connections are defined as constant -->
-        <connection>scm:git:https://gitlab.com/the-oglow/global-pom.git</connection>
-        <developerConnection>scm:git:https://gitlab.com/the-oglow/global-pom.git</developerConnection>
+        <connection>scm:git:https://github.com/The-oGlow/global-pom.git</connection>
+        <developerConnection>scm:git:https://github.com/The-oGlow/global-pom.git</developerConnection>
         <url>${project.env.CI_PROJECT_URL}</url>
+        <!--
+                <connection>scm:git:https://gitlab.com/the-oglow/global-pom.git</connection>
+                <developerConnection>scm:git:https://gitlab.com/the-oglow/global-pom.git</developerConnection>
+                <url>${project.env.CI_PROJECT_URL}</url>
+        -->
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
-        <system>GitLab Issues 4 ${project.name}</system>
-        <url>${project.env.CI_PROJECT_URL}/-/issues</url>
+        <system>Github Issues 4 ${project.name}</system>
+        <url>${project.env.CI_PROJECT_URL}/issues</url>
+        <!--
+                <system>GitLab Issues 4 ${project.name}</system>
+                <url>${project.env.CI_PROJECT_URL}/-/issues</url>
+        -->
     </issueManagement>
 
     <ciManagement>
-        <system>gitlab</system>
-        <url>${project.env.CI_PROJECT_URL}/-/pipelines</url>
+        <system>github</system>
+        <url>${project.env.CI_PROJECT_URL}/actions</url>
+        <!--
+                <system>gitlab</system>
+                <url>${project.env.CI_PROJECT_URL}/-/pipelines</url>
+        -->
     </ciManagement>
 
     <distributionManagement>
-        <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
+        <downloadUrl>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</downloadUrl>
         <snapshotRepository>
-            <id>coding.deploy-ss</id>
+            <id>coding.github-ss</id>
             <name>ASS-Awesome Snap Shots</name>
-            <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
-            <uniqueVersion>false</uniqueVersion>
+            <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
         </snapshotRepository>
         <repository>
-            <id>coding.deploy</id>
+            <id>coding.github</id>
             <name>CAI-Central Awesome Index</name>
-            <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
+            <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
             <uniqueVersion>true</uniqueVersion>
         </repository>
+
+        <!--
+                <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
+                <snapshotRepository>
+                    <id>coding.deploy-ss</id>
+                    <name>ASS-Awesome Snap Shots</name>
+                    <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <repository>
+                    <id>coding.deploy</id>
+                    <name>CAI-Central Awesome Index</name>
+                    <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
+                    <uniqueVersion>true</uniqueVersion>
+                </repository>
+        -->
+
         <site>
             <id>coding-glowa.site</id>
             <name>Coding Glowa Site</name>
@@ -96,23 +125,35 @@
 
     <!-- Section Properties -->
     <properties>
-        <!-- Gitlab Properties -->
-        <vcs.env.BASE_URL>https://gitlab.com</vcs.env.BASE_URL>
-        <!-- Gitlab project for release repository -->
-        <repo.env.REPO_FINAL_ID>30704991</repo.env.REPO_FINAL_ID>
-        <!-- Gitlab project for snapshot repository -->
-        <repo.env.REPO_SNAP_ID>26363808</repo.env.REPO_SNAP_ID>
+        <!-- Github Properties -->
+        <vcs.env.BASE_URL>https://github.com</vcs.env.BASE_URL>
 
-        <!-- This gitlab repository -->
-        <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
+        <!-- This github repository -->
         <project.env.CI_PROJECT_NAME>${project.artifactId}</project.env.CI_PROJECT_NAME>
-        <!-- The organization of this gitlab repository -->
-        <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
+        <!-- The organization of this github repository -->
         <project.env.CI_GROUP_NAME>the-oglow</project.env.CI_GROUP_NAME>
 
         <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}</project.env.CI_IDENTIFIER>
         <project.env.CI_GROUP_URL>${vcs.env.BASE_URL}/${project.env.CI_GROUP_NAME}</project.env.CI_GROUP_URL>
         <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}</project.env.CI_PROJECT_URL>
+
+        <!--        &lt;! Gitlab Properties ;&gt;-->
+        <!--        <vcs.env.BASE_URL>https://gitlab.com</vcs.env.BASE_URL>-->
+        <!--        &lt;!&ndash; Gitlab project for release repository &ndash;&gt;-->
+        <!--        <repo.env.REPO_FINAL_ID>30704991</repo.env.REPO_FINAL_ID>-->
+        <!--        &lt;!&ndash; Gitlab project for snapshot repository &ndash;&gt;-->
+        <!--        <repo.env.REPO_SNAP_ID>26363808</repo.env.REPO_SNAP_ID>-->
+
+        <!--        &lt;!&ndash; This gitlab repository &ndash;&gt;-->
+        <!--        <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>-->
+        <!--        <project.env.CI_PROJECT_NAME>${project.artifactId}</project.env.CI_PROJECT_NAME>-->
+        <!--        &lt;!&ndash; The organization of this gitlab repository &ndash;&gt;-->
+        <!--        <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>-->
+        <!--        <project.env.CI_GROUP_NAME>the-oglow</project.env.CI_GROUP_NAME>-->
+
+        <!--        <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}</project.env.CI_IDENTIFIER>-->
+        <!--        <project.env.CI_GROUP_URL>${vcs.env.BASE_URL}/${project.env.CI_GROUP_NAME}</project.env.CI_GROUP_URL>-->
+        <!--        <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}</project.env.CI_PROJECT_URL>-->
 
         <!-- Java Properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -423,52 +464,83 @@
             </releases>
         </repository>
         <repository>
-            <id>coding.read</id>
-            <name>CASSI-Central Awesome Snap Shot Index</name>
-            <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+            <id>coding.github-ss</id>
+            <name>ASS-Awesome Snap Shots</name>
+            <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>interval:10</updatePolicy>
                 <checksumPolicy>warn</checksumPolicy>
             </snapshots>
+        </repository>
+        <repository>
+            <id>coding.github</id>
+            <name>CAI-Central Awesome Index</name>
+            <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
                 <checksumPolicy>warn</checksumPolicy>
             </releases>
         </repository>
+        <!--
+                <repository>
+                    <id>coding.read</id>
+                    <name>CASSI-Central Awesome Snap Shot Index</name>
+                    <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:10</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </repository>
+        -->
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>coding.central</id>
-            <name>Central is the 1st in row.</name>
-            <url>https://repo.maven.apache.org/maven2</url>
+            <id>coding.github-ss</id>
+            <name>ASS-Awesome Snap Shots</name>
+            <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
             <snapshots>
                 <enabled>false</enabled>
                 <checksumPolicy>warn</checksumPolicy>
             </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
+
         </pluginRepository>
         <pluginRepository>
-            <id>coding.read</id>
-            <name>CASSI-Central Awesome Snap Shot Index</name>
-            <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>interval:10</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
+            <id>coding.github</id>
+            <name>CAI-Central Awesome Index</name>
+            <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
+
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
                 <checksumPolicy>warn</checksumPolicy>
             </releases>
         </pluginRepository>
+        <!--
+                <pluginRepository>
+                    <id>coding.read</id>
+                    <name>CASSI-Central Awesome Snap Shot Index</name>
+                    <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:10</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </pluginRepository>
+        -->
     </pluginRepositories>
 
     <!-- Section Build -->
@@ -911,10 +983,10 @@
 
     <!-- Section Profiles -->
     <profiles>
-        <!--
-            Description     :   Add some additional repositories for artifact lookups
-         -->
         <profile>
+            <!--
+                Description     :   Add some additional repositories for artifact lookups
+             -->
             <id>more-repos</id>
             <repositories>
                 <repository>
@@ -945,10 +1017,10 @@
                 </repository>
             </repositories>
         </profile>
-        <!--
-            Description     :   Will run when deploying artifact
-        -->
         <profile>
+            <!--
+                Description     :   Will run when deploying artifact
+            -->
             <id>artifact-release</id>
             <build>
                 <plugins>
@@ -962,14 +1034,14 @@
                 </plugins>
             </build>
         </profile>
-        <!--
-            Description     :   Generate checksum & report for the artifact & dependencies
-            See             :   https://checksum-maven-plugin.nicoulaj.net/
-            Syntax 1        :   mvn -Pgenerate-checksum clean [verify|install]
-            Syntax 2        :   mvn -Pgenerate-checksum,artifact-release clean deploy
-            Example 1       :   mvn -Pgenerate-checksum -DskipTests -DskipITs clean install
-         -->
         <profile>
+            <!--
+                Description     :   Generate checksum & report for the artifact & dependencies
+                See             :   https://checksum-maven-plugin.nicoulaj.net/
+                Syntax 1        :   mvn -Pgenerate-checksum clean [verify|install]
+                Syntax 2        :   mvn -Pgenerate-checksum,artifact-release clean deploy
+                Example 1       :   mvn -Pgenerate-checksum -DskipTests -DskipITs clean install
+             -->
             <id>generate-checksum</id>
             <properties>
                 <checksum.summary-folder>checksum</checksum.summary-folder>
@@ -1019,14 +1091,14 @@
                 </plugins>
             </build>
         </profile>
-        <!--
-            Description     :   Generate a gpg-signature for the artifact
-            See             :   https://maven.apache.org/plugins/maven-gpg-plugin/
-            Syntax 1        :   mvn -Pgenerate-gpgkey clean [verify|install]
-            Syntax 2        :   mvn -Pgenerate-gpgkey,artifact-release clean deploy
-            Example 1       :   mvn -Pgenerate-gpgkey -DskipTests -DskipITs clean install
-         -->
         <profile>
+            <!--
+                Description     :   Generate a gpg-signature for the artifact
+                See             :   https://maven.apache.org/plugins/maven-gpg-plugin/
+                Syntax 1        :   mvn -Pgenerate-gpgkey clean [verify|install]
+                Syntax 2        :   mvn -Pgenerate-gpgkey,artifact-release clean deploy
+                Example 1       :   mvn -Pgenerate-gpgkey -DskipTests -DskipITs clean install
+             -->
             <id>generate-gpgkey</id>
             <properties>
                 <!-- GPG Properties -->
@@ -1127,11 +1199,11 @@
                 </plugins>
             </build>
         </profile>
-        <!--
-            Description     :   List all environment variables
-            Syntax          :   mvn -Pshow-env validate
-         -->
         <profile>
+            <!--
+                Description     :   List all environment variables
+                Syntax          :   mvn -Pshow-env validate
+             -->
             <id>show-env</id>
             <build>
                 <plugins>
@@ -1151,14 +1223,14 @@
                 </plugins>
             </build>
         </profile>
-        <!--
-            Description     :   Checks the correctness of the gpg-signature of an artifact
-            See             :   https://www.simplify4u.org/pgpverify-maven-plugin/
-            Syntax 1        :   mvn -Pverify-signature validate
-            Syntax 2        :   mvn -Pverify-signature pgpverify:show -Dartifact=[g:a:v]
-            Example 2       :   mvn -Pverify-signature pgpverify:show -Dartifact=org.apache.commons:commons-lang3:3.9
-         -->
         <profile>
+            <!--
+                Description     :   Checks the correctness of the gpg-signature of an artifact
+                See             :   https://www.simplify4u.org/pgpverify-maven-plugin/
+                Syntax 1        :   mvn -Pverify-signature validate
+                Syntax 2        :   mvn -Pverify-signature pgpverify:show -Dartifact=[g:a:v]
+                Example 2       :   mvn -Pverify-signature pgpverify:show -Dartifact=org.apache.commons:commons-lang3:3.9
+             -->
             <id>verify-signature</id>
             <build>
                 <plugins>

@@ -1,5 +1,4 @@
-
-name: maven-build
+name: sonarcloud-analysis
 
 on:
   push:
@@ -9,13 +8,19 @@ on:
     paths-ignore:
       - '.github/**'
       - '.run/**'
-  workflow_dispatch:
-    branches:
-      - master
-      - develop
   pull_request:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      branches:
+        description: 'which branch'
+        required: true
+        default: 'master'
+        type: choice
+        options:
+          - master
+          - develop
 
 env:
   # Github Configuration
@@ -39,17 +44,18 @@ env:
   SONAR_HOST_URL: "https://sonarcloud.io"
 
 jobs:
-  build:
+  sonarcloud:
     strategy:
       matrix:
         os: [ubuntu-latest]
         version: [11]
         distribution: [adopt]
     runs-on: ${{ matrix.os }}
-
     steps:
       - name: checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: show env
         run: |
@@ -62,30 +68,24 @@ jobs:
           java-version: '${{ matrix.version }}'
           distribution: '${{ matrix.distribution }}'
           architecture: x64
-          cache: 'maven'
-
-      - name: maven build
-        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} $MVN_OPTS_BUILD clean verify
-
-      - name: show build
-        run: |
-          echo "**** show_build ****"
-          find "${{ env.GZITHUB_PROJECT_DIR }}" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
-
-      - name: prepare upload
-        env:
-          PU_JAR: ${{ env.GZITHUB_TARGET_DIR }}/*.jar
-          PU_POM: ${{ env.GZITHUB_PROJECT_DIR }}/pom.xml
-        run: |
-          mkdir "${{ env.GZITHUB_UPLOAD_DIR }}"
-          ls -la "${{ env.GZITHUB_PROJECT_DIR }}"
-          ls -la "${{ env.GZITHUB_TARGET_DIR }}"
-          test -f "${{ env.PU_JAR }}" && cp -v "${{ env.PU_JAR }}" "${{ env.GZITHUB_UPLOAD_DIR }}"
-          test -f "${{ env.PU_POM }}" && cp -v "${{ env.PU_POM }}" "${{ env.GZITHUB_UPLOAD_DIR }}"
-
-      - name: upload artifact
-        uses: actions/upload-artifact@v3
+          # cache: 'maven'
+          
+      - name: cache SonarCloud packages
+        uses: actions/cache@v1
         with:
-          name: ${{ env.GZITHUB_REPO_NAME }}
-          path: ${{ env.GZITHUB_UPLOAD_DIR }}
-          if-no-files-found: warn
+          path: ~/.sonar/cache
+          key: ${{ matrix.os }}-sonar
+          restore-keys: ${{ matrix.os }}-sonar 
+
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ matrix.os }}-m2
+          
+      - name: sonarcloud scan
+        run: mvn $MVN_REPO_OPTS $MVN_SIGN_OPTS $MVN_TEST_OPTS_N $MVN_OPTS_SONAR verify sonar:sonar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
