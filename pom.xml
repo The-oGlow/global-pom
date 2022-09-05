@@ -488,7 +488,6 @@
             <id>coding.github</id>
             <name>CAI-Central Awesome Index</name>
             <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
-
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
