@@ -77,12 +77,12 @@
     <distributionManagement>
         <downloadUrl>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</downloadUrl>
         <snapshotRepository>
-            <id>coding.github-ss</id>
+            <id>coding.github.deploy-ss</id>
             <name>ASS-Awesome Snap Shots</name>
             <url>https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots</url>
         </snapshotRepository>
         <repository>
-            <id>coding.github</id>
+            <id>coding.github.deploy</id>
             <name>CAI-Central Awesome Index</name>
             <url>https://maven.pkg.github.com/The-oGlow/Central-Awesome-Index</url>
             <uniqueVersion>true</uniqueVersion>
