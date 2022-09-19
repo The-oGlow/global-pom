@@ -103,4 +103,4 @@ jobs:
           if-no-files-found: warn
 
       - name: deploy artifact
-        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_BUILD_OPTS }} deploy
+        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_BUILD_OPTS }} ${{ env.MVN_REPO_OPTS }} deploy
