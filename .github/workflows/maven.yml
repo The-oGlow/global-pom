@@ -67,6 +67,14 @@ jobs:
           path: ~/.m2
           key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ matrix.os }}-m2
+          
+      - name: maven settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: '[{ "id": "coding.github-ss",  "username": "ollily", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}}, { "id": "coding.github.deploy-ss",  "username": "ollily", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_WRITE_TOKEN }}" }}}}]' 
+
+      - name: settings
+        run: cat ${{ env.MVN_HOME_DIR }}/settings.xml
 
       - name: maven build
         run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_OPTS_BUILD }} clean install
@@ -95,5 +103,4 @@ jobs:
           if-no-files-found: warn
 
       - name: deploy artifact
-        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_OPTS_BUILD }} deploy
-
+        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_BUILD_OPTS }} deploy
