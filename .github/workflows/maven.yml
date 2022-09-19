@@ -21,13 +21,15 @@ env:
   GZITHUB_TARGET_DIR: ${{ github.workspace }}/target
   GZITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
   # Maven Paths
+  MVN_HOME_DIR: ~/.m2
   REPO_DIR: ${{ github.workspace }}/.repo
   MVN_USR_HOME: /root/.m2
   # Maven Goal Configuration
   MVN_TEST_OPTS_N: -DskipTests=true -DskipITs=true
   MVN_TEST_OPTS_Y: -DskipTests=false -DskipITs=false
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
-  MVN_REPO_OPTS: -B -s "${{ github.workspace}}/.m2/settings.xml" 
+  MVN_REPO_OPTS: -Dmaven.repo.local="${{ github.workspace}}/.repo"
+  MVN_SETT_OPTS: -B -s "${{ github.workspace}}/.m2/settings.xml" 
   # -Dmaven.repo.local="${{ github.workspace}}/.repo"
   MVN_OPTS_BUILD: -fae -Dmaven.test.failure.ignore=true
   MVN_OPTS_CLI: -fae
@@ -77,7 +79,7 @@ jobs:
         run: cat ${{ env.MVN_HOME_DIR }}/settings.xml
 
       - name: maven build
-        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_OPTS_BUILD }} clean install
+        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_SETT_OPTS }} ${{ env.MVN_OPTS_BUILD }} clean install
 
       - name: show build
         run: |
@@ -103,4 +105,4 @@ jobs:
           if-no-files-found: warn
 
       - name: deploy artifact
-        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_BUILD_OPTS }} ${{ env.MVN_REPO_OPTS }} deploy
+        run: mvn ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_BUILD_OPTS }} ${{ env.MVN_SETT_OPTS }} deploy
