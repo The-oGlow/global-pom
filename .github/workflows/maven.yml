@@ -50,6 +50,7 @@ env:
   MVN_SONAR_OPTS: -Dsonar.qualitygate.wait=true -Dsonar.login=${{ secrets.SONAR_TOKEN }}
   SONAR_CACHE_DIR: ~/.sonar/cache
   SONAR_HOST_URL: "https://sonarcloud.io"
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
   build:
