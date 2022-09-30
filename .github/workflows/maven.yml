@@ -21,6 +21,9 @@ env:
   GITHUB_PROJECT_DIR: ${{ github.workspace }}
   GITHUB_TARGET_DIR: ${{ github.workspace }}/target
   GITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PCK_READ_TOKEN: ${{ secrets.PCK_READ_TOKEN }}
+  PCK_WRITE_TOKEN: ${{ secrets.PCK_WRITE_TOKEN }}
 
   # Maven Common Configuration
   MVN_HOME_DIR: ~/.m2
@@ -103,10 +106,6 @@ jobs:
         run: cat ${{ github.workspace}}/.m2/settings.xml
 
       - name: maven build
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PCK_READ_TOKEN: ${{ secrets.PCK_READ_TOKEN }}
-          PCK_WRITE_TOKEN: ${{ secrets.PCK_WRITE_TOKEN }}
         run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_BUILD_OPTS }} clean install
 
       - name: show build
@@ -133,9 +132,5 @@ jobs:
           if-no-files-found: warn
 
       - name: deploy artifact
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PCK_READ_TOKEN: ${{ secrets.PCK_READ_TOKEN }}
-          PCK_WRITE_TOKEN: ${{ secrets.PCK_WRITE_TOKEN }}
         run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_CLI_OPTS }} deploy
 
