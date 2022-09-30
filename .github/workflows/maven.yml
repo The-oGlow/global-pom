@@ -90,9 +90,7 @@ jobs:
       - name: maven settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
-          servers: |
-            '[{ "id": "coding.github-ss", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"},
-            { "id": "coding.github.deploy-ss", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}]'
+          servers: '[{"id": "coding.github-ss", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}, {"id": "coding.github.deploy-ss", "username": "${env.GITHUB_ACTOR}", "password": "${env.GITHUB_TOKEN}"}]'
       #  with:
       #    servers: '[{ "id": "coding.github-ss",  "username": "${{ github.github_actor }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_READ_TOKEN }}" }}}}, { "id": "coding.github.deploy-ss",  "username": "${{ github.github_actor }}", "configuration": { "httpHeaders": { "property": { "name": "Authorization", "value": "Bearer ${{ secrets.PCK_WRITE_TOKEN }}" }}}}]'
 
