@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"
+          xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <servers>
+        <!-- Github -->
+        <!-- ============================================== -->
+        <server>
+            <id>coding.github-t</id>
+            <configuration>
+                <httpHeaders>
+                    <property>
+                        <name>Authorization</name>
+                        <value>Bearer ${secret.PCK_READ_TOKEN}</value>
+                    </property>
+                </httpHeaders>
+            </configuration>
+        </server>
+        <server>
+            <id>coding.github-t-ss</id>
+            <configuration>
+                <httpHeaders>
+                    <property>
+                        <name>Authorization</name>
+                        <value>Bearer ${secret.PCK_READ_TOKEN}</value>
+                    </property>
+                </httpHeaders>
+            </configuration>
+        </server>
+        <server>
+            <id>coding.github-t.deploy</id>
+            <configuration>
+                <httpHeaders>
+                    <property>
+                        <name>Authorization</name>
+                        <value>Bearer ${secret.PCK_WRITE_TOKEN}</value>
+                    </property>
+                </httpHeaders>
+            </configuration>
+        </server>
+        <server>
+            <id>coding.github-t.deploy-ss</id>
+            <configuration>
+                <httpHeaders>
+                    <property>
+                        <name>Authorization</name>
+                        <value>Bearer ${secret.PCK_WRITE_TOKEN}</value>
+                    </property>
+                </httpHeaders>
+            </configuration>
+        </server>
+        <!-- Github with user -->
+        <!-- ============================================== -->
+        <server>
+            <id>coding.github</id>
+            <username>${env.GITHUB_ACTOR}</username>
+            <password>${secret.PCK_READ_TOKEN}</password>
+        </server>
+        <server>
+            <id>coding.github-ss</id>
+            <username>${env.GITHUB_ACTOR}</username>
+            <password>${secret.PCK_READ_TOKEN}</password>
+        </server>
+        <server>
+            <id>coding.github.deploy</id>
+            <username>${env.GITHUB_ACTOR}</username>
+            <password>${secret.PCK_WRITE_TOKEN}</password>
+        </server>
+        <server>
+            <id>coding.github.deploy-ss</id>
+            <username>${env.GITHUB_ACTOR}</username>
+            <password>${secret.PCK_WRITE_TOKEN}</password>
+        </server>
+        <!-- Gitlab -->
+        <!-- ============================================== -->
+        <server>
+            <id>coding.gitlab</id>
+            <configuration>
+                <httpHeaders>
+                    <property>
+                        <name>Private-Token</name>
+                        <value>${env.CI_JOB_TOKEN}</value>
+                    </property>
+                </httpHeaders>
+            </configuration>
+        </server>
+        <server>
+            <id>coding.gitlab.deploy-ss</id>
+            <configuration>
+                <httpHeaders>
+                    <property>
+                        <name>Private-Token</name>
+                        <value>${env.CI_JOB_TOKEN}</value>
+                    </property>
+                </httpHeaders>
+            </configuration>
+        </server>
+        <server>
+            <id>coding.gitlab.deploy</id>
+            <configuration>
+                <httpHeaders>
+                    <property>
+                        <name>Private-Token</name>
+                        <value>${env.CI_JOB_TOKEN}</value>
+                    </property>
+                </httpHeaders>
+            </configuration>
+        </server>
+        <!-- JFrog -->
+        <!-- ============================================== -->
+        <server>
+            <id>coding.jfrog.read</id>
+            <username>${env.JF_READ_USER}</username>
+            <password>${env.JF_READ_PWD}</password>
+        </server>
+        <server>
+            <id>coding.jfrog.deploy</id>
+            <username>${env.JF_WRITE_USER}</username>
+            <password>${env.JF_WRITE_PWD}</password>
+        </server>
+    </servers>
+</settings>
