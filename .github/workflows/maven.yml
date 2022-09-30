@@ -32,6 +32,8 @@ env:
   MVN_DISTRIB_URL: https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots
   MVN_DISTRIB_REPO_SS: Awesome-Snap-Shots
   MVN_DISTRIB_REPO_REL: Central-Awesome-Index
+  CHK_FILE: com/glowa-net/maven/parent/global-appl-pom/3-SNAPSHOT/maven-metadata.xml
+  CHK_FUNC: echo SUCCESS || echo FAIL
 
   # Maven Sign Configuration
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
@@ -57,8 +59,8 @@ jobs:
     steps:
       - name: validate deploy repos
         run: |
-          curl -H "Authorization: Bearer ${{ secrets.PCK_READ_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/com/glowa-net/maven-metadata.xml" 
-          curl -H "Authorization: Bearer ${{ secrets.PCK_WRITE_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/com/glowa-net/maven-metadata.xml"
+          curl -fH "Authorization: Bearer ${{ secrets.PCK_READ_TOKEN }}"  "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }} 
+          curl -fH "Authorization: Bearer ${{ secrets.PCK_WRITE_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
 
       - name: checkout
         uses: actions/checkout@v3.0.2
