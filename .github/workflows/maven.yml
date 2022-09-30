@@ -25,8 +25,8 @@ env:
   # Maven Common Configuration
   MVN_HOME_DIR: ~/.m2
   MVN_REPO_JOB_DIR: ${{ github.workspace }}/.repo
-  MVN_SETT_OPTS: -v -B
-  MVN_SETS_OPTS: -v -B -s "${{ github.workspace}}/.m2/settings.xml"
+  MVN_SETT_OPTS: -V -B
+  MVN_SETS_OPTS: -V -B -s "${{ github.workspace}}/.m2/settings.xml"
   MVN_REPO_OPTS: -Dmaven.repo.local="${{ github.workspace}}/.repo"
   MVN_BUILD_OPTS: -fae -Dmaven.test.failure.ignore=true
   MVN_CLI_OPTS: -ff
