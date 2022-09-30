@@ -58,12 +58,12 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: validate deploy repos
-        run: |
-          curl -fH "Authorization: Bearer ${{ secrets.PCK_READ_TOKEN }}"  "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
-          curl -fH "Authorization: Bearer ${{ secrets.PCK_WRITE_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
-          curl -f -u "${{ env.GITHUB_ACTOR }}:${{ secrets.PCK_WRITE_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
-          curl -f -u "${{ env.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
+      #      - name: validate deploy repos
+      #        run: |
+      #          curl -fH "Authorization: Bearer ${{ secrets.PCK_READ_TOKEN }}"  "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
+      #          curl -fH "Authorization: Bearer ${{ secrets.PCK_WRITE_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
+      #          curl -f -u "${{ env.GITHUB_ACTOR }}:${{ secrets.PCK_WRITE_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
+      #          curl -f -u "${{ env.GITHUB_ACTOR }}:${{ secrets.GITHUB_TOKEN }}" "${{ env.MVN_DISTRIB_URL }}/${{ env.MVN_DISTRIB_REPO_SS }}/${{ env.CHK_FILE }}" && ${{ env.CHK_FUNC }}
 
       - name: checkout
         uses: actions/checkout@v3.0.2
@@ -82,12 +82,12 @@ jobs:
           distribution: '${{ matrix.distribution }}'
           architecture: x64
 
-      #      - name: cache maven packages
-      #        uses: actions/cache@v3.0.8
-      #        with:
-      #          path: ${{ env.MVN_HOME_DIR }}
-      #          key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
-      #          restore-keys: ${{ matrix.os }}-m2
+      - name: cache maven packages
+        uses: actions/cache@v3.0.8
+        with:
+          path: ${{ env.MVN_HOME_DIR }}
+          key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ matrix.os }}-m2
 
       #      - name: maven settings
       #        uses: s4u/maven-settings-action@v2.6.0
@@ -114,23 +114,23 @@ jobs:
           echo "**** show_build ****"
           find "${{ env.GITHUB_PROJECT_DIR }}" -type d ! -regex ".+\.repo.*" ! -regex ".+\.git.*" ! -regex ".+\.sonar.*" -print
 
-      #      - name: prepare upload
-      #        env:
-      #          PU_JAR: ${{ env.GITHUB_TARGET_DIR }}/*.jar
-      #          PU_POM: ${{ env.GITHUB_PROJECT_DIR }}/pom.xml
-      #        run: |
-      #          mkdir "${{ env.GITHUB_UPLOAD_DIR }}"
-      #          ls -la "${{ env.GITHUB_PROJECT_DIR }}"
-      #          ls -la "${{ env.GITHUB_TARGET_DIR }}"
-      #          test -f "${{ env.PU_JAR }}" && cp -v "${{ env.PU_JAR }}" "${{ env.GITHUB_UPLOAD_DIR }}"
-      #          test -f "${{ env.PU_POM }}" && cp -v "${{ env.PU_POM }}" "${{ env.GITHUB_UPLOAD_DIR }}"
+      - name: prepare upload
+        env:
+          PU_JAR: ${{ env.GITHUB_TARGET_DIR }}/*.jar
+          PU_POM: ${{ env.GITHUB_PROJECT_DIR }}/pom.xml
+        run: |
+          mkdir "${{ env.GITHUB_UPLOAD_DIR }}"
+          ls -la "${{ env.GITHUB_PROJECT_DIR }}"
+          ls -la "${{ env.GITHUB_TARGET_DIR }}"
+          test -f "${{ env.PU_JAR }}" && cp -v "${{ env.PU_JAR }}" "${{ env.GITHUB_UPLOAD_DIR }}"
+          test -f "${{ env.PU_POM }}" && cp -v "${{ env.PU_POM }}" "${{ env.GITHUB_UPLOAD_DIR }}"
 
-      #      - name: upload artifact
-      #        uses: actions/upload-artifact@v3.1.0
-      #        with:
-      #          name: ${{ env.GITHUB_REPO_NAME }}
-      #          path: ${{ env.GITHUB_UPLOAD_DIR }}
-      #          if-no-files-found: warn
+      - name: upload artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: ${{ env.GITHUB_REPO_NAME }}
+          path: ${{ env.GITHUB_UPLOAD_DIR }}
+          if-no-files-found: warn
 
       - name: deploy artifact
         env:
