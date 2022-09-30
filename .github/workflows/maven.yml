@@ -29,9 +29,9 @@ env:
   MVN_REPO_OPTS: -Dmaven.repo.local="${{ github.workspace}}/.repo"
   MVN_BUILD_OPTS: -fae -Dmaven.test.failure.ignore=true
   MVN_CLI_OPTS: -fae
-  MVN_DISTRIB_URL: https://maven.pkg.github.com/The-oGlow/Awesome-Snap-Shots
-  MVN_DISTRIB_REPO_SS: Awesome-Snap-Shots
-  MVN_DISTRIB_REPO_REL: Central-Awesome-Index
+  MVN_DISTRIB_URL: https://maven.pkg.github.com
+  MVN_DISTRIB_REPO_SS: The-oGlow/Awesome-Snap-Shots
+  MVN_DISTRIB_REPO_REL: The-oGlow/Central-Awesome-Index
   CHK_FILE: com/glowa-net/maven/parent/global-appl-pom/3-SNAPSHOT/maven-metadata.xml
   CHK_FUNC: echo SUCCESS || echo FAIL
 
