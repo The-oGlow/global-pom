@@ -108,7 +108,7 @@ jobs:
         run: cat ${{ github.workspace}}/.m2/settings.xml
 
       - name: maven build
-        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_BUILD_OPTS }} clean install
+        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_BUILD_OPTS }} help:active-profiles clean install
 
       - name: show build
         run: |
@@ -135,5 +135,5 @@ jobs:
           retention-days: 14
 
       - name: deploy artifact
-        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_CLI_OPTS }} deploy
+        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_CLI_OPTS }} help:active-profiles deploy
 
