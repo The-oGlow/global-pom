@@ -1199,7 +1199,7 @@
                 <!-- This github repository -->
                 <project.env.GH_PROJECT_NAME>${project.artifactId}</project.env.GH_PROJECT_NAME>
                 <!-- The organization of this github repository -->
-                <project.env.GH_GROUP_NAME>the-oglow</project.env.GH_GROUP_NAME>
+                <project.env.GH_GROUP_NAME>The-oGlow</project.env.GH_GROUP_NAME>
                 <!-- The unique identifier of this project -->
                 <project.env.GH_IDENTIFIER>${project.env.GH_GROUP_NAME}/${project.env.GH_PROJECT_NAME}</project.env.GH_IDENTIFIER>
                 <!-- The base git-url of the organisation -->
@@ -1209,7 +1209,7 @@
 
                 <!-- Sonar Properties -->
                 <!-- ============================================== -->
-                <sonar.organization>${project.env.GH_GROUP_NAME}</sonar.organization>
+                <sonar.organization>the-oglow</sonar.organization>
             </properties>
 
             <!-- Section Distribution -->
@@ -1293,7 +1293,6 @@
                     </releases>
                 </pluginRepository>
             </pluginRepositories>
-
         </profile>
         <profile>
             <!--
@@ -1333,7 +1332,7 @@
                 <!-- The ID of this gitlab repository -->
                 <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
                 <!-- The organization of this gitlab repository -->
-                <project.env.CI_GROUP_NAME>the-oglow</project.env.CI_GROUP_NAME>
+                <project.env.CI_GROUP_NAME>The-oGlow</project.env.CI_GROUP_NAME>
                 <!-- The ID of this organization of this gitlab repository -->
                 <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
                 <!-- The unique identifier of this project -->
@@ -1349,7 +1348,7 @@
 
                 <!-- Sonar Properties -->
                 <!-- ============================================== -->
-                <sonar.organization>${project.env.CI_GROUP_NAME}</sonar.organization>
+                <sonar.organization>the-oglow</sonar.organization>
             </properties>
 
             <!-- Section Distribution -->
@@ -1409,5 +1408,4 @@
             </pluginRepositories>
         </profile>
     </profiles>
-
 </project>
