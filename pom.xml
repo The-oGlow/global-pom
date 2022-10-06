@@ -1170,7 +1170,7 @@
             <id>settings-github</id>
             <activation>
                 <property>
-                    <name>GITHUB_ACTOR</name>
+                    <name>env.GITHUB_ACTOR</name>
                 </property>
             </activation>
 
@@ -1298,12 +1298,11 @@
         <profile>
             <!--
                 Description     :   Define settings for Gitlab
-                GITLAB_USER_NAME
              -->
             <id>settings-gitlab</id>
             <activation>
                 <property>
-                    <name>GITLAB_USER_LOGIN</name>
+                    <name>env.GITLAB_USER_LOGIN</name>
                 </property>
             </activation>
 
@@ -1380,7 +1379,7 @@
                     <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
                     <snapshots>
                         <enabled>true</enabled>
-                        <updatePolicy>interval:10</updatePolicy>
+                        <updatePolicy>always</updatePolicy>
                         <checksumPolicy>warn</checksumPolicy>
                     </snapshots>
                     <releases>
