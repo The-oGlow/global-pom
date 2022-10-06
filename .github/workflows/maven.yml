@@ -21,7 +21,7 @@ env:
   GITHUB_PROJECT_DIR: ${{ github.workspace }}
   GITHUB_TARGET_DIR: ${{ github.workspace }}/target
   GITHUB_UPLOAD_DIR: ${{ github.workspace }}/staging
-  GITHUB_UPLOAD_NAME: ${{ env.GITHUB_REPO_NAME }}.zip
+  GITHUB_UPLOAD_NAME: ${{ github.event.repository.name }}.zip
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PCK_READ_TOKEN: ${{ secrets.PCK_READ_TOKEN }}
   PCK_WRITE_TOKEN: ${{ secrets.PCK_WRITE_TOKEN }}
