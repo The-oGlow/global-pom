@@ -5,7 +5,7 @@
         <!-- Github -->
         <!-- ============================================== -->
         <server>
-            <id>coding.github-t</id>
+            <id>coding.github</id>
             <configuration>
                 <httpHeaders>
                     <property>
@@ -16,7 +16,7 @@
             </configuration>
         </server>
         <server>
-            <id>coding.github-t-ss</id>
+            <id>coding.github.ss</id>
             <configuration>
                 <httpHeaders>
                     <property>
@@ -27,7 +27,7 @@
             </configuration>
         </server>
         <server>
-            <id>coding.github-t.deploy</id>
+            <id>coding.github.deploy</id>
             <configuration>
                 <httpHeaders>
                     <property>
@@ -38,7 +38,7 @@
             </configuration>
         </server>
         <server>
-            <id>coding.github-t.deploy-ss</id>
+            <id>coding.github.ss.deploy</id>
             <configuration>
                 <httpHeaders>
                     <property>
@@ -56,7 +56,7 @@
             <password>${env.PCK_READ_TOKEN}</password>
         </server>
         <server>
-            <id>coding.github-ss</id>
+            <id>coding.github.ss</id>
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.PCK_READ_TOKEN}</password>
         </server>
@@ -66,7 +66,7 @@
             <password>${env.PCK_WRITE_TOKEN}</password>
         </server>
         <server>
-            <id>coding.github.deploy-ss</id>
+            <id>coding.github.ss.deploy</id>
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.PCK_WRITE_TOKEN}</password>
         </server>
