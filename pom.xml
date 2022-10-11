@@ -1295,6 +1295,18 @@
             </pluginRepositories>
         </profile>
         <profile>
+            <id>settings-github-branch</id>
+            <activation>
+                <property>
+                    <name>env.GITHUB_BRANCH_NAME</name>
+                </property>
+            </activation>
+            <properties>
+                <sonar.branch.name>${env.GITHUB_BRANCH_NAME}</sonar.branch.name>
+                <sonar.branch.target>${env.GITHUB_BRANCH_NAME}</sonar.branch.target>
+            </properties>
+        </profile>
+        <profile>
             <!--
                 Description     :   Define settings for Gitlab
              -->
