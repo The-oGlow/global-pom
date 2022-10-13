@@ -153,6 +153,8 @@
         <!-- -->
         <jacoco.reportOutputFolder>${jacoco.destFolder}/ut</jacoco.reportOutputFolder>
         <jacoco.itReportOutputFolder>${jacoco.destFolder}/it</jacoco.itReportOutputFolder>
+        <jacoco.commonReportOutputFolder>${jacoco.destFolder}/comm</jacoco.commonReportOutputFolder>
+        <jacoco.aggregateReportFile>${jacoco.reportOutputFolder}/jacoco.xml</jacoco.aggregateReportFile>
 
         <!-- Sonar Properties -->
         <!-- ============================================== -->
@@ -751,6 +753,7 @@
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
+                        <phase>initialize</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -760,11 +763,36 @@
                     </execution>
                     <execution>
                         <id>default-prepare-agent-integration</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>prepare-agent-integration</goal>
                         </goals>
                         <configuration>
                             <destFile>${jacoco.itReportFile}</destFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${jacoco.reportFile}</dataFile>
+                            <title>${jacoco.reportTitle}</title>
+                            <outputDirectory>${jacoco.reportOutputFolder}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-report-integration</id>
+                        <phase>report-integration</phase>
+                        <goals>
+                            <goal>report-integration</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${jacoco.itReportFile}</dataFile>
+                            <title>${jacoco.itReportTitle}</title>
+                            <outputDirectory>${jacoco.itReportOutputFolder}</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
@@ -786,25 +814,15 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>default-report</id>
+                        <id>default-report-aggregate</id>
+                        <phase>post-integration-test</phase>
                         <goals>
-                            <goal>report</goal>
+                            <goal>report-aggregate</goal>
                         </goals>
                         <configuration>
-                            <dataFile>${jacoco.reportFile}</dataFile>
-                            <title>${jacoco.reportTitle}</title>
-                            <outputDirectory>${jacoco.reportOutputFolder}</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-report-integration</id>
-                        <goals>
-                            <goal>report-integration</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${jacoco.itReportFile}</dataFile>
-                            <title>${jacoco.itReportTitle}</title>
-                            <outputDirectory>${jacoco.itReportOutputFolder}</outputDirectory>
+                            <dataFileIncludes>${jacoco.aggregateReportFile}</dataFileIncludes>
+                            <title>${jacoco.commonReportTitle}</title>
+                            <outputDirectory>${jacoco.commonReportOutputFolder}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
