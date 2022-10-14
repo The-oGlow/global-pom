@@ -107,6 +107,7 @@
         <commons-beanutils.commons-beanutils.version>1.9.4</commons-beanutils.commons-beanutils.version>
         <commons-cli.commons-cli.version>1.5.0</commons-cli.commons-cli.version>
         <commons-codec.commons-codec.version>1.15</commons-codec.commons-codec.version>
+        <javax.xml.bind.jaxb-api.version>2.2.3</javax.xml.bind.jaxb-api.version>
         <org.apache.commons.commons-collections4.version>4.4</org.apache.commons.commons-collections4.version>
         <org.apache.commons.commons-csv.version>1.9.0</org.apache.commons.commons-csv.version>
         <commons-io.commons-io.version>2.11.0</commons-io.commons-io.version>
@@ -147,14 +148,19 @@
         <jacoco.itReportFile>${jacoco.destFolder}/jacoco-it.exec</jacoco.itReportFile>
         <jacoco.commonReportFile>${jacoco.destFolder}/jacoco.common</jacoco.commonReportFile>
         <!-- -->
-        <jacoco.reportTitle>Unit-Test Coverage-Report for ${project.name}</jacoco.reportTitle>
-        <jacoco.itReportTitle>Integration-Test Coverage-Report for ${project.name}</jacoco.itReportTitle>
-        <jacoco.commonReportTitle>Coverage for ${project.name}</jacoco.commonReportTitle>
+        <jacoco.reportTitle>UT Coverage-Report for ${project.name}</jacoco.reportTitle>
+        <jacoco.itReportTitle>IT Coverage-Report for ${project.name}</jacoco.itReportTitle>
+        <jacoco.commonReportTitle>UT+IT Coverage for ${project.name}</jacoco.commonReportTitle>
         <!-- -->
         <jacoco.reportOutputFolder>${jacoco.destFolder}/ut</jacoco.reportOutputFolder>
         <jacoco.itReportOutputFolder>${jacoco.destFolder}/it</jacoco.itReportOutputFolder>
         <jacoco.commonReportOutputFolder>${jacoco.destFolder}/comm</jacoco.commonReportOutputFolder>
-        <jacoco.aggregateReportFile>${jacoco.reportOutputFolder}/jacoco.xml</jacoco.aggregateReportFile>
+
+        <!-- Coveralls Properties -->
+        <!-- ============================================== -->
+        <coveralls.destFolder>${project.build.directory}/coveralls</coveralls.destFolder>
+        <coveralls.outputFile>${coveralls.destFolder}/coveralls.json</coveralls.outputFile>
+        <coveralls.reportFileJacoco>${jacoco.commonReportOutputFolder}/jacoco.xml</coveralls.reportFileJacoco>
 
         <!-- Sonar Properties -->
         <!-- ============================================== -->
@@ -391,6 +397,11 @@
 
             <!-- Other Dependencies -->
             <!-- ============================================== -->
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${javax.xml.bind.jaxb-api.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -442,6 +453,11 @@
             <!-- ============================================== -->
             <plugins>
                 <plugin>
+                    <groupId>org.apache.maven.doxia</groupId>
+                    <artifactId>doxia-sitetools</artifactId>
+                    <version>1.10</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.8</version>
@@ -475,11 +491,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>2.22.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.skins</groupId>
-                    <artifactId>maven-fluido-skin</artifactId>
-                    <version>${org.apache.maven.skins.maven.fluido.skin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -546,9 +557,19 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.2</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.skins</groupId>
+                    <artifactId>maven-fluido-skin</artifactId>
+                    <version>${org.apache.maven.skins.maven.fluido.skin.version}</version>
+                </plugin>
 
                 <!-- 3rd Party Plugins -->
                 <!-- ============================================== -->
+                <plugin>
+                    <groupId>net.nicoulaj.maven.plugins</groupId>
+                    <artifactId>checksum-maven-plugin</artifactId>
+                    <version>1.11</version>
+                </plugin>
                 <plugin>
                     <groupId>org.asciidoctor</groupId>
                     <artifactId>asciidoctor-maven-plugin</artifactId>
@@ -565,14 +586,19 @@
                     <version>3.0.0</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.7</version>
-                </plugin>
-                <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
                     <version>2.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eluder.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>4.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.7</version>
                 </plugin>
                 <plugin>
                     <groupId>org.simplify4u.plugins</groupId>
@@ -580,14 +606,9 @@
                     <version>1.14.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>net.nicoulaj.maven.plugins</groupId>
-                    <artifactId>checksum-maven-plugin</artifactId>
-                    <version>1.11</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.doxia</groupId>
-                    <artifactId>doxia-sitetools</artifactId>
-                    <version>1.10</version>
+                    <groupId>io.jsonwebtoken.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>4.4.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -749,6 +770,21 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <configuration>
+                    <coverallsFile>${coveralls.outputFile}</coverallsFile>
+                    <jacocoReports>${coveralls.reportFileJacoco}</jacocoReports>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>${javax.xml.bind.jaxb-api.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <executions>
@@ -821,7 +857,6 @@
                             <goal>report</goal>
                         </goals>
                         <configuration>
-                            <!--                            <dataFileIncludes>${jacoco.aggregateReportFile}</dataFileIncludes> -->
                             <dataFile>${jacoco.commonReportFile}</dataFile>
                             <title>${jacoco.commonReportTitle}</title>
                             <outputDirectory>${jacoco.commonReportOutputFolder}</outputDirectory>
