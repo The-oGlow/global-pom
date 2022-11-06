@@ -574,6 +574,11 @@
                 <!-- 3rd Party Plugins -->
                 <!-- ============================================== -->
                 <plugin>
+                    <groupId>io.jsonwebtoken.coveralls</groupId>
+                    <artifactId>coveralls-maven-plugin</artifactId>
+                    <version>4.4.1</version>
+                </plugin>
+                <plugin>
                     <groupId>net.nicoulaj.maven.plugins</groupId>
                     <artifactId>checksum-maven-plugin</artifactId>
                     <version>1.11</version>
@@ -609,14 +614,14 @@
                     <version>0.8.7</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>7.3.0</version>
+                </plugin>
+                <plugin>
                     <groupId>org.simplify4u.plugins</groupId>
                     <artifactId>pgpverify-maven-plugin</artifactId>
                     <version>1.14.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>io.jsonwebtoken.coveralls</groupId>
-                    <artifactId>coveralls-maven-plugin</artifactId>
-                    <version>4.4.1</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -807,6 +812,33 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>check-file-header</goal>
+                        </goals>
+                        <configuration>
+                            <licenseName>${project.license.id}</licenseName>
+                            <failOnMissingHeader>false</failOnMissingHeader>
+                            <failOnNotUptodateHeader>false</failOnNotUptodateHeader>
+                            <addJavaLicenseAfterPackage>true</addJavaLicenseAfterPackage>
+                            <emptyLineAfterHeader>false</emptyLineAfterHeader>
+                            <trimHeaderLine>false</trimHeaderLine>
+                            <excludes>
+                                <exclude>*.xml</exclude>
+                            </excludes>
+                            <roots>
+                                <root>src/main</root>
+                                <root>src/test</root>
+                            </roots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <configuration>
@@ -948,28 +980,23 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
                 <executions>
                     <execution>
-                        <phase>prepare-package</phase>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>check-file-header</goal>
+                            <goal>check</goal>
                         </goals>
                         <configuration>
-                            <licenseName>${project.license.id}</licenseName>
-                            <failOnMissingHeader>false</failOnMissingHeader>
-                            <failOnNotUptodateHeader>false</failOnNotUptodateHeader>
-                            <addJavaLicenseAfterPackage>true</addJavaLicenseAfterPackage>
-                            <emptyLineAfterHeader>false</emptyLineAfterHeader>
-                            <trimHeaderLine>false</trimHeaderLine>
-                            <excludes>
-                                <exclude>*.xml</exclude>
-                            </excludes>
-                            <roots>
-                                <root>src/main</root>
-                                <root>src/test</root>
-                            </roots>
+                            <failOnError>false</failOnError>
+                            <formats>
+                                <format>HTML</format>
+                                <format>XML</format>
+                                <format>JSON</format>
+                                <format>JUNIT</format>
+                            </formats>
+                            <outputDirectory>${project.build.directory}/dependency</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
