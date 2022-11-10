@@ -39,7 +39,7 @@ set_env() {
     echo ...are defined
 }
 
-if [ "${1}" == "-c" ]; then
+if [ "${1}" = "-c" ]; then
     clear_env
 else
     set_env
