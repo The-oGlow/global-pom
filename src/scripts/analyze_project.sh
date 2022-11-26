@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Analyze the structure of a java maven project.
 #
@@ -7,7 +7,7 @@
 # email         : coding at glowa-net dot com
 # organization  : The oGlow
 # url           : http://coding.glowa-net.com
-# version       : 1.00.000
+# version       : 1.00.001
 #
 exc_folder=target
 
