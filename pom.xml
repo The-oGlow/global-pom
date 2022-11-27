@@ -152,6 +152,13 @@
         <!-- Maven Plugin Properties -->
         <!-- ============================================== -->
 
+        <!-- dependency-check-maven -->
+        <dependency-check.skip>false</dependency-check.skip>
+
+        <!-- maven-dependency-plugin -->
+        <mdep.analyze.skip>false</mdep.analyze.skip>
+        <mdep.skip>false</mdep.skip>
+
         <!-- maven-surefire-/maven-failsafe-plugin -->
         <skipTests>false</skipTests>
         <skip.surefire.tests>${skipTests}</skip.surefire.tests>
@@ -162,7 +169,11 @@
         <maven.home>${env.M2_HOME}</maven.home>
         <maven.bin>${maven.home}/bin/mvn${script.extension}</maven.bin>
 
+        <!-- maven-javadoc-plugin -->
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+
         <!-- maven-site-plugin -->
+        <maven.site.skip>false</maven.site.skip>
         <site.image.folder>images</site.image.folder>
         <site.image.logo.folder>${site.image.folder}/logos</site.image.logo.folder>
         <site.organization.logo.filename>logo-${project.organization.name}.jpg</site.organization.logo.filename>
@@ -1037,6 +1048,7 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
                             <failOnError>false</failOnError>
+                            <skip>${maven.javadoc.skip}</skip>
                         </configuration>
                         <reportSets>
                             <reportSet>
@@ -1109,6 +1121,7 @@
                             <locales>en,de</locales>
                             <relativizeDecorationLinks>false</relativizeDecorationLinks>
                             <pomPackagingOnly>false</pomPackagingOnly>
+                            <skip>${maven.site.skip}</skip>
                         </configuration>
                         <dependencies>
                             <dependency>
@@ -1344,6 +1357,7 @@
                                         <format>JUNIT</format>
                                     </formats>
                                     <outputDirectory>${project.build.directory}/dependency</outputDirectory>
+                                    <skip>${dependency-check.skip}</skip>
                                 </configuration>
                             </execution>
                         </executions>
@@ -1368,46 +1382,58 @@
                 </property>
             </activation>
             <properties>
-                <skip.surefire.tests>true</skip.surefire.tests>
+                <dependency-check.skip>true</dependency-check.skip>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+                <maven.site.skip>true</maven.site.skip>
+                <mdep.analyze.skip>true</mdep.analyze.skip>
+                <mdep.skip>true</mdep.skip>
                 <skip.failsafe.tests>true</skip.failsafe.tests>
+                <skip.surefire.tests>true</skip.surefire.tests>
             </properties>
             <build>
                 <plugins>
                     <!-- Apache Maven Plugins -->
                     <!-- ============================================== -->
                     <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <configuration>
+                            <skip>${dependency-check.skip}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <configuration>
-                            <skip>true</skip>
+                            <skip>${mdep.skip}</skip>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
-                            <skip>true</skip>
+                            <skip>${skip.failsafe.tests}</skip>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
-                            <skip>true</skip>
+                            <skip>${maven.javadoc.skip}</skip>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-site-plugin</artifactId>
                         <configuration>
-                            <skip>true</skip>
+                            <skip>${maven.site.skip}</skip>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
                         <configuration>
-                            <skip>true</skip>
+                            <skip>${skip.surefire.tests}</skip>
                         </configuration>
                     </plugin>
 
