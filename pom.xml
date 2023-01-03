@@ -3,13 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.apache</groupId>
-        <artifactId>apache</artifactId>
-        <version>21</version>
-        <relativePath/>
-    </parent>
-
     <groupId>com.glowa-net.maven.parent</groupId>
     <artifactId>global-pom</artifactId>
     <version>3-SNAPSHOT</version>
@@ -133,6 +126,7 @@
         <org.apache.commons.commons-rng.version>1.4</org.apache.commons.commons-rng.version>
         <org.apache.commons.commons-text.version>1.9</org.apache.commons.commons-text.version>
         <org.apache.logging.log4j.version>2.17.2</org.apache.logging.log4j.version>
+        <org.apache.maven.plugin-tools.maven-plugin-annotations.version>3.7.0</org.apache.maven.plugin-tools.maven-plugin-annotations.version>
         <org.apache.maven.shared.maven-dependency-analyzer.version>1.12.0</org.apache.maven.shared.maven-dependency-analyzer.version>
         <org.apache.maven.skins.maven.fluido.skin.version>1.9</org.apache.maven.skins.maven.fluido.skin.version>
         <org.assertj.version>3.22.0</org.assertj.version>
@@ -151,6 +145,19 @@
 
         <!-- Maven Plugin Properties -->
         <!-- ============================================== -->
+        <maven.plugin.tools.version>3.7.0</maven.plugin.tools.version>
+        <minimalJavaBuildVersion>1.8</minimalJavaBuildVersion>
+        <minimalMavenBuildVersion>3.2.5</minimalMavenBuildVersion>
+
+        <!-- dependency-check-maven -->
+        <dependency-check.skip>false</dependency-check.skip>
+
+        <!-- maven-assembly-plugin -->
+        <assembly.tarLongFileMode>posix</assembly.tarLongFileMode>
+
+        <!-- maven-dependency-plugin -->
+        <mdep.analyze.skip>false</mdep.analyze.skip>
+        <mdep.skip>false</mdep.skip>
 
         <!-- maven-surefire-/maven-failsafe-plugin -->
         <skipTests>false</skipTests>
@@ -162,7 +169,11 @@
         <maven.home>${env.M2_HOME}</maven.home>
         <maven.bin>${maven.home}/bin/mvn${script.extension}</maven.bin>
 
+        <!-- maven-javadoc-plugin -->
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+
         <!-- maven-site-plugin -->
+        <maven.site.skip>false</maven.site.skip>
         <site.image.folder>images</site.image.folder>
         <site.image.logo.folder>${site.image.folder}/logos</site.image.logo.folder>
         <site.organization.logo.filename>logo-${project.organization.name}.jpg</site.organization.logo.filename>
@@ -478,6 +489,11 @@
             <!-- Apache Dependencies -->
             <!-- ============================================== -->
             <dependency>
+                <groupId>org.apache.maven.plugin-tools</groupId>
+                <artifactId>maven-plugin-annotations</artifactId>
+                <version>${org.apache.maven.plugin-tools.maven-plugin-annotations.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.maven.skins</groupId>
                 <artifactId>maven-fluido-skin</artifactId>
                 <version>${org.apache.maven.skins.maven.fluido.skin.version}</version>
@@ -601,6 +617,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>1.4.1</version>
                 </plugin>
@@ -613,6 +634,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>3.0.1</version>
+                    <configuration>
+                        <gpgArguments>
+                            <arg>--digest-algo=SHA512</arg>
+                        </gpgArguments>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -646,6 +672,16 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.7.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-report-plugin</artifactId>
+                    <version>3.7.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.1.2</version>
                 </plugin>
@@ -666,8 +702,18 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.4.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
                     <version>1.11.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -686,6 +732,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>2.22.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.3.1</version>
                 </plugin>
@@ -694,6 +745,11 @@
                     <artifactId>maven-fluido-skin</artifactId>
                     <version>${org.apache.maven.skins.maven.fluido.skin.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.rat</groupId>
+                    <artifactId>apache-rat-plugin</artifactId>
+                    <version>0.15</version>
+                </plugin>
 
                 <!-- 3rd Party Plugins -->
                 <!-- ============================================== -->
@@ -701,11 +757,6 @@
                     <groupId>com.github.ekryd.echo-maven-plugin</groupId>
                     <artifactId>echo-maven-plugin</artifactId>
                     <version>1.3.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>io.jsonwebtoken.coveralls</groupId>
-                    <artifactId>coveralls-maven-plugin</artifactId>
-                    <version>4.4.1</version>
                 </plugin>
                 <plugin>
                     <groupId>net.nicoulaj.maven.plugins</groupId>
@@ -803,26 +854,60 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <rules>
-                        <requireMavenVersion>
-                            <version>3.6.0</version>
-                        </requireMavenVersion>
-                        <requireJavaVersion>
-                            <version>9</version>
-                        </requireJavaVersion>
-                        <requireSameVersions>
-                            <plugins>
-                                <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
-                                <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
-                                <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
-                            </plugins>
-                        </requireSameVersions>
-                        <requireEnvironmentVariable>
-                            <variableName>JAVA_HOME</variableName>
-                        </requireEnvironmentVariable>
-                    </rules>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>enforce-maven-version</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.0</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>9</version>
+                                </requireJavaVersion>
+                                <requireSameVersions>
+                                    <plugins>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+                                    </plugins>
+                                </requireSameVersions>
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_HOME</variableName>
+                                </requireEnvironmentVariable>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-java-version</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>9</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>3.6.0</version>
+                                </requireMavenVersion>
+                                <requireSameVersions>
+                                    <plugins>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+                                    </plugins>
+                                </requireSameVersions>
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_HOME</variableName>
+                                </requireEnvironmentVariable>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -834,17 +919,17 @@
                 <executions>
                     <execution>
                         <id>default-integration-test</id>
-                        <phase>integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
                         </goals>
+                        <phase>integration-test</phase>
                     </execution>
                     <execution>
                         <id>default-verify</id>
-                        <phase>post-integration-test</phase>
                         <goals>
                             <goal>verify</goal>
                         </goals>
+                        <phase>post-integration-test</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -853,10 +938,11 @@
                 <artifactId>maven-help-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
+                        <id>show-profiles</id>
                         <goals>
                             <goal>active-profiles</goal>
                         </goals>
+                        <phase>generate-resources</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -866,7 +952,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>false</addClasspath>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
@@ -887,6 +973,23 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>process-resource-bundles</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <resourceBundles>
+                                <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
+                            </resourceBundles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
                 <configuration>
                     <providerImplementations>
@@ -896,31 +999,14 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <configuration>
-                    <generateSitemap>true</generateSitemap>
-                    <locales>en,de</locales>
-                    <relativizeDecorationLinks>false</relativizeDecorationLinks>
-                    <pomPackagingOnly>false</pomPackagingOnly>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctor-maven-plugin</artifactId>
-                        <version>${org.asciidoctor--asciidoctor-maven-plugin.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>package</phase>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>jar</goal>
                         </goals>
+                        <phase>package</phase>
                         <configuration>
                             <attach>true</attach>
                         </configuration>
@@ -959,10 +1045,10 @@
                 <executions>
                     <execution>
                         <id>default-clean</id>
-                        <phase>clean</phase>
                         <goals>
                             <goal>regex-property</goal>
                         </goals>
+                        <phase>clean</phase>
                         <configuration>
                             <name>clean.cleaned</name>
                             <value>true</value>
@@ -973,10 +1059,10 @@
                     </execution>
                     <execution>
                         <id>default-snapshot</id>
-                        <phase>validate</phase>
                         <goals>
                             <goal>regex-properties</goal>
                         </goals>
+                        <phase>validate</phase>
                         <configuration>
                             <regexPropertySettings>
                                 <regexPropertySetting>
@@ -1000,38 +1086,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <configuration>
-                    <licenseName>${project.license.id}</licenseName>
-                    <addJavaLicenseAfterPackage>true</addJavaLicenseAfterPackage>
-                    <emptyLineAfterHeader>false</emptyLineAfterHeader>
-                    <trimHeaderLine>false</trimHeaderLine>
-                    <excludes>
-                        <exclude>**/*.xml</exclude>
-                    </excludes>
-                    <includes>
-                        <include>**/*.java</include>
-                    </includes>
-                    <roots>
-                        <root>src/main/java</root>
-                        <root>src/test/java</root>
-                    </roots>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>check-file-header</goal>
-                        </goals>
-                        <configuration>
-                            <failOnMissingHeader>false</failOnMissingHeader>
-                            <failOnNotUptodateHeader>false</failOnNotUptodateHeader>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
             <!-- 3rd Party Plugins -->
             <!-- ============================================== -->
@@ -1044,204 +1098,9 @@
                     </attributes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <configuration>
-                    <coverallsFile>${coveralls.outputFile}</coverallsFile>
-                    <jacocoReports>${coveralls.reportFileJacoco}</jacocoReports>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.xml.bind</groupId>
-                        <artifactId>jaxb-api</artifactId>
-                        <version>${javax.xml.bind.jaxb-api.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-prepare-agent</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${jacoco.reportFile}</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-prepare-agent-integration</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>prepare-agent-integration</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${jacoco.itReportFile}</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-report</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${jacoco.reportFile}</dataFile>
-                            <title>${jacoco.reportTitle}</title>
-                            <outputDirectory>${jacoco.reportOutputFolder}</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-report-integration</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>report-integration</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${jacoco.itReportFile}</dataFile>
-                            <title>${jacoco.itReportTitle}</title>
-                            <outputDirectory>${jacoco.itReportOutputFolder}</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-merge</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>merge</goal>
-                        </goals>
-                        <configuration>
-                            <fileSets>
-                                <fileSet>
-                                    <directory>${jacoco.destFolder}</directory>
-                                    <includes>
-                                        <include>*.exec</include>
-                                    </includes>
-                                </fileSet>
-                            </fileSets>
-                            <destFile>${jacoco.commonReportFile}</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-report-common</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${jacoco.commonReportFile}</dataFile>
-                            <title>${jacoco.commonReportTitle}</title>
-                            <outputDirectory>${jacoco.commonReportOutputFolder}</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-check</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${jacoco.commonReportFile}</dataFile>
-                            <haltOnFailure>false</haltOnFailure>
-                            <rules>
-                                <rule>
-                                    <!-- Check artifact coverage -->
-                                    <element>BUNDLE</element>
-                                    <excludes>
-                                        <!-- Don't check test classes -->
-                                        <exclude>*Test</exclude>
-                                        <exclude>*IT</exclude>
-                                    </excludes>
-                                    <limits>
-                                        <!-- Overall artifact coverage too low -->
-                                        <limit>
-                                            <counter>CLASS</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>${jacoco.coverageRatio.class}</minimum>
-                                        </limit>
-                                        <!-- Classes without a test -->
-                                        <limit>
-                                            <counter>CLASS</counter>
-                                            <value>MISSEDCOUNT</value>
-                                            <maximum>0</maximum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                                <rule>
-                                    <!-- Check package coverage -->
-                                    <element>PACKAGE</element>
-                                    <excludes>
-                                        <!-- Don't check test classes -->
-                                        <exclude>*Test</exclude>
-                                        <exclude>*IT</exclude>
-                                    </excludes>
-                                    <limits>
-                                        <!-- Package coverage too low -->
-                                        <limit>
-                                            <counter>CLASS</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>${jacoco.coverageRatio.class}</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                                <rule>
-                                    <!-- Check class coverage -->
-                                    <element>CLASS</element>
-                                    <excludes>
-                                        <!-- Don't check test classes -->
-                                        <exclude>*Test</exclude>
-                                        <exclude>*IT</exclude>
-                                        <!-- Don't be more papal than the pope. That's the task of the SQA system. -->
-                                        <exclude>*Exception</exclude>
-                                        <exclude>*Constants</exclude>
-                                        <exclude>*Properties</exclude>
-                                        <exclude>Abstract*</exclude>
-                                    </excludes>
-                                    <limits>
-                                        <!-- line coverage too low -->
-                                        <limit>
-                                            <counter>LINE</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>${jacoco.coverageRatio.line}</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                            <formats>
-                                <format>HTML</format>
-                                <format>XML</format>
-                                <format>JSON</format>
-                                <format>JUNIT</format>
-                            </formats>
-                            <outputDirectory>${project.build.directory}/dependency</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
+
     <!-- Section Reporting -->
     <!-- ============================================== -->
     <reporting>
@@ -1250,68 +1109,7 @@
              == Please refer to plugins-tag, "How to handle", to handle the reporting-plugins-tag in the same way.
              == -->
         <plugins>
-            <!-- Apache Maven Plugins -->
-            <!-- ============================================== -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <failOnError>false</failOnError>
-                </configuration>
-                <reportSets>
-                    <reportSet>
-                        <id>default-javadoc</id>
-                        <reports>
-                            <report>javadoc-no-fork</report>
-                            <report>aggregate-no-fork</report>
-                        </reports>
-                    </reportSet>
-                    <reportSet>
-                        <id>default-test-javadoc</id>
-                        <reports>
-                            <report>test-javadoc-no-fork</report>
-                            <report>test-aggregate-no-fork</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>dependencies</report>
-                            <report>dependency-info</report>
-                            <report>dependency-management</report>
-                            <report>distribution-management</report>
-                            <report>index</report>
-                            <report>issue-management</report>
-                            <report>licenses</report>
-                            <report>modules</report>
-                            <report>summary</report>
-                            <report>team</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <id>default-report</id>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <dataFile>${jacoco.commonReportFile}</dataFile>
-                            <title>${jacoco.commonReportTitle}</title>
-                        </configuration>
-                        <reports>
-                            <report>report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
+            <!-- Plugins may be defined here! -->
         </plugins>
     </reporting>
 
@@ -1325,6 +1123,462 @@
              == 3) Properties, which are only used inside the profile, are defined in the profile, not pom-globally.
              == 4) Configurations, which are only used inside an execution, are defined in the execution, not profile-globally.
              == -->
+        <profile>
+            <!--
+                Description     :   Add all additional analysis and build steps
+                Syntax          :   automtically chosen
+                -->
+            <id>000build-default</id>
+            <activation>
+                <property>
+                    <name>!fastBuild</name>
+                </property>
+            </activation>
+
+            <reporting>
+                <plugins>
+                    <!-- Apache Maven Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <notimestamp>true</notimestamp>
+                            <skip>${maven.javadoc.skip}</skip>
+                        </configuration>
+                        <reportSets>
+                            <reportSet>
+                                <id>default-javadoc</id>
+                                <reports>
+                                    <report>javadoc</report>
+                                    <report>aggregate</report>
+                                </reports>
+                            </reportSet>
+                            <reportSet>
+                                <id>default-test-javadoc</id>
+                                <reports>
+                                    <report>test-javadoc</report>
+                                    <report>test-aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                    <report>dependencies</report>
+                                    <report>dependency-info</report>
+                                    <report>dependency-management</report>
+                                    <report>distribution-management</report>
+                                    <report>index</report>
+                                    <report>issue-management</report>
+                                    <report>licenses</report>
+                                    <report>modules</report>
+                                    <report>summary</report>
+                                    <report>team</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                        <configuration>
+                            <pluginManagementExcludes>
+                                <exclude>org.eclipse.m2e:lifecycle-mapping</exclude>
+                            </pluginManagementExcludes>
+                        </configuration>
+                    </plugin>
+                    <!-- 3rd Party Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <reportSets>
+                            <reportSet>
+                                <id>default-report</id>
+                                <inherited>true</inherited>
+                                <configuration>
+                                    <dataFile>${jacoco.commonReportFile}</dataFile>
+                                    <title>${jacoco.commonReportTitle}</title>
+                                </configuration>
+                                <reports>
+                                    <report>report</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+
+            <build>
+                <plugins>
+                    <!-- Apache Maven Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-descriptor</id>
+                                <goals>
+                                    <goal>attach-descriptor</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <generateSitemap>true</generateSitemap>
+                            <locales>en,de</locales>
+                            <relativizeDecorationLinks>false</relativizeDecorationLinks>
+                            <pomPackagingOnly>false</pomPackagingOnly>
+                            <skip>${maven.site.skip}</skip>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.asciidoctor</groupId>
+                                <artifactId>asciidoctor-maven-plugin</artifactId>
+                                <version>${org.asciidoctor--asciidoctor-maven-plugin.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+
+                    <!-- Codehaus Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <configuration>
+                            <licenseName>${project.license.id}</licenseName>
+                            <addJavaLicenseAfterPackage>true</addJavaLicenseAfterPackage>
+                            <emptyLineAfterHeader>false</emptyLineAfterHeader>
+                            <trimHeaderLine>false</trimHeaderLine>
+                            <excludes>
+                                <exclude>**/*.xml</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/*.java</include>
+                            </includes>
+                            <roots>
+                                <root>src/main/java</root>
+                                <root>src/test/java</root>
+                            </roots>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check-file-header</goal>
+                                </goals>
+                                <phase>prepare-package</phase>
+                                <configuration>
+                                    <failOnMissingHeader>false</failOnMissingHeader>
+                                    <failOnNotUptodateHeader>false</failOnNotUptodateHeader>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- 3rd Party Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>org.eluder.coveralls</groupId>
+                        <artifactId>coveralls-maven-plugin</artifactId>
+                        <configuration>
+                            <coverallsFile>${coveralls.outputFile}</coverallsFile>
+                            <jacocoReports>${coveralls.reportFileJacoco}</jacocoReports>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>javax.xml.bind</groupId>
+                                <artifactId>jaxb-api</artifactId>
+                                <version>${javax.xml.bind.jaxb-api.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                                <phase>initialize</phase>
+                                <configuration>
+                                    <destFile>${jacoco.reportFile}</destFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-prepare-agent-integration</id>
+                                <goals>
+                                    <goal>prepare-agent-integration</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <destFile>${jacoco.itReportFile}</destFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <dataFile>${jacoco.reportFile}</dataFile>
+                                    <title>${jacoco.reportTitle}</title>
+                                    <outputDirectory>${jacoco.reportOutputFolder}</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-report-integration</id>
+                                <goals>
+                                    <goal>report-integration</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                                <configuration>
+                                    <dataFile>${jacoco.itReportFile}</dataFile>
+                                    <title>${jacoco.itReportTitle}</title>
+                                    <outputDirectory>${jacoco.itReportOutputFolder}</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-merge</id>
+                                <goals>
+                                    <goal>merge</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <fileSets>
+                                        <fileSet>
+                                            <directory>${jacoco.destFolder}</directory>
+                                            <includes>
+                                                <include>*.exec</include>
+                                            </includes>
+                                        </fileSet>
+                                    </fileSets>
+                                    <destFile>${jacoco.commonReportFile}</destFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-report-common</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <dataFile>${jacoco.commonReportFile}</dataFile>
+                                    <title>${jacoco.commonReportTitle}</title>
+                                    <outputDirectory>${jacoco.commonReportOutputFolder}</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-check</id>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <dataFile>${jacoco.commonReportFile}</dataFile>
+                                    <haltOnFailure>false</haltOnFailure>
+                                    <rules>
+                                        <rule>
+                                            <!-- Check artifact coverage -->
+                                            <element>BUNDLE</element>
+                                            <excludes>
+                                                <!-- Don't check test classes -->
+                                                <exclude>*Test</exclude>
+                                                <exclude>*IT</exclude>
+                                            </excludes>
+                                            <limits>
+                                                <!-- Overall artifact coverage too low -->
+                                                <limit>
+                                                    <counter>CLASS</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>${jacoco.coverageRatio.class}</minimum>
+                                                </limit>
+                                                <!-- Classes without a test -->
+                                                <limit>
+                                                    <counter>CLASS</counter>
+                                                    <value>MISSEDCOUNT</value>
+                                                    <maximum>0</maximum>
+                                                </limit>
+                                            </limits>
+                                        </rule>
+                                        <rule>
+                                            <!-- Check package coverage -->
+                                            <element>PACKAGE</element>
+                                            <excludes>
+                                                <!-- Don't check test classes -->
+                                                <exclude>*Test</exclude>
+                                                <exclude>*IT</exclude>
+                                            </excludes>
+                                            <limits>
+                                                <!-- Package coverage too low -->
+                                                <limit>
+                                                    <counter>CLASS</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>${jacoco.coverageRatio.class}</minimum>
+                                                </limit>
+                                            </limits>
+                                        </rule>
+                                        <rule>
+                                            <!-- Check class coverage -->
+                                            <element>CLASS</element>
+                                            <excludes>
+                                                <!-- Don't check test classes -->
+                                                <exclude>*Test</exclude>
+                                                <exclude>*IT</exclude>
+                                                <!-- Don't be more papal than the pope. That's the task of the SQA system. -->
+                                                <exclude>*Exception</exclude>
+                                                <exclude>*Constants</exclude>
+                                                <exclude>*Properties</exclude>
+                                                <exclude>Abstract*</exclude>
+                                            </excludes>
+                                            <limits>
+                                                <!-- line coverage too low -->
+                                                <limit>
+                                                    <counter>LINE</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>${jacoco.coverageRatio.line}</minimum>
+                                                </limit>
+                                            </limits>
+                                        </rule>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <failOnError>false</failOnError>
+                                    <formats>
+                                        <format>HTML</format>
+                                        <format>XML</format>
+                                        <format>JSON</format>
+                                        <format>JUNIT</format>
+                                    </formats>
+                                    <outputDirectory>${project.build.directory}/dependency</outputDirectory>
+                                    <skip>${dependency-check.skip}</skip>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!--
+                Description     :   Deactivate all analysis and test steps for a faster build
+                Syntax          :   mvn -DfastBuild [any goal]
+                Example         :   mvn -DfastBuild validate
+                -->
+            <id>000build-fast</id>
+            <activation>
+                <property>
+                    <name>fastBuild</name>
+                </property>
+            </activation>
+            <properties>
+                <dependency-check.skip>true</dependency-check.skip>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+                <maven.site.skip>true</maven.site.skip>
+                <mdep.analyze.skip>true</mdep.analyze.skip>
+                <mdep.skip>true</mdep.skip>
+                <skip.failsafe.tests>true</skip.failsafe.tests>
+                <skip.surefire.tests>true</skip.surefire.tests>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Apache Maven Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <configuration>
+                            <skip>${dependency-check.skip}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <configuration>
+                            <skip>${mdep.skip}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <skip>${skip.failsafe.tests}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <skip>${maven.javadoc.skip}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <configuration>
+                            <skip>${maven.site.skip}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <skip>${skip.surefire.tests}</skip>
+                        </configuration>
+                    </plugin>
+
+                    <!-- 3rd Party Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+                        <artifactId>echo-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-fastbuild</id>
+                                <goals>
+                                    <goal>echo</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <level>INFO</level>
+                                    <message><![CDATA[${line.separator}
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+    +=  FAST BUILD activated for '${project.artifactId}'.
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=${line.separator}]]>
+                                    </message>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>analyze-dependencies-reminder</id>
+                                <configuration>
+                                    <skip>true</skip>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <!--
                 Description     :   Defines operating system specific settings for Windows.
@@ -1359,14 +1613,12 @@
             <!--
                 Description     :   Informs, that an additional check on dependencies will be activated in future.
                 Syntax 1        :   automtically chosen
-                Syntax 2        :   mvn -Ddeps-strict=false [verify]
                 Example 1       :   mvn verify
                 -->
             <id>deps-lazy</id>
             <activation>
                 <property>
-                    <name>deps-strict</name>
-                    <value>!true</value>
+                    <name>!deps-strict</name>
                 </property>
             </activation>
             <build>
@@ -1401,14 +1653,13 @@
         <profile>
             <!--
                 Description     :   Informs, that an additional check on dependencies is executed.
-                Syntax          :   mvn -Ddeps-strict=true [verify]
-                Example         :   mvn -Ddeps-strict=true verify
+                Syntax          :   mvn -Ddeps-strict [verify]
+                Example         :   mvn -Ddeps-strict verify
                 -->
             <id>deps-strict</id>
             <activation>
                 <property>
                     <name>deps-strict</name>
-                    <value>true</value>
                 </property>
             </activation>
             <build>
@@ -1580,10 +1831,10 @@
                         <executions>
                             <execution>
                                 <id>09-generate-asc-signature-prepare</id>
-                                <phase>generate-sources</phase>
                                 <goals>
                                     <goal>enforce</goal>
                                 </goals>
+                                <phase>generate-sources</phase>
                                 <configuration>
                                     <failFast>true</failFast>
                                     <rules>
@@ -1646,10 +1897,10 @@
                         <executions>
                             <execution>
                                 <id>90-generate-asc-signature</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -1672,10 +1923,10 @@
                         <executions>
                             <execution>
                                 <id>show-env</id>
-                                <phase>validate</phase>
                                 <goals>
                                     <goal>system</goal>
                                 </goals>
+                                <phase>validate</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -1716,10 +1967,10 @@
                             </execution>
                             <execution>
                                 <id>95-verify-artifacts</id>
-                                <phase>verify</phase>
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
+                                <phase>verify</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -1811,6 +2062,14 @@
                 <!-- ============================================== -->
                 <sonar.organization>the-oglow</sonar.organization>
             </properties>
+        </profile>
+        <profile>
+            <!--
+                Description     :   Define deploy settings for Github
+                Syntax          :   mvn -Pdeploy-github [deploy]
+                Example         :   mvn -Pdeploy-github deploy
+             -->
+            <id>deploy-github</id>
 
             <!-- Section Distribution -->
             <!-- ============================================== -->
@@ -1907,6 +2166,14 @@
                 <!-- ============================================== -->
                 <sonar.organization>the-oglow</sonar.organization>
             </properties>
+        </profile>
+        <profile>
+            <!--
+                Description     :   Define deploy settings for Gitlab
+                Syntax          :   mvn -Pdeploy-gitlab [deploy]
+                Example         :   mvn -Pdeploy-gitlab deploy
+             -->
+            <id>deploy-gitlab</id>
 
             <!-- Section Distribution -->
             <!-- ============================================== -->
@@ -1924,6 +2191,32 @@
                     <uniqueVersion>true</uniqueVersion>
                 </repository>
                 <downloadUrl>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</downloadUrl>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <!--
+                Description     :   Define deploy settings for JFrog
+                Syntax          :   mvn -Pdeploy-jfrog [deploy]
+                Example         :   mvn -Pdeploy-jfrog deploy
+             -->
+            <id>deploy-jfrog</id>
+
+            <!-- Section Distribution -->
+            <!-- ============================================== -->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>carloranso.jfrog.deploy-ss</id>
+                    <name>ASS-Awesome Snap Shots</name>
+                    <url>https://carloranso.jfrog.io/artifactory/carloranso-libs-snapshot</url>
+                    <uniqueVersion>false</uniqueVersion>
+                </snapshotRepository>
+                <repository>
+                    <id>carloranso.jfrog.deploy</id>
+                    <name>CAI-Central Awesome Index</name>
+                    <url>https://carloranso.jfrog.io/artifactory/carloranso-libs-release</url>
+                    <uniqueVersion>true</uniqueVersion>
+                </repository>
+                <downloadUrl>https://carloranso.jfrog.io/artifactory/carloranso-group</downloadUrl>
             </distributionManagement>
         </profile>
     </profiles>
