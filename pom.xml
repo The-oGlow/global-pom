@@ -3,13 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.apache</groupId>
-        <artifactId>apache</artifactId>
-        <version>21</version>
-        <relativePath/>
-    </parent>
-
     <groupId>com.glowa-net.maven.parent</groupId>
     <artifactId>global-pom</artifactId>
     <version>3-SNAPSHOT</version>
@@ -133,6 +126,7 @@
         <org.apache.commons.commons-rng.version>1.4</org.apache.commons.commons-rng.version>
         <org.apache.commons.commons-text.version>1.9</org.apache.commons.commons-text.version>
         <org.apache.logging.log4j.version>2.17.2</org.apache.logging.log4j.version>
+        <org.apache.maven.plugin-tools.maven-plugin-annotations.version>3.7.0</org.apache.maven.plugin-tools.maven-plugin-annotations.version>
         <org.apache.maven.shared.maven-dependency-analyzer.version>1.12.0</org.apache.maven.shared.maven-dependency-analyzer.version>
         <org.apache.maven.skins.maven.fluido.skin.version>1.9</org.apache.maven.skins.maven.fluido.skin.version>
         <org.assertj.version>3.22.0</org.assertj.version>
@@ -151,9 +145,15 @@
 
         <!-- Maven Plugin Properties -->
         <!-- ============================================== -->
+        <maven.plugin.tools.version>3.7.0</maven.plugin.tools.version>
+        <minimalJavaBuildVersion>1.8</minimalJavaBuildVersion>
+        <minimalMavenBuildVersion>3.2.5</minimalMavenBuildVersion>
 
         <!-- dependency-check-maven -->
         <dependency-check.skip>false</dependency-check.skip>
+
+        <!-- maven-assembly-plugin -->
+        <assembly.tarLongFileMode>posix</assembly.tarLongFileMode>
 
         <!-- maven-dependency-plugin -->
         <mdep.analyze.skip>false</mdep.analyze.skip>
@@ -489,6 +489,11 @@
             <!-- Apache Dependencies -->
             <!-- ============================================== -->
             <dependency>
+                <groupId>org.apache.maven.plugin-tools</groupId>
+                <artifactId>maven-plugin-annotations</artifactId>
+                <version>${org.apache.maven.plugin-tools.maven-plugin-annotations.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.maven.skins</groupId>
                 <artifactId>maven-fluido-skin</artifactId>
                 <version>${org.apache.maven.skins.maven.fluido.skin.version}</version>
@@ -612,6 +617,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <version>3.3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>1.4.1</version>
                 </plugin>
@@ -624,6 +634,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>3.0.1</version>
+                    <configuration>
+                        <gpgArguments>
+                            <arg>--digest-algo=SHA512</arg>
+                        </gpgArguments>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -657,6 +672,16 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.7.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-report-plugin</artifactId>
+                    <version>3.7.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.1.2</version>
                 </plugin>
@@ -677,8 +702,18 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>3.4.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-scm-plugin</artifactId>
                     <version>1.11.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-publish-plugin</artifactId>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -697,6 +732,11 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>2.22.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.3.1</version>
                 </plugin>
@@ -704,6 +744,11 @@
                     <groupId>org.apache.maven.skins</groupId>
                     <artifactId>maven-fluido-skin</artifactId>
                     <version>${org.apache.maven.skins.maven.fluido.skin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.rat</groupId>
+                    <artifactId>apache-rat-plugin</artifactId>
+                    <version>0.15</version>
                 </plugin>
 
                 <!-- 3rd Party Plugins -->
@@ -809,26 +854,60 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <rules>
-                        <requireMavenVersion>
-                            <version>3.6.0</version>
-                        </requireMavenVersion>
-                        <requireJavaVersion>
-                            <version>9</version>
-                        </requireJavaVersion>
-                        <requireSameVersions>
-                            <plugins>
-                                <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
-                                <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
-                                <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
-                            </plugins>
-                        </requireSameVersions>
-                        <requireEnvironmentVariable>
-                            <variableName>JAVA_HOME</variableName>
-                        </requireEnvironmentVariable>
-                    </rules>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>enforce-maven-version</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.6.0</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>9</version>
+                                </requireJavaVersion>
+                                <requireSameVersions>
+                                    <plugins>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+                                    </plugins>
+                                </requireSameVersions>
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_HOME</variableName>
+                                </requireEnvironmentVariable>
+                            </rules>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>enforce-java-version</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>9</version>
+                                </requireJavaVersion>
+                                <requireMavenVersion>
+                                    <version>3.6.0</version>
+                                </requireMavenVersion>
+                                <requireSameVersions>
+                                    <plugins>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin>
+                                        <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin>
+                                    </plugins>
+                                </requireSameVersions>
+                                <requireEnvironmentVariable>
+                                    <variableName>JAVA_HOME</variableName>
+                                </requireEnvironmentVariable>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -873,7 +952,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <addClasspath>false</addClasspath>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
@@ -891,6 +970,23 @@
                         <git>jgit</git>
                     </providerImplementations>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>process-resource-bundles</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <resourceBundles>
+                                <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
+                            </resourceBundles>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1048,6 +1144,7 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
                             <failOnError>false</failOnError>
+                            <notimestamp>true</notimestamp>
                             <skip>${maven.javadoc.skip}</skip>
                         </configuration>
                         <reportSets>
@@ -1086,6 +1183,11 @@
                                 </reports>
                             </reportSet>
                         </reportSets>
+                        <configuration>
+                            <pluginManagementExcludes>
+                                <exclude>org.eclipse.m2e:lifecycle-mapping</exclude>
+                            </pluginManagementExcludes>
+                        </configuration>
                     </plugin>
                     <!-- 3rd Party Plugins -->
                     <!-- ============================================== -->
@@ -1116,6 +1218,14 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-site-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-descriptor</id>
+                                <goals>
+                                    <goal>attach-descriptor</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                         <configuration>
                             <generateSitemap>true</generateSitemap>
                             <locales>en,de</locales>
