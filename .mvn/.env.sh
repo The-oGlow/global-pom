@@ -20,10 +20,10 @@ PCK_WRITE_TOKEN=${PCK_WRITE_TOKEN}
 
 # Maven Common Configuration
 MVN_HOME_DIR="${HOME}/.m2"
-MVN_REPO_JOB_DIR="${MVN_HOME_DIR}/repository"
+MVN_REPO_JOB_DIR="${GITHUB_PROJECT_DIR}/.repo"
 MVN_SETT_OPTS="-V -B"
 MVN_SETS_OPTS="-V -B -s${GITHUB_PROJECT_DIR}/.m2/settings.xml"
-MVN_REPO_OPTS="-Dmaven.repo.local=\"${MVN_HOME_DIR}/repository\""
+MVN_REPO_OPTS="-Dmaven.repo.local=\"${MVN_REPO_JOB_DIR}\""
 
 # Maven Sign Configuration
 MVN_SIGN_OPTS="-P\!generate-gpgkey -P\!sign-jar"
