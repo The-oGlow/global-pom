@@ -53,19 +53,19 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v3.0.2
+        uses: actions/checkout@v3.5.2
         with:
           fetch-depth: 0
 
       - name: setup JDK
-        uses: actions/setup-java@v3.5.0
+        uses: actions/setup-java@v3.11.0
         with:
           java-version: '${{ matrix.version }}'
           distribution: '${{ matrix.distribution }}'
           architecture: x64
 
       - name: cache maven packages
-        uses: actions/cache@v3.0.8
+        uses: actions/cache@v3.3.1
         with:
           path: ${{ env.MVN_HOME_DIR }}
           key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -75,7 +75,7 @@ jobs:
         run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.build.sh -d
 
       - name: upload artifact
-        uses: actions/upload-artifact@v3.1.0
+        uses: actions/upload-artifact@v3.1.2
         with:
           name: ${{ env.GITHUB_UPLOAD_NAME }}
           path: ${{ env.GITHUB_UPLOAD_DIR }}
