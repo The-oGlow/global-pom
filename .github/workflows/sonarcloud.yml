@@ -122,4 +122,4 @@ jobs:
       #        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} ${{ env.MVN_COVERALLS_OPTS }} help:active-profiles verify coveralls:report
 
       - name: sonarcloud scan
-        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_JOB_DIR }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} ${{ env.MVN_SONAR_OPTS }} help:active-profiles verify sonar:sonar
+        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} ${{ env.MVN_SONAR_OPTS }} help:active-profiles verify sonar:sonar
