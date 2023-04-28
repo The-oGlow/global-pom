@@ -29,7 +29,7 @@ show_env() {
 
 show_mvnsettings() {
     echo -e "\n**** show_mvnsettings ****\n"
-    cat "${GITHUB_PROJECT_DIR}/.m2/settings.xml"
+    cat "${MVN_HOME_DIR}/settings.xml"
 }
 
 show_pom() {

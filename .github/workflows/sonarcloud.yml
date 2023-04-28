@@ -77,7 +77,7 @@ jobs:
 
       - name: show_m2
         run: |
-          test -f ${{ env.MVN_HOME_DIR }}/.m2/settings.xml && cat ${{ env.MVN_HOME_DIR }}/.m2/settings.xml
+          test -f ${{ env.MVN_HOME_DIR }}/settings.xml && cat ${{ env.MVN_HOME_DIR }}/settings.xml
 
       - name: show_pom
         run: |
