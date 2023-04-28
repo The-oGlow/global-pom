@@ -29,7 +29,8 @@ show_env() {
 
 show_mvnsettings() {
     echo -e "\n**** show_mvnsettings ****\n"
-    cat "${MVN_HOME_DIR}/settings.xml"
+    echo "Show: ${MVN_SETTING_JOB_FILE}"
+    cat "${MVN_SETTING_JOB_FILE}"
 }
 
 show_pom() {
@@ -43,8 +44,9 @@ show_build() {
 }
 
 show_repo() {
-  echo -e "\n**** show_repo ****\n"
-  du --max-depth=2 -h "${MVN_REPO_JOB_DIR}"
+    echo -e "\n**** show_repo ****\n"
+    echo "Show ${MVN_REPO_JOB_DIR}"
+    du --max-depth=2 -h "${MVN_REPO_JOB_DIR}"
 }
 
 prepare_upload() {
