@@ -44,7 +44,7 @@ show_build() {
 
 show_repo() {
   echo -e "\n**** show_repo ****\n"
-  du --max-depth=1 -h "${MVN_REPO_JOB_DIR}"
+  du --max-depth=2 -h "${MVN_REPO_JOB_DIR}"
 }
 
 prepare_upload() {
@@ -104,7 +104,7 @@ source "${SCRIPT_FOLDER}/.env.sh"
 if [ 0 -eq ${DEBUG} ]; then
     show_env
     show_mvnsettings
-    show_pom
+    #show_pom
 fi
 
 # 3. build & show result
