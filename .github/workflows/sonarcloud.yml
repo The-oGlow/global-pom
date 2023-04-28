@@ -9,7 +9,7 @@ on:
       - master
       - develop
     paths-ignore:
-      # - '.github/**'
+      - '.github/workflows/maven.yml'
       - '.run/**'
       - '.m2/**'
       - '.repo/**'
@@ -34,9 +34,10 @@ env:
   # Maven Common Configuration
   MVN_HOME_DIR: ~/.m2
   MVN_REPO_JOB_DIR: ${{ github.workspace }}/.repo
+  MVN_SETTING_JOB_FILE: ${{ github.workspace }}/.m2/settings.xml
   MVN_SETT_OPTS: -V -B
-  MVN_SETS_OPTS: -V -B -s"${{ github.workspace }}/.m2/settings.xml"
-  MVN_REPO_OPTS: -Dmaven.repo.local="${{ github.workspace }}/.repo"
+  MVN_SETS_OPTS: -V -B -s${{ github.workspace }}/.m2/settings.xml
+  MVN_REPO_OPTS: -Dmaven.repo.local=${{ github.workspace }}/.repo
 
   # Maven Sign Configuration
   MVN_SIGN_OPTS: -P!generate-gpgkey -P!sign-jar
@@ -105,15 +106,13 @@ jobs:
           key: ${{ matrix.os }}-sonar
           restore-keys: ${{ matrix.os }}-sonar
 
-      - name: show_m2
-        run: |
-          test -f ${{ env.MVN_HOME_DIR }}/settings.xml && cat ${{ env.MVN_HOME_DIR }}/settings.xml
-
       - name: show settings
-        run: cat ${{ github.workspace}}/.m2/settings.xml
+        run: |
+          test -f ${{ env.MVN_SETTING_JOB_FILE }} && cat ${{ env.MVN_SETTING_JOB_FILE }}
 
       - name: show_repo
         run: |
+          mkdir -p ${{ env.MVN_REPO_JOB_DIR }}
           du --max-depth=2 -h ${{ env.MVN_REPO_JOB_DIR }}
 
       #      - name: codacy coverage upload
@@ -123,4 +122,4 @@ jobs:
       #        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} ${{ env.MVN_COVERALLS_OPTS }} help:active-profiles verify coveralls:report
 
       - name: sonarcloud scan
-        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} ${{ env.MVN_SONAR_OPTS }} help:active-profiles verify sonar:sonar
+        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_JOB_DIR }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} ${{ env.MVN_SONAR_OPTS }} help:active-profiles verify sonar:sonar
