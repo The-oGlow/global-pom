@@ -79,10 +79,6 @@ jobs:
         run: |
           printenv | sort
 
-      - name: show_m2
-        run: |
-          test -f ${{ env.MVN_HOME_DIR }}/settings.xml && cat ${{ env.MVN_HOME_DIR }}/settings.xml
-
       - name: checkout
         uses: actions/checkout@v3.5.2
         with:
@@ -102,15 +98,19 @@ jobs:
           key: ${{ matrix.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ matrix.os }}-m2
 
-      - name: show settings
-        run: cat ${{ github.workspace}}/.m2/settings.xml
-
       - name: cache sonarcloud packages
         uses: actions/cache@v3.3.1
         with:
           path: ${{ env.SONAR_CACHE_DIR }}
           key: ${{ matrix.os }}-sonar
           restore-keys: ${{ matrix.os }}-sonar
+
+      - name: show_m2
+        run: |
+          test -f ${{ env.MVN_HOME_DIR }}/settings.xml && cat ${{ env.MVN_HOME_DIR }}/settings.xml
+
+      - name: show settings
+        run: cat ${{ github.workspace}}/.m2/settings.xml
 
       - name: show_repo
         run: |
