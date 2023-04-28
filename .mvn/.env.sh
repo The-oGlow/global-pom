@@ -24,7 +24,7 @@ MVN_REPO_JOB_DIR="${GITHUB_PROJECT_DIR}/.repo"
 MVN_SETTING_JOB_FILE="${GITHUB_PROJECT_DIR}/.m2/settings.xml"
 MVN_SETT_OPTS="-V -B"
 MVN_SETS_OPTS="-V -B -s${MVN_SETTING_JOB_FILE}"
-MVN_REPO_OPTS="-Dmaven.repo.local=\"${MVN_REPO_JOB_DIR}\""
+MVN_REPO_OPTS="-Dmaven.repo.local=${MVN_REPO_JOB_DIR}"
 
 # Maven Sign Configuration
 MVN_SIGN_OPTS="-P\!generate-gpgkey -P\!sign-jar"
