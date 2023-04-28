@@ -60,6 +60,7 @@ prepare_upload() {
 
 build_artifact() {
     echo -e "\n**** Building '${GITHUB_REPO_NAME}' - START ****\n"
+    echo "Options: ${MVN_BUILD_OPTS}"
     # shellcheck disable=SC2086
     mvn ${MVN_BUILD_OPTS} help:active-profiles clean install
     local RES_BA=$?
@@ -69,6 +70,7 @@ build_artifact() {
 
 deploy_artifact() {
     echo -e "\n**** Deploy '${GITHUB_REPO_NAME}' - START ****\n"
+    echo "Options: ${MVN_DEPLOY_OPTS}"
     # shellcheck disable=SC2086
     mvn ${MVN_DEPLOY_OPTS} help:active-profiles deploy
     local RES_DA=$?
