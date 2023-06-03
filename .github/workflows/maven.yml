@@ -41,9 +41,6 @@ env:
   # Coveralls Configuration
   COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
-  # JFrog Configuration
-  JF_WRITE_TOKEN: ${{ secrets.JF_WRITE_TOKEN }}
-
 jobs:
   build:
     strategy:

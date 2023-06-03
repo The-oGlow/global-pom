@@ -49,7 +49,7 @@ env:
   # Maven Goal Options
   MVN_CLI_OPTS: -ff
   MVN_BUILD_OPTS: -fae -Dmaven.test.failure.ignore=true
-  MVN_DEPLOY_OPTS: -Pdeploy-jfrog -DfastBuild -DretryFailedDeploymentCount=10
+  MVN_DEPLOY_OPTS: -Pdeploy-github -DfastBuild -DretryFailedDeploymentCount=10
 
   # Sonarcloud Configuration
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -62,9 +62,6 @@ env:
 
   # Coveralls Configuration
   MVN_COVERALLS_OPTS: -Dbranch=${{ github.ref_name }} -DrepoToken=${{ secrets.COVERALLS_REPO_TOKEN }}
-
-  # JFrog Configuration
-  JF_WRITE_TOKEN: ${{ secrets.JF_WRITE_TOKEN }}
 
 jobs:
   sonarcloud:
@@ -104,7 +101,7 @@ jobs:
         with:
           path: ${{ env.SONAR_CACHE_DIR }}
           key: ${{ matrix.os }}-sonar
-          restore-keys: ${{ matrix.os }}-sonar
+          restore-keys: ${{ matrix.os }}-sonar-${{ hashFiles('**/pom.xml') }}
 
       - name: show settings
         run: |

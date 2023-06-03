@@ -105,17 +105,5 @@
                 </httpHeaders>
             </configuration>
         </server>
-        <!-- JFrog -->
-        <!-- ============================================== -->
-        <server>
-            <id>coding.jfrog.read</id>
-            <username>${env.JF_READ_USER}</username>
-            <password>${env.JF_READ_PWD}</password>
-        </server>
-        <server>
-            <id>coding.jfrog.deploy</id>
-            <username>${env.JF_WRITE_USER}</username>
-            <password>${env.JF_WRITE_PWD}</password>
-        </server>
     </servers>
 </settings>
