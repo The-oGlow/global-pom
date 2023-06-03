@@ -71,7 +71,7 @@ jobs:
           restore-keys: ${{ matrix.os }}-m2
 
       - name: maven build
-        run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.build.sh -o
+        run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.build.sh -do
 
       - name: upload artifact
         uses: actions/upload-artifact@v3.1.2
