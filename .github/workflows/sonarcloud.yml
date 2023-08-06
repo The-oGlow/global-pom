@@ -47,9 +47,9 @@ env:
   MVN_TEST_OPTS_Y: -DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true
 
   # Maven Goal Options
-  MVN_CLI_OPTS: -ff
-  MVN_BUILD_OPTS: -fae -Dmaven.test.failure.ignore=true
-  MVN_DEPLOY_OPTS: -Pdeploy-github -DfastBuild -DretryFailedDeploymentCount=10
+  MVN_CMD_CLI_OPTS: -ff
+  MVN_CMD_BUILD_OPTS: -fae -Dmaven.test.failure.ignore=true
+  MVN_CMD_DEPLOY_OPTS: DdepGitlab -DfastBuild -DretryFailedDeploymentCount=10
 
   # Sonarcloud Configuration
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

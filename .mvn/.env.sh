@@ -33,10 +33,13 @@ MVN_SIGN_OPTS="-P\!generate-gpgkey -P\!sign-jar"
 MVN_TEST_OPTS_N="-DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true"
 MVN_TEST_OPTS_Y="-DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true"
 
+# Maven Deploy Configuration
+MVN_DEPLOY_OPTS="-Pdeploy-gitlab -DfastBuild -DretryFailedDeploymentCount=5"
+
 # Maven Goal Options
-MVN_CLI_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} -ff"
-MVN_BUILD_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_Y} -fae"
-MVN_DEPLOY_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_N} -Pdeploy-github -DfastBuild -DretryFailedDeploymentCount=5"
+MVN_CMD_CLI_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} -ff"
+MVN_CMD_BUILD_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_Y} -fae"
+MVN_CMD_DEPLOY_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_N} ${MVN_DEPLOY_OPTS}"
 
 # Sonarcloud Configuration
 SONAR_TOKEN=${SONAR_TOKEN}

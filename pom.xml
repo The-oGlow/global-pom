@@ -126,8 +126,10 @@
         <org.apache.commons.commons-rng.version>1.4</org.apache.commons.commons-rng.version>
         <org.apache.commons.commons-text.version>1.9</org.apache.commons.commons-text.version>
         <org.apache.logging.log4j.version>2.17.2</org.apache.logging.log4j.version>
-        <org.apache.maven.plugin-tools.maven-plugin-annotations.version>3.7.0</org.apache.maven.plugin-tools.maven-plugin-annotations.version>
-        <org.apache.maven.shared.maven-dependency-analyzer.version>1.12.0</org.apache.maven.shared.maven-dependency-analyzer.version>
+        <org.apache.maven.plugin-tools.maven-plugin-annotations.version>3.7.0
+        </org.apache.maven.plugin-tools.maven-plugin-annotations.version>
+        <org.apache.maven.shared.maven-dependency-analyzer.version>1.12.0
+        </org.apache.maven.shared.maven-dependency-analyzer.version>
         <org.apache.maven.skins.maven.fluido.skin.version>1.9</org.apache.maven.skins.maven.fluido.skin.version>
         <org.assertj.version>3.22.0</org.assertj.version>
         <org.awaitility.version>4.2.0</org.awaitility.version>
@@ -201,7 +203,8 @@
         <!-- ============================================== -->
         <coveralls.destFolder>${project.build.directory}/coveralls</coveralls.destFolder>
         <coveralls.outputFile>${coveralls.destFolder}/coveralls.json</coveralls.outputFile>
-        <coveralls.reportFileJacoco>${jacoco.commonReportOutputFolder}/${jacoco.commonReportXmlFileName}</coveralls.reportFileJacoco>
+        <coveralls.reportFileJacoco>${jacoco.commonReportOutputFolder}/${jacoco.commonReportXmlFileName}
+        </coveralls.reportFileJacoco>
 
         <!-- sonar-maven-plugin -->
         <!-- ============================================== -->
@@ -1787,8 +1790,10 @@
                                         <fileSet>
                                             <directory>${project.build.directory}</directory>
                                             <includes>
-                                                <include>${project.artifactId}-${project.version}-source-release.zip</include>
-                                                <include>${project.artifactId}-${project.version}-source-release.tar*</include>
+                                                <include>${project.artifactId}-${project.version}-source-release.zip
+                                                </include>
+                                                <include>${project.artifactId}-${project.version}-source-release.tar*
+                                                </include>
                                             </includes>
                                         </fileSet>
                                     </fileSets>
@@ -2083,11 +2088,13 @@
                 <!-- The organization of this github repository -->
                 <project.env.GH_GROUP_NAME>The-oGlow</project.env.GH_GROUP_NAME>
                 <!-- The unique identifier of this project -->
-                <project.env.GH_IDENTIFIER>${project.env.GH_GROUP_NAME}/${project.env.GH_PROJECT_NAME}</project.env.GH_IDENTIFIER>
+                <project.env.GH_IDENTIFIER>${project.env.GH_GROUP_NAME}/${project.env.GH_PROJECT_NAME}
+                </project.env.GH_IDENTIFIER>
                 <!-- The base git-url of the organisation -->
                 <project.env.GH_GROUP_URL>${vcs.env.BASE_URL}/${project.env.GH_GROUP_NAME}</project.env.GH_GROUP_URL>
                 <!-- The base git-url of this project -->
-                <project.env.GH_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.GH_IDENTIFIER}</project.env.GH_PROJECT_URL>
+                <project.env.GH_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.GH_IDENTIFIER}
+                </project.env.GH_PROJECT_URL>
 
                 <!-- Sonar Properties -->
                 <!-- ============================================== -->
@@ -2097,10 +2104,15 @@
         <profile>
             <!--
                 Description     :   Define deploy settings for Github
-                Syntax          :   mvn -Pdeploy-github [deploy]
-                Example         :   mvn -Pdeploy-github deploy
+                Syntax          :   mvn -DdepGithub [deploy]
+                Example         :   mvn -DdepGithub deploy
              -->
             <id>deploy-github</id>
+            <activation>
+                <property>
+                    <name>depGithub</name>
+                </property>
+            </activation>
 
             <!-- Section Distribution -->
             <!-- ============================================== -->
@@ -2183,11 +2195,13 @@
                 <!-- The ID of this organization of this gitlab repository -->
                 <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
                 <!-- The unique identifier of this project -->
-                <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}</project.env.CI_IDENTIFIER>
+                <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}
+                </project.env.CI_IDENTIFIER>
                 <!-- The base git-url of the organisation -->
                 <project.env.CI_GROUP_URL>${vcs.env.BASE_URL}/${project.env.CI_GROUP_NAME}</project.env.CI_GROUP_URL>
                 <!-- The base git-url of this project -->
-                <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}</project.env.CI_PROJECT_URL>
+                <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}
+                </project.env.CI_PROJECT_URL>
                 <!-- ID of the Gitlab project for release repository -->
                 <repo.env.REPO_FINAL_ID>30704991</repo.env.REPO_FINAL_ID>
                 <!-- ID of the Gitlab project for snapshot repository -->
@@ -2201,10 +2215,15 @@
         <profile>
             <!--
                 Description     :   Define deploy settings for Gitlab
-                Syntax          :   mvn -Pdeploy-gitlab [deploy]
-                Example         :   mvn -Pdeploy-gitlab deploy
+                Syntax          :   mvn -DdepGitlab [deploy]
+                Example         :   mvn -DdepGitlab deploy
              -->
             <id>deploy-gitlab</id>
+            <activation>
+                <property>
+                    <name>depGitlab</name>
+                </property>
+            </activation>
 
             <!-- Section Distribution -->
             <!-- ============================================== -->

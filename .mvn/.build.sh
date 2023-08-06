@@ -35,7 +35,7 @@ show_mvnsettings() {
 
 show_pom() {
     echo -e "\n**** show_pom ****\n"
-    mvn "${MVN_CLI_OPTS}" help:effective-pom
+    mvn "${MVN_CMD_CLI_OPTS}" help:effective-pom
 }
 
 show_build() {
@@ -60,9 +60,9 @@ prepare_upload() {
 
 build_artifact() {
     echo -e "\n**** Building '${GITHUB_REPO_NAME}' - START ****\n"
-    echo "Options: ${MVN_BUILD_OPTS}"
+    echo "Options: ${MVN_CMD_BUILD_OPTS}"
     # shellcheck disable=SC2086
-    mvn ${MVN_BUILD_OPTS} help:active-profiles clean install
+    mvn ${MVN_CMD_BUILD_OPTS} help:active-profiles clean install
     local RES_BA=$?
     echo -e "\n**** Building '${GITHUB_REPO_NAME}' - END ****\n"
     return ${RES_BA}
@@ -70,9 +70,9 @@ build_artifact() {
 
 deploy_artifact() {
     echo -e "\n**** Deploy '${GITHUB_REPO_NAME}' - START ****\n"
-    echo "Options: ${MVN_DEPLOY_OPTS}"
+    echo "Options: ${MVN_CMD_DEPLOY_OPTS}"
     # shellcheck disable=SC2086
-    mvn ${MVN_DEPLOY_OPTS} help:active-profiles deploy
+    mvn ${MVN_CMD_DEPLOY_OPTS} help:active-profiles deploy
     local RES_DA=$?
     echo -e "\n**** Deploy '${GITHUB_REPO_NAME}' - END ****\n"
     return ${RES_DA}
