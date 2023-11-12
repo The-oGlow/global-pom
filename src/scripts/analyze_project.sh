@@ -202,16 +202,17 @@ list_modules() {
 
 verify_tests() {
     local vt_folder=${1}
+    local vt_label="TRClasses;TRClassesWithTest;TRClassesWithoutTest;TRTestClasses;TRUnitClasses;TRIntegrationClasses"
     local vt_ftype="${EXT_WC_JAVA}"
     local vt_ut="${EXT_WC_UT}"
     local vt_it="${EXT_WC_IT}"
-    printf "\n= Class with Test Relation\n"
-    vt_total=0
-    vt_total_test=0
-    vt_total_ut=0
-    vt_total_it=0
-    vt_total_yes=0
-    vt_total_no=0
+    local vt_total=0
+    local vt_total_test=0
+    local vt_total_ut=0
+    local vt_total_it=0
+    local vt_total_yes=0
+    local vt_total_no=0
+    printf "\n= Class-Test Relation Info\n"
     mypipe=$(find "${vt_folder}" -type f -name "${vt_ftype}" -not -name "${vt_ut}" -not -name "${vt_it}" -print)
     while read -r  vt_foundfile
         do
@@ -222,8 +223,10 @@ verify_tests() {
             vt_ff_it_name=$(echo -e "${vt_ff_name}"|sed "s/${EXT_JAVA}/${EXT_IT}/g")
             vt_ff_ut_file=${vt_ff_test_folder}/${vt_ff_ut_name}
             vt_ff_it_file=${vt_ff_test_folder}/${vt_ff_it_name}
-            vt_ff_ut_exist=$( (test -e "${vt_ff_ut_file}" && echo 1) || echo 0)
-            vt_ff_it_exist=$( (test -e "${vt_ff_it_file}" && echo 1) || echo 0)
+            #vt_ff_ut_exist=$( (test -f "${vt_ff_ut_file}" && echo 1) || echo 0)
+            vt_ff_ut_exist=$(${CMDFIND} "${vt_ff_test_folder}" -name "${vt_ff_ut_name}" -print 2>/dev/null | wc -l)
+            #vt_ff_it_exist=$( (test -f "${vt_ff_it_file}" && echo 1) || echo 0)
+            vt_ff_it_exist=$(${CMDFIND} "${vt_ff_test_folder}" -name "${vt_ff_it_name}" -print 2>/dev/null | wc -l)
             ((vt_total+=1))
             ((vt_total_ut+=vt_ff_ut_exist))
             ((vt_total_it+=vt_ff_it_exist))
@@ -234,19 +237,19 @@ verify_tests() {
                 ((vt_total_test+=vt_ff_ut_exist))
                 ((vt_total_test+=vt_ff_it_exist))
             fi
-            printf "T: %s%s\t- Class: %s\n" "${vt_ff_ut_exist}" "${vt_ff_it_exist}" "$vt_ff_name"
-            #echo -e "${vt_ff_name}\t${vt_ff_folder}\n\t${vt_ff_ut_exist}\t${vt_ff_ut_name}\n\t${vt_ff_it_exist}\t${vt_ff_it_name}"
-            #echo -e -n "${vt_ff_ut_exist}\t${vt_ff_it_exist}\t${vt_total_test}\t"
-            #echo -e "${vt_total}\t${vt_total_test}\t${vt_total_ut}\t${vt_total_it}\t${vt_total_yes}\t${vt_total_no}"
+            printf "."
+            #printf "%s%s - %s\n" "${vt_ff_ut_exist}" "${vt_ff_it_exist}" "$vt_ff_name"
+            #printf "%s\t%s\n%s %s\n%s %s\n" "${vt_ff_name}" "${vt_ff_folder}" "${vt_ff_ut_exist}" "${vt_ff_ut_name}" "${vt_ff_it_exist}" "${vt_ff_it_name}"
         done <<< "$mypipe"
-    printf " Classes\t\t: %s\n ClassesWithTest\t: %s\n ClassesWithoutTest\t: %s\n" "$vt_total" "$vt_total_yes" "$vt_total_no"
-    printf " TestClasses\t\t: %s\n UnitTests\t\t: %s\n IntegrationTests\t: %s\n"  "$vt_total_test" "$vt_total_ut" "$vt_total_it"
-    #echo -e "${vt_total}\t${vt_total_test}\t${vt_total_ut}\t${vt_total_it}\t${vt_total_yes}\t${vt_total_no}"
+    printf "\nClasses\t\t\t: %s\nClassesWithTest\t\t: %s\nClassesWithoutTest\t: %s" "$vt_total" "$vt_total_yes" "$vt_total_no"
+    printf "\nTestClasses\t\t: %s\nUnitTests\t\t: %s\nIntegrationTests\t: %s\n" "$vt_total_test" "$vt_total_ut" "$vt_total_it"
+    csv_add "$vt_label" "${vt_total};${vt_total_yes};${vt_total_no};${vt_total_test};${vt_total_ut};${vt_total_it}"
 }
 
 helpme() {
     printf "\n%s [-mt] <path>" "$(basename "${0}")"
     printf "\n\nOptions:"
+    printf "\n-h  = this help"
     printf "\n-m  = list modules inside a reactor"
     printf "\n-t  = list special testclasses"
     printf "\n-mt = using -m and -t\n"
@@ -276,13 +279,12 @@ if [ "$main_path" = "" ]; then
     root_folder=$(realpath "$main_flag")
 fi
 
-verify_tests "$root_folder"
-
-if [ "1" = "0" ]; then
+if [ "1" = "1" ]; then
   printf "\nStarting in : '%s'\n" "$root_folder"
   count_filetypes "$root_folder"
   count_javatypes "$root_folder"
   count_method_types "$root_folder"
+  verify_tests "$root_folder"
 
   if [ "$typemode" = "1" ]; then
       count_testtypes "$root_folder"
@@ -290,7 +292,6 @@ if [ "1" = "0" ]; then
   if [ "$modmode" = "1" ]; then
       list_modules "$root_folder"
   fi
-
-  csv_show
 fi
+csv_show
 
