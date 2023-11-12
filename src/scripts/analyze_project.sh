@@ -200,7 +200,7 @@ list_modules() {
     csv_add "$lm_label" "${lm_size}"
 }
 
-verify_tests() {
+count_classtest_relation() {
     local vt_folder=${1}
     local vt_label="TRClasses;TRClassesWithTest;TRClassesWithoutTest;TRTestClasses;TRUnitClasses;TRIntegrationClasses"
     local vt_ftype="${EXT_WC_JAVA}"
@@ -221,11 +221,11 @@ verify_tests() {
             vt_ff_test_folder=$(echo -e "${vt_ff_folder}"|sed "s/${MVN_PATH_SRC}/${MVN_PATH_TEST}/g")
             vt_ff_ut_name=$(echo -e "${vt_ff_name}"|sed "s/${EXT_JAVA}/${EXT_UT}/g")
             vt_ff_it_name=$(echo -e "${vt_ff_name}"|sed "s/${EXT_JAVA}/${EXT_IT}/g")
-            vt_ff_ut_file=${vt_ff_test_folder}/${vt_ff_ut_name}
-            vt_ff_it_file=${vt_ff_test_folder}/${vt_ff_it_name}
+            #vt_ff_ut_file=${vt_ff_test_folder}/${vt_ff_ut_name}
+            #vt_ff_it_file=${vt_ff_test_folder}/${vt_ff_it_name}
             #vt_ff_ut_exist=$( (test -f "${vt_ff_ut_file}" && echo 1) || echo 0)
-            vt_ff_ut_exist=$(${CMDFIND} "${vt_ff_test_folder}" -name "${vt_ff_ut_name}" -print 2>/dev/null | wc -l)
             #vt_ff_it_exist=$( (test -f "${vt_ff_it_file}" && echo 1) || echo 0)
+            vt_ff_ut_exist=$(${CMDFIND} "${vt_ff_test_folder}" -name "${vt_ff_ut_name}" -print 2>/dev/null | wc -l)
             vt_ff_it_exist=$(${CMDFIND} "${vt_ff_test_folder}" -name "${vt_ff_it_name}" -print 2>/dev/null | wc -l)
             ((vt_total+=1))
             ((vt_total_ut+=vt_ff_ut_exist))
@@ -279,19 +279,17 @@ if [ "$main_path" = "" ]; then
     root_folder=$(realpath "$main_flag")
 fi
 
-if [ "1" = "1" ]; then
-  printf "\nStarting in : '%s'\n" "$root_folder"
-  count_filetypes "$root_folder"
-  count_javatypes "$root_folder"
-  count_method_types "$root_folder"
-  verify_tests "$root_folder"
+printf "\nStarting in : '%s'\n" "$root_folder"
+count_filetypes "$root_folder"
+count_javatypes "$root_folder"
+count_method_types "$root_folder"
+count_classtest_relation "$root_folder"
 
-  if [ "$typemode" = "1" ]; then
-      count_testtypes "$root_folder"
-  fi
-  if [ "$modmode" = "1" ]; then
-      list_modules "$root_folder"
-  fi
+if [ "$typemode" = "1" ]; then
+    count_testtypes "$root_folder"
 fi
-csv_show
+if [ "$modmode" = "1" ]; then
+    list_modules "$root_folder"
+fi
 
+csv_show
