@@ -42,12 +42,13 @@ TR_JUNIT5="@ExtendWith\("
 
 CSV_HEAD=""
 CSV_LINE=""
+CSV_FILENAME="analysis.csv"
 
 CMDFIND="find"
 check_os() {
     if [[ "$TERM" =~ "cygwin" ]] || [[ "$(uname -a)" =~ "CYGWIN" ]]; then
         CMDFIND=/bin/$CMDFIND
-        #echo "running on cygwin"
+        #printf "running on cygwin, so ${CMDFIND}"
     fi
 }
 
@@ -57,9 +58,14 @@ csv_add() {
 }
 
 csv_show() {
+    local cs_tfolder=${1}
+    local cs_tfile=${cs_tfolder}/${CSV_FILENAME}
     printf "\n%-25s\n" "= CSV"
     printf "%s\n" "${CSV_HEAD}"
     printf "%s\n" "${CSV_LINE}"
+    printf "%s;%s\n" "Date" "${CSV_HEAD}">${cs_tfile}
+    printf "%s;%s\n" "$(date -I)" "${CSV_LINE}">>${cs_tfile}
+    printf "\nExported to '%s'\n" "${cs_tfile}"
 }
 
 count_files() {
@@ -213,7 +219,7 @@ count_classtest_relation() {
     local vt_total_yes=0
     local vt_total_no=0
     printf "\n= Class-Test Relation Info\n"
-    mypipe=$(find "${vt_folder}" -type f -name "${vt_ftype}" -not -name "${vt_ut}" -not -name "${vt_it}" -print)
+    mypipe=$(${CMDFIND} "${vt_folder}" -type f -name "${vt_ftype}" -not -name "${vt_ut}" -not -name "${vt_it}" -print)
     while read -r  vt_foundfile
         do
             vt_ff_folder=$(dirname "${vt_foundfile}")
@@ -292,4 +298,4 @@ if [ "$modmode" = "1" ]; then
     list_modules "$root_folder"
 fi
 
-csv_show
+csv_show "$root_folder"
