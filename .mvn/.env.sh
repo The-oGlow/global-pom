@@ -23,8 +23,8 @@ MVN_HOME_DIR="${HOME}/.m2"
 MVN_REPO_JOB_DIR="${GITHUB_PROJECT_DIR}/.repo"
 MVN_SETTING_JOB_FILE="${GITHUB_PROJECT_DIR}/.m2/settings.xml"
 MVN_SETT_OPTS="-V -B"
-MVN_SETS_OPTS="-V -B -s${MVN_SETTING_JOB_FILE}"
-MVN_REPO_OPTS="-Dmaven.repo.local=${MVN_REPO_JOB_DIR}"
+MVN_SETS_OPTS="-V -B -s ${MVN_SETTING_JOB_FILE}"
+MVN_REPO_OPTS="-DdepGitlab -Dmaven.repo.local=${MVN_REPO_JOB_DIR}"
 
 # Maven Sign Configuration
 MVN_SIGN_OPTS="-P\!generate-gpgkey -P\!sign-jar"
@@ -34,7 +34,7 @@ MVN_TEST_OPTS_N="-DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=tru
 MVN_TEST_OPTS_Y="-DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true"
 
 # Maven Deploy Configuration
-MVN_DEPLOY_OPTS="-Pdeploy-gitlab -DfastBuild -DretryFailedDeploymentCount=5"
+MVN_DEPLOY_OPTS="-DfastBuild -DretryFailedDeploymentCount=5"
 
 # Maven Goal Options
 MVN_CMD_CLI_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} -ff"

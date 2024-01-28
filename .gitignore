@@ -324,3 +324,4 @@ target/
 
 .mvn/.sign-env.*
 !.mvn/.sign-env.tpl.*
+.repo/
