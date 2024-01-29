@@ -27,6 +27,10 @@ env:
   PCK_READ_TOKEN: ${{ secrets.PCK_READ_TOKEN }}
   PCK_WRITE_TOKEN: ${{ secrets.PCK_WRITE_TOKEN }}
 
+  # Gitlab Configuration
+  GLAB_READ_TOKEN: ${{ secrets.GLAB_READ_TOKEN }}
+  GLAB_WRITE_TOKEN: ${{ secrets.GLAB_WRITE_TOKEN }}
+
   # Maven Common Configuration
   MVN_HOME_DIR: ~/.m2
   MVN_REPO_JOB_DIR: ${{ github.workspace }}/.repo
