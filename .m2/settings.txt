@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"
-          xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <localRepository>./.repo</localRepository>
     <servers>
         <!-- Github -->
         <!-- ============================================== -->
@@ -51,59 +52,112 @@
         <!-- Github with user -->
         <!-- ============================================== -->
         <server>
-            <id>coding.github</id>
+            <id>coding.github.user</id>
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.PCK_READ_TOKEN}</password>
         </server>
         <server>
-            <id>coding.github.ss</id>
+            <id>coding.github.ss.user</id>
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.PCK_READ_TOKEN}</password>
         </server>
         <server>
-            <id>coding.github.deploy</id>
+            <id>coding.github.deploy.user</id>
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.PCK_WRITE_TOKEN}</password>
         </server>
         <server>
-            <id>coding.github.ss.deploy</id>
+            <id>coding.github.ss.deploy.user</id>
             <username>${env.GITHUB_ACTOR}</username>
             <password>${env.PCK_WRITE_TOKEN}</password>
         </server>
         <!-- Gitlab -->
         <!-- ============================================== -->
         <server>
-            <id>coding.gitlab</id>
+            <id>repo.gitlab</id>
             <configuration>
                 <httpHeaders>
                     <property>
-                        <name>Deploy-Token</name>
+                        <name>Private-Token</name>
                         <value>${env.GLAB_READ_TOKEN}</value>
                     </property>
                 </httpHeaders>
             </configuration>
         </server>
         <server>
-            <id>coding.gitlab.deploy-ss</id>
+            <id>deploy-ss.gitlab</id>
             <configuration>
                 <httpHeaders>
                     <property>
                         <name>Deploy-Token</name>
-                        <value>${env.GLAB_WRITE_TOKEN}</value>
+                        <value>${env.GLAB_DEPLOY_TOKEN}</value>
                     </property>
                 </httpHeaders>
             </configuration>
         </server>
         <server>
-            <id>coding.gitlab.deploy</id>
+            <id>deploy.gitlab</id>
             <configuration>
                 <httpHeaders>
                     <property>
                         <name>Deploy-Token</name>
-                        <value>${env.GLAB_WRITE_TOKEN}</value>
+                        <value>${env.GLAB_DEPLOY_TOKEN}</value>
                     </property>
                 </httpHeaders>
             </configuration>
         </server>
     </servers>
+    <profiles>
+        <profile>
+            <!--
+                Description     :   Define repositories for Gitlab
+             -->
+            <id>repository-gitlab</id>
+            <!-- Section Repositories -->
+            <!-- ============================================== -->
+            <repositories>
+                <repository>
+                    <id>repo.gitlab</id>
+                    <name>CASSI-Central Awesome Snap Shot Index</name>
+                    <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>always</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </repository>
+            </repositories>
+
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>repo.gitlab</id>
+                    <name>CASSI-Central Awesome Snap Shot Index</name>
+                    <url>https://gitlab.com/api/v4/groups/10107405/-/packages/maven</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                        <updatePolicy>interval:10</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </snapshots>
+                    <releases>
+                        <enabled>true</enabled>
+                        <updatePolicy>daily</updatePolicy>
+                        <checksumPolicy>warn</checksumPolicy>
+                    </releases>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+
+    </profiles>
+
+    <activeProfiles>
+        <!--
+        -->
+        <activeProfile>repository-gitlab</activeProfile>
+    </activeProfiles>
+
 </settings>

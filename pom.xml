@@ -5,7 +5,7 @@
 
     <groupId>com.glowa-net.maven.parent</groupId>
     <artifactId>global-pom</artifactId>
-    <version>3-SNAPSHOT</version>
+    <version>4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <!-- Section Common -->
@@ -126,6 +126,7 @@
         <org.apache.commons.commons-rng.version>1.4</org.apache.commons.commons-rng.version>
         <org.apache.commons.commons-text.version>1.9</org.apache.commons.commons-text.version>
         <org.apache.logging.log4j.version>2.17.2</org.apache.logging.log4j.version>
+        <org.apache.maven.doxia.doxia-sitetools.version>1.11.1</org.apache.maven.doxia.doxia-sitetools.version>
         <org.apache.maven.plugin-tools.maven-plugin-annotations.version>3.7.0
         </org.apache.maven.plugin-tools.maven-plugin-annotations.version>
         <org.apache.maven.shared.maven-dependency-analyzer.version>1.12.0
@@ -492,6 +493,11 @@
             <!-- Apache Dependencies -->
             <!-- ============================================== -->
             <dependency>
+                <groupId>org.apache.maven.doxia</groupId>
+                <artifactId>doxia-sitetools</artifactId>
+                <version>${org.apache.maven.doxia.doxia-sitetools.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.maven.plugin-tools</groupId>
                 <artifactId>maven-plugin-annotations</artifactId>
                 <version>${org.apache.maven.plugin-tools.maven-plugin-annotations.version}</version>
@@ -583,11 +589,6 @@
             <!-- Maven Plugins -->
             <!-- ============================================== -->
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.doxia</groupId>
-                    <artifactId>doxia-sitetools</artifactId>
-                    <version>1.10</version>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
@@ -2154,66 +2155,6 @@
         </profile>
         <profile>
             <!--
-                Description     :   Define settings for Gitlab
-                Syntax          :   automtically chosen
-             -->
-            <id>settings-gitlab</id>
-            <activation>
-                <property>
-                    <name>env.GITLAB_USER_LOGIN</name>
-                </property>
-            </activation>
-
-            <!-- <scm>-->
-            <!-- <connection>scm:git:https://gitlab.com/The-oGlow/global-pom.git</connection>-->
-            <!-- <developerConnection>scm:git:https://gitlab.com/The-oGlow/global-pom.git</developerConnection>-->
-            <!-- <url>${project.env.CI_PROJECT_URL}</url>-->
-            <!-- <tag>HEAD</tag>-->
-            <!-- </scm>-->
-
-            <!-- <issueManagement>-->
-            <!-- <system>GitLab Issues 4 ${project.name}</system>-->
-            <!-- <url>${project.env.CI_PROJECT_URL}/-/issues</url>-->
-            <!-- </issueManagement>-->
-
-            <!-- <ciManagement>-->
-            <!-- <system>gitlab</system>-->
-            <!-- <url>${project.env.CI_PROJECT_URL}/-/pipelines</url>-->
-            <!-- </ciManagement>-->
-
-            <properties>
-                <!-- Gitlab Properties -->
-                <!-- ============================================== -->
-                <!-- The base url of the git-server -->
-                <vcs.env.BASE_URL>https://gitlab.com</vcs.env.BASE_URL>
-                <!-- This gitlab repository -->
-                <project.env.CI_PROJECT_NAME>${project.artifactId}</project.env.CI_PROJECT_NAME>
-                <!-- The ID of this gitlab repository -->
-                <project.env.CI_PROJECT_ID>22292701</project.env.CI_PROJECT_ID>
-                <!-- The organization of this gitlab repository -->
-                <project.env.CI_GROUP_NAME>The-oGlow</project.env.CI_GROUP_NAME>
-                <!-- The ID of this organization of this gitlab repository -->
-                <project.env.CI_GROUP_ID>10107405</project.env.CI_GROUP_ID>
-                <!-- The unique identifier of this project -->
-                <project.env.CI_IDENTIFIER>${project.env.CI_GROUP_NAME}/${project.env.CI_PROJECT_NAME}
-                </project.env.CI_IDENTIFIER>
-                <!-- The base git-url of the organisation -->
-                <project.env.CI_GROUP_URL>${vcs.env.BASE_URL}/${project.env.CI_GROUP_NAME}</project.env.CI_GROUP_URL>
-                <!-- The base git-url of this project -->
-                <project.env.CI_PROJECT_URL>${vcs.env.BASE_URL}/${project.env.CI_IDENTIFIER}
-                </project.env.CI_PROJECT_URL>
-                <!-- ID of the Gitlab project for release repository -->
-                <repo.env.REPO_FINAL_ID>30704991</repo.env.REPO_FINAL_ID>
-                <!-- ID of the Gitlab project for snapshot repository -->
-                <repo.env.REPO_SNAP_ID>26363808</repo.env.REPO_SNAP_ID>
-
-                <!-- Sonar Properties -->
-                <!-- ============================================== -->
-                <sonar.organization>the-oglow</sonar.organization>
-            </properties>
-        </profile>
-        <profile>
-            <!--
                 Description     :   Define deploy settings for Gitlab
                 Syntax          :   mvn -DdepGitlab [deploy]
                 Example         :   mvn -DdepGitlab deploy
@@ -2229,13 +2170,13 @@
             <!-- ============================================== -->
             <distributionManagement>
                 <snapshotRepository>
-                    <id>coding.gitlab.deploy-ss</id>
+                    <id>deploy-ss.gitlab</id>
                     <name>ASS-Awesome Snap Shots</name>
                     <url>https://gitlab.com/api/v4/projects/26363808/packages/maven</url>
                     <uniqueVersion>false</uniqueVersion>
                 </snapshotRepository>
                 <repository>
-                    <id>coding.gitlab.deploy</id>
+                    <id>deploy.gitlab</id>
                     <name>CAI-Central Awesome Index</name>
                     <url>https://gitlab.com/api/v4/projects/30704991/packages/maven</url>
                     <uniqueVersion>true</uniqueVersion>
