@@ -30,6 +30,7 @@ env:
   # Gitlab Configuration
   GLAB_READ_TOKEN: ${{ secrets.GLAB_READ_TOKEN }}
   GLAB_WRITE_TOKEN: ${{ secrets.GLAB_WRITE_TOKEN }}
+  GLAB_DEPLOY_TOKEN: ${{ secrets.GLAB_DEPLOY_TOKEN }}
 
   # Maven Common Configuration
   MVN_HOME_DIR: ~/.m2
