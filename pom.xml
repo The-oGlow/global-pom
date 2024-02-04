@@ -2099,7 +2099,7 @@
 
                 <!-- Sonar Properties -->
                 <!-- ============================================== -->
-                <sonar.organization>the-oglow</sonar.organization>
+                <sonar.organization>The-oGlow</sonar.organization>
             </properties>
         </profile>
         <profile>
