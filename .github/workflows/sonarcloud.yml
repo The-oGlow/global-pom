@@ -9,7 +9,7 @@ on:
       - master
       - develop
     paths-ignore:
-      - '.github/workflows/maven.yml'
+      - '.github/workflows/*.yml'
       - '.run/**'
       - '.m2/**'
       - '.repo/**'
