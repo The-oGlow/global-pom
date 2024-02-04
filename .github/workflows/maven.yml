@@ -40,6 +40,9 @@ env:
   MVN_SETS_OPTS: -V -B -s${{ github.workspace }}/.m2/settings.xml
   MVN_REPO_OPTS: -Dmaven.repo.local=${{ github.workspace }}/.repo
 
+  # Sonarcloud Configuration
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+
   # Codacy Configuration
   CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
   CODACY_API_TOKEN: ${{ secrets.CODACY_API_TOKEN }}
