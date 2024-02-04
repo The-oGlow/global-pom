@@ -9,7 +9,7 @@ on:
       - master
       - develop
     paths-ignore:
-      - '.github/workflows/*.yml'
+      - '.github/workflows/maven.yml'
       - '.run/**'
       - '.m2/**'
       - '.repo/**'
@@ -42,6 +42,7 @@ env:
 
   # Sonarcloud Configuration
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN}}
+  SONAR_CACHE_DIR: "${HOME}/.sonar/cache"
 
   # Codacy Configuration
   CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
