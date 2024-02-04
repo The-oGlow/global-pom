@@ -195,6 +195,8 @@ endif::[]
 :source-highlighter: highlight.js
 
 = {proj_module}
+
+image:https://api.codacy.com/project/badge/Grade/bf90bb593e5248b38b4b8bcbdf102fed[link="https://app.codacy.com/gh/The-oGlow/global-pom?utm_source=github.com&utm_medium=referral&utm_content=The-oGlow/global-pom&utm_campaign=Badge_Grade"]
 :toc: preamble
 :toclevels: 2
 
