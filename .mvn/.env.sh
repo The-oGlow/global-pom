@@ -21,9 +21,10 @@ PCK_WRITE_TOKEN=${PCK_WRITE_TOKEN}
 # Maven Common Configuration
 MVN_HOME_DIR="${HOME}/.m2"
 MVN_REPO_JOB_DIR="${GITHUB_PROJECT_DIR}/.repo"
+MVN_SETTING_JOB_FILE="${GITHUB_PROJECT_DIR}/.m2/settings.xml"
 MVN_SETT_OPTS="-V -B"
-MVN_SETS_OPTS="-V -B -s${GITHUB_PROJECT_DIR}/.m2/settings.xml"
-MVN_REPO_OPTS="-Dmaven.repo.local=\"${GITHUB_PROJECT_DIR}/.repo\""
+MVN_SETS_OPTS="-V -B -s ${MVN_SETTING_JOB_FILE}"
+MVN_REPO_OPTS="-DdepGitlab -Dmaven.repo.local=${MVN_REPO_JOB_DIR}"
 
 # Maven Sign Configuration
 MVN_SIGN_OPTS="-P\!generate-gpgkey -P\!sign-jar"
@@ -32,16 +33,20 @@ MVN_SIGN_OPTS="-P\!generate-gpgkey -P\!sign-jar"
 MVN_TEST_OPTS_N="-DskipTests=true -DskipITs=true -Dmaven.test.failure.ignore=true"
 MVN_TEST_OPTS_Y="-DskipTests=false -DskipITs=false -Dmaven.test.failure.ignore=true"
 
-# Maven Goal Options
-MVN_CLI_OPTS=-ff
-MVN_BUILD_OPTS="${MVN_SETS_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_Y} -fae"
-MVN_DEPLOY_OPTS="${MVN_SETS_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_N} -Pdeploy-jfrog -DfastBuild -DretryFailedDeploymentCount=5"
+# Maven Deploy Configuration
+MVN_DEPLOY_OPTS="-DfastBuild -DretryFailedDeploymentCount=5"
 
 # Sonarcloud Configuration
 SONAR_TOKEN=${SONAR_TOKEN}
 SONAR_CACHE_DIR="${HOME}/.sonar/cache"
 SONAR_HOST_URL="https://sonarcloud.io"
-MVN_SONAR_OPTS="-Dsonar.qualitygate.wait=false -Dsonar.login=\"${SONAR_TOKEN}\""
+MVN_SONAR_OPTS="-DfastBuild -Dsonar.qualitygate.wait=false -Dsonar.token=${SONAR_TOKEN}"
+
+# Maven Goal Options
+MVN_CMD_CLI_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} -ff"
+MVN_CMD_BUILD_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_Y} -fae"
+MVN_CMD_DEPLOY_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_N} ${MVN_DEPLOY_OPTS}"
+MVN_CMD_SONAR_OPTS="${MVN_SETS_OPTS} ${MVN_REPO_OPTS} ${MVN_SIGN_OPTS} ${MVN_TEST_OPTS_Y} ${MVN_SONAR_OPTS}"
 
 # Codacy Configuration
 CODACY_PROJECT_TOKEN=${CODACY_PROJECT_TOKEN}
@@ -51,6 +56,3 @@ MVN_CODACY_OPTS="-DcoverageReportFile=\"target/jacoco/comm/jacoco.xml\" -Dprojec
 # Coveralls Configuration
 COVERALLS_REPO_TOKEN=${COVERALLS_REPO_TOKEN}
 MVN_COVERALLS_OPTS="-Dbranch=\"${GITHUB_BRANCH_NAME}\" -DrepoToken=\"${COVERALLS_REPO_TOKEN}\""
-
-# JFrog Configuration
-JF_WRITE_TOKEN=${JF_WRITE_TOKEN}
