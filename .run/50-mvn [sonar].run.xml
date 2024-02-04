@@ -16,7 +16,7 @@
               <entry key="maven.test.failure.ignore" value="true" />
               <entry key="skipITs" value="true" />
               <entry key="skipTests" value="true" />
-              <entry key="sonar.login" value="${SONAR_TOKEN}" />
+              <entry key="sonar.token" value="${SONAR_TOKEN}" />
             </map>
           </option>
           <option name="passParentEnv" value="true" />
