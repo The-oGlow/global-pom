@@ -1,7 +1,7 @@
 :hide-uri-scheme:
 :doctype: book
 
-:site_resource: src/site/resources
+:site_resource: .
 include::{site_resource}/proj-env.adoc[opts=optional]
 include::{site_resource}/proj-common.adoc[opts=optional]
 
