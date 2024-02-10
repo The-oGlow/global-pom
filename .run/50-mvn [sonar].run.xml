@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="50-mvn [sonar]" type="MavenRunConfiguration" factoryName="Maven" folderName="global-pom">
+  <configuration default="false" name="50-mvn [sonar]" type="MavenRunConfiguration" factoryName="Maven" folderName="artifact">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">
@@ -15,7 +15,6 @@
             <map>
               <entry key="maven.test.failure.ignore" value="true" />
               <entry key="skipITs" value="true" />
-              <entry key="skipTests" value="true" />
               <entry key="sonar.token" value="${SONAR_TOKEN}" />
             </map>
           </option>

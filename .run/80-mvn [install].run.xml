@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="80-mvn [install]" type="MavenRunConfiguration" factoryName="Maven" folderName="global-pom">
+  <configuration default="false" name="80-mvn [install]" type="MavenRunConfiguration" factoryName="Maven" folderName="artifact">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings">

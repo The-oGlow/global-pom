@@ -1497,6 +1497,7 @@
             </activation>
             <properties>
                 <dependency-check.skip>true</dependency-check.skip>
+                <license.skipCheckLicense>true</license.skipCheckLicense>
                 <maven.javadoc.skip>true</maven.javadoc.skip>
                 <maven.site.skip>true</maven.site.skip>
                 <mdep.analyze.skip>true</mdep.analyze.skip>
@@ -1568,6 +1569,89 @@
                                     <message><![CDATA[${line.separator}
     +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
     +=  FAST BUILD activated for '${project.artifactId}'.
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=${line.separator}]]>
+                                    </message>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>analyze-dependencies-reminder</id>
+                                <configuration>
+                                    <skip>true</skip>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!--
+                Description     :   Deactivate all not necessary steps for a faster analyze
+                Syntax          :   mvn -DfastAnalyze [any goal]
+                Example         :   mvn -DfastAnalyze validate
+                -->
+            <id>001analyze-fast</id>
+            <activation>
+                <property>
+                    <name>fastAnalyze</name>
+                </property>
+            </activation>
+            <properties>
+                <dependency-check.skip>true</dependency-check.skip>
+                <license.skipCheckLicense>true</license.skipCheckLicense>
+                <maven.javadoc.skip>true</maven.javadoc.skip>
+                <maven.site.skip>true</maven.site.skip>
+            </properties>
+            <build>
+                <plugins>
+                    <!-- Apache Maven Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <configuration>
+                            <skip>${dependency-check.skip}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <configuration>
+                            <skip>${mdep.skip}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <skip>${maven.javadoc.skip}</skip>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <configuration>
+                            <skip>${maven.site.skip}</skip>
+                        </configuration>
+                    </plugin>
+
+                    <!-- 3rd Party Plugins -->
+                    <!-- ============================================== -->
+                    <plugin>
+                        <groupId>com.github.ekryd.echo-maven-plugin</groupId>
+                        <artifactId>echo-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-fastanalyze</id>
+                                <goals>
+                                    <goal>echo</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <level>INFO</level>
+                                    <message><![CDATA[${line.separator}
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=
+    +=  FAST ANALYZE activated for '${project.artifactId}'.
     +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=${line.separator}]]>
                                     </message>
                                 </configuration>

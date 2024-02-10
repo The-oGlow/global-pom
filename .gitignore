@@ -322,7 +322,7 @@ target/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,java-web,code-java,eclipse,intellij,intellij+iml,intellij+all,sonarqube
 
-.mvn/.sign-env.*
-!.mvn/.sign-env.tpl.*
+.mvn/.dev-env.*
+!.mvn/.dev-env.tpl.*
 .repo/
 log.txt
