@@ -324,5 +324,7 @@ target/
 
 .mvn/.dev-env.*
 !.mvn/.dev-env.tpl.*
+.mvn/.sign-env.bat
+.mvn/.sign-env.sh
 .repo/
 log.txt
