@@ -24,7 +24,7 @@ jobs:
 
       - name: assembly readme.adoc
         # to preserve preprocessor conditionals, add the --preserve-conditionals option
-        run: asciidoctor-reducer -o readme.adoc src/site/resources/project-readme.adoc
+        run: asciidoctor-reducer --preserve-conditionals -o readme.adoc src/site/resources/project-readme.adoc
 
       - name: commit and push readme.adoc
         uses: EndBug/add-and-commit@v9

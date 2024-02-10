@@ -1,6 +1,3 @@
-:hide-uri-scheme:
-:doctype: book
-
 // common settings - for all modules the same
 :cmmn_shields_hp: https://img.shields.io
 :cmmn_shields_badge_url: {cmmn_shields_hp}/badge

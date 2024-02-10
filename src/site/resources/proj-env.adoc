@@ -1,6 +1,3 @@
-:hide-uri-scheme:
-:doctype: book
-
 // project settings (from pom-file)
 // user data
 :proj_user: ollily
