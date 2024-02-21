@@ -102,14 +102,20 @@ jobs:
           mkdir -p ${{ env.MVN_REPO_JOB_DIR }}
           du --max-depth=2 -h ${{ env.MVN_REPO_JOB_DIR }}
 
-      - name: build and test
-        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} help:active-profiles verify
-
-      - name: codacy coverage
-        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_CODACY_OPTS }} help:active-profiles com.gavinmogan:codacy-maven-plugin:coverage
-
-      - name: coveralls scan
-        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_COVERALLS_OPTS }} help:active-profiles coveralls:report
-
       - name: sonarcloud scan
-        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_SONAR_OPTS }} help:active-profiles sonar:sonar
+        run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.analyze -os -p
+
+      - name: codacy & coveralls scan
+        run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.analyze -co -p
+
+#      - name: build and test
+#        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} help:active-profiles verify
+
+#      - name: codacy coverage
+#        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_CODACY_OPTS }} help:active-profiles com.gavinmogan:codacy-maven-plugin:coverage
+
+#      - name: coveralls scan
+#        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_COVERALLS_OPTS }} help:active-profiles coveralls:report
+
+#      - name: sonarcloud scan
+#        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_N }} ${{ env.MVN_SONAR_OPTS }} help:active-profiles sonar:sonar

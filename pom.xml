@@ -66,18 +66,6 @@
         <url>${project.env.GH_PROJECT_URL}/actions</url>
     </ciManagement>
 
-    <!-- Section Distribution -->
-    <!-- ============================================== -->
-    <distributionManagement>
-        <!-- Activate a "profile-<name>" for a source provider -->
-        <repository>
-            <id>repository-notdefined</id>
-        </repository>
-        <snapshotRepository>
-            <id>snapshot-notdefined</id>
-        </snapshotRepository>
-    </distributionManagement>
-
     <!-- Section Properties -->
     <!-- ============================================== -->
     <properties>
@@ -199,6 +187,10 @@
         <jacoco.reportOutputFolder>${jacoco.destFolder}/ut</jacoco.reportOutputFolder>
         <jacoco.itReportOutputFolder>${jacoco.destFolder}/it</jacoco.itReportOutputFolder>
         <jacoco.commonReportOutputFolder>${jacoco.destFolder}/comm</jacoco.commonReportOutputFolder>
+
+        <!-- codacy-maven-plugin -->
+        <!-- ============================================== -->
+        <codacy.reportFileJacoco>${jacoco.commonReportOutputFolder}/${jacoco.commonReportXmlFileName}</codacy.reportFileJacoco>
 
         <!-- coveralls-maven-plugin -->
         <!-- ============================================== -->
@@ -542,42 +534,6 @@
              == -->
     </dependencies>
 
-    <!-- Section Repositories -->
-    <!-- ============================================== -->
-    <repositories>
-        <repository>
-            <id>coding.central</id>
-            <name>Central is the 1st in row.</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>coding.central</id>
-            <name>Central is the 1st in row.</name>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
-
     <!-- Section Build -->
     <!-- ============================================== -->
     <build>
@@ -759,6 +715,11 @@
 
                 <!-- 3rd Party Plugins -->
                 <!-- ============================================== -->
+                <plugin>
+                    <groupId>com.gavinmogan</groupId>
+                    <artifactId>codacy-maven-plugin</artifactId>
+                    <version>1.2.0</version>
+                </plugin>
                 <plugin>
                     <groupId>com.github.ekryd.echo-maven-plugin</groupId>
                     <artifactId>echo-maven-plugin</artifactId>
@@ -1285,6 +1246,14 @@
 
                     <!-- 3rd Party Plugins -->
                     <!-- ============================================== -->
+                    <plugin>
+                        <groupId>com.gavinmogan</groupId>
+                        <artifactId>codacy-maven-plugin</artifactId>
+                        <configuration>
+                            <coverageReportFile>${codacy.reportFileJacoco}</coverageReportFile>
+                            <failOnMissingReportFile>false</failOnMissingReportFile>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.eluder.coveralls</groupId>
                         <artifactId>coveralls-maven-plugin</artifactId>
@@ -2096,42 +2065,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <!--
-                Description     :   Add some additional repositories for artifact lookups
-                Syntax          :   mvn -Pmore-repos [any goal]
-                Example         :   mvn -Pmore-repos validate
-             -->
-            <id>more-repos</id>
-            <repositories>
-                <repository>
-                    <id>zzzz-jboss-group</id>
-                    <name>JBoss Central Mirror</name>
-                    <url>https://repository.jboss.org/nexus/content/groups/public</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>daily</updatePolicy>
-                    </snapshots>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>daily</updatePolicy>
-                    </releases>
-                </repository>
-                <repository>
-                    <id>zzzz-jboss</id>
-                    <name>JBoss Repository</name>
-                    <url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>daily</updatePolicy>
-                    </snapshots>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>daily</updatePolicy>
-                    </releases>
-                </repository>
-            </repositories>
         </profile>
         <profile>
             <!--
