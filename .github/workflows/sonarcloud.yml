@@ -103,10 +103,10 @@ jobs:
           du --max-depth=2 -h ${{ env.MVN_REPO_JOB_DIR }}
 
       - name: sonarcloud scan
-        run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.analyze -os -p
+        run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.analyze.sh -os -p
 
       - name: codacy & coveralls scan
-        run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.analyze -co -p
+        run: bash ${{ env.GITHUB_PROJECT_DIR}}/.mvn/.analyze.sh -co -p
 
 #      - name: build and test
 #        run: mvn ${{ env.MVN_SETS_OPTS }} ${{ env.MVN_REPO_OPTS }} ${{ env.MVN_SIGN_OPTS }} ${{ env.MVN_TEST_OPTS_Y }} help:active-profiles verify
