@@ -87,15 +87,15 @@ jobs:
         uses: actions/cache@v4.0.0
         with:
           path: ${{ env.MVN_REPO_JOB_DIR }}
-          key: ${{ matrix.os }}-m2
-          restore-keys: ${{ matrix.os }}-m2
+          key: ${{ matrix.os }}-analyze-m2
+          restore-keys: ${{ matrix.os }}-analyze
 
       - name: cache sonarcloud packages
         uses: actions/cache@v4.0.0
         with:
           path: ${{ env.SONAR_CACHE_DIR }}
-          key: ${{ matrix.os }}-sonar
-          restore-keys: ${{ matrix.os }}-sonar
+          key: ${{ matrix.os }}-analyze-sonar
+          restore-keys: ${{ matrix.os }}-analyze
 
       - name: show_repo
         run: |
