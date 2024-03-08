@@ -155,6 +155,11 @@
         <skip.surefire.tests>${skipTests}</skip.surefire.tests>
         <skipITs>false</skipITs>
         <skip.failsafe.tests>${skipITs}</skip.failsafe.tests>
+        <tests.argLine>
+            --add-opens=java.base/java.lang=ALL-UNNAMED
+            --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+            --add-opens=java.base/java.io=ALL-UNNAMED
+        </tests.argLine>
 
         <!-- maven-excec-plugin -->
         <maven.home>${env.M2_HOME}</maven.home>
@@ -882,6 +887,7 @@
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <skipITs>${skip.failsafe.tests}</skipITs>
+                    <argLine>${tests.argLine}</argLine>
                 </configuration>
                 <executions>
                     <execution>
@@ -986,6 +992,7 @@
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <skipTests>${skip.surefire.tests}</skipTests>
+                    <argLine>${tests.argLine}</argLine>
                 </configuration>
             </plugin>
             <plugin>

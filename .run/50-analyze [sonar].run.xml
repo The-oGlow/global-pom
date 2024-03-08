@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="82-mvn [signed-install-linux]" type="ShConfigurationType" folderName="artifact-shell">
-    <option name="SCRIPT_TEXT" value="${HOME}/.sign-env.sh &amp;&amp; mvn -DskipTests -DskipITs -Pgenerate-gpgkey,artifact-release clean install" />
-    <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
-    <option name="SCRIPT_PATH" value="" />
-    <option name="SCRIPT_OPTIONS" value="" />
+  <configuration default="false" name="50-analyze [sonar]" type="ShConfigurationType" >
+    <option name="SCRIPT_TEXT" value="sh -c &quot;.mvn/.analyze.sh -s -p&quot;" />
+    <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
+    <option name="SCRIPT_PATH" value="$PROJECT_DIR$/.mvn/.build.sh" />
+    <option name="SCRIPT_OPTIONS" value="-d" />
     <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
     <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
