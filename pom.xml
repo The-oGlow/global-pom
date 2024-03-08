@@ -2077,26 +2077,6 @@
                     <name>env.GITHUB_ACTOR</name>
                 </property>
             </activation>
-            <!--
-                <scm>
-                    <connection>scm:git:https://github.com/The-oGlow/global-pom.git</connection>
-                    <developerConnection>scm:git:https://github.com/The-oGlow/global-pom.git</developerConnection>
-                    <url>${project.env.GH_PROJECT_URL}</url>
-                    <tag>HEAD</tag>
-                </scm>
-            -->
-            <!--
-                <issueManagement>
-                    <system>Github Issues 4 ${project.name}</system>
-                    <url>${project.env.GH_PROJECT_URL}/issues</url>
-                </issueManagement>
-            -->
-            <!--
-                <ciManagement>
-                    <system>github</system>
-                    <url>${project.env.GH_PROJECT_URL}/actions</url>
-                </ciManagement>
-            -->
             <properties>
                 <!-- Github Properties -->
                 <!-- ============================================== -->
