@@ -887,7 +887,7 @@
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <skipITs>${skip.failsafe.tests}</skipITs>
-                    <argLine>${tests.argLine}</argLine>
+                    <argLine>@{argLine} ${tests.argLine}</argLine>
                 </configuration>
                 <executions>
                     <execution>
@@ -992,7 +992,7 @@
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <skipTests>${skip.surefire.tests}</skipTests>
-                    <argLine>${tests.argLine}</argLine>
+                    <argLine>@{argLine} ${tests.argLine}</argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -1285,7 +1285,6 @@
                                 <goals>
                                     <goal>prepare-agent</goal>
                                 </goals>
-                                <phase>initialize</phase>
                                 <configuration>
                                     <destFile>${jacoco.reportFile}</destFile>
                                 </configuration>
@@ -1295,7 +1294,6 @@
                                 <goals>
                                     <goal>prepare-agent-integration</goal>
                                 </goals>
-                                <phase>pre-integration-test</phase>
                                 <configuration>
                                     <destFile>${jacoco.itReportFile}</destFile>
                                 </configuration>
@@ -1359,7 +1357,6 @@
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
-                                <phase>verify</phase>
                                 <configuration>
                                     <dataFile>${jacoco.commonReportFile}</dataFile>
                                     <haltOnFailure>false</haltOnFailure>
